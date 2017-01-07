@@ -1,0 +1,205 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'loyali/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'loyali/css/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'loyali/scss/style.scss' %}">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Add Vendor</title>
+
+    <!-- Bootstrap -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="adminLanding">
+                <img src="{% static 'loyali/images/croc.png' %}" draggable="false" class="img-responsive"></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+            {% if request.user.username %}
+                <li><a>{{ request.user.username }}</a></li>
+                {% endif %}
+                <li><a href="{% url 'contact' %}"><i class="glyphicon glyphicon-email"></i> Contact Us</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}"><i class="glyphicon glyphicon-off"></i> Logout</a>
+                {%  endif %}
+                </li>
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="ly-middle-content">
+    <div class="container">
+        <div class="ly-form">
+            <div class="ly-logo-container">
+                <img src="{% static 'loyali/images/loyali_logo.png' %}" draggable="false" class="img-responsive"></a>
+            </div>
+            <form id="addVendor" class="form-horizontal" enctype='application/json'
+                  action="/loyali/vendor/" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="control-label col-sm-12 text-left">First name</label>
+                    <div class="col-sm-12"><input type="text" class="form-control"
+                                                  required placeholder="First Name"
+                                                  name="first_name"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-12 text-left">Last name</label>
+                    <div class="col-sm-12"><input type="text" class="form-control"
+                                                  required placeholder="Last Name"
+                                                  name="last_name"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label text-left col-sm-12">Username</label>
+                    <div class="col-sm-12"><input type="email" class="form-control"
+                                                  required placeholder="Username"
+                                                  name="username"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label text-left col-sm-12">Password</label>
+                    <div class="col-sm-12"><input type="password" class="form-control"
+                                                  required placeholder="Password"
+                                                  name="password"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label text-left col-sm-12">Email</label>
+                    <div class="col-sm-12"><input type="email" class="form-control"
+                                                  required placeholder="Email"
+                                                  name="email"></div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-sm-12 text-left">Shop name</label>
+                    <div class="col-sm-12"><input type="text" class="form-control"
+                                                  required placeholder="Shop Name"
+                                                  name="store_name"></div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label text-left col-sm-12">Address</label>
+                    <div class="col-sm-12"><input type="text" class="form-control"
+                                                  required placeholder="Address"
+                                                  name="location"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-12 text-left">Number</label>
+                    <div class="col-sm-12"><input type="number" class="form-control"
+                                                  required placeholder="Number"
+                                                  name="phone"></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-12 text-left">Upload Image</label>
+                    <div class="col-sm-12"><label
+                            class="btn-file btn btn-default btn-block">
+                        <input type="file" class="form-control" requiredname=""
+                               name="logo_title" multiple>
+                        <span>Choose your file to upload</span></label></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-12 text-left">Category</label>
+                    <div class="col-sm-12">
+                        <select class="selectpicker form-control" name="store_type">
+                            <option>Coffee Shop</option>
+                            <option>Bakery</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-6">
+                        <button type="reset" class="btn btn-default btn-block">Reset
+                        </button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button type="submit" class="btn btn-primary btn-block">Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'loyali/js/jquery.min.js' %}"></script>
+<script src="{% static 'loyali/js/bootstrap-select.js' %}"></script>
+<script src="{% static 'loyali/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'loyali/js/jquery.validate.min.js' %}"></script>
+<script src="https://use.fontawesome.com/b0f81c296e.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.btn-file input').change(function () {
+            var filename = $(this).val().replace(/.*(\/|\\)/, '');
+            $(this).next('span').text(filename);
+        });
+
+        $("#addVendor").validate({
+            //perform an AJAX post to ajax.php
+            submitHandler: function () {
+                var form_data = new FormData($(this));
+                var file_data = $('[name="logo_title"]').prop('files')[0];
+                form_data.append('logo_title', file_data);
+	        	form_data.append('store_name', $('[name="store_name"]').val());
+	        	form_data.append('store_type', $('[name="store_type"]').val());
+	        	form_data.append('location', $('[name="location"]').val());
+	        	form_data.append('phone', $('[name="phone"]').val());
+	        	form_data.append('csrfmiddlewaretoken', $('[name="csrfmiddlewaretoken"]').val());
+                var user = {};
+	        	user['username']= $('[name="username"]').val();
+	        	user['password']= $('[name="password"]').val();
+	        	user['email'] = $('[name="email"]').val();
+	        	user['first_name'] = $('[name="first_name"]').val();
+	        	user['last_name'] = $('[name="last_name"]').val();
+                form_data.append('user', JSON.stringify(user));
+                console.log(form_data);
+                $.ajax({
+                    url: '/loyali/vendor/',
+                    method: 'POST',
+                    contentType: false,
+					processData: false,
+{#                    dataType : "json",#}
+
+					data : form_data
+                }).done(function (result) {
+                    location.href = '/loyali/vendor/mainmenu/';
+
+                }).fail(function (err) {
+                    if(err['status'] == 400){
+                        alert(err['responseText']);
+                    }
+                    throw err;
+                });
+                return false;
+            }
+        });
+    })
+</script>
+</body>
+</html>

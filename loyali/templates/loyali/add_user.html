@@ -36,22 +36,31 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{% url 'logout' %}"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
             </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+        </div>
+    </div>
 </nav>
 
 <div class="ly-middle-content">
     <div class="container">
         <div class="ly-form">
             <div class="ly-box-title"><h1>Add User</h1></div>
-            <form class="form-horizontal" id="addUser" action="/addUser" method="post">
+            <form class="form-horizontal" id="addUser" action="/loyali/admin/users/" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="control-label col-sm-12 text-left">
+                        <i class="fa fa-user"></i> First Name</label>
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control"
+                               required placeholder="Enter you First Name" name="first_name">
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label class="control-label col-sm-12 text-left">
-                        <i class="fa fa-user"></i> Full Name</label>
+                        <i class="fa fa-user"></i> Last Name</label>
                     <div class="col-sm-12">
                         <input type="text" class="form-control"
-                               required placeholder="Enter you Full Name" name="fullName">
+                               required placeholder="Enter you Last Name" name="last_name">
                     </div>
                 </div>
 
@@ -78,10 +87,10 @@
                         <select class="selectpicker form-control" name="group">
                             <option>admin</option>
                             <option>vendor</option>
+                            <option>vendor_staff</option>
                         </select>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-xs-6">
                     </div>
@@ -98,6 +107,7 @@
 <script src="{% static 'loyali/js/jquery.min.js' %}"></script>
 <script src="{% static 'loyali/js/bootstrap-select.js' %}"></script>
 <script src="{% static 'loyali/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'loyali/js/jquery.validate.min.js' %}"></script>
 <script src="https://use.fontawesome.com/b0f81c296e.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -105,7 +115,39 @@
             var filename = $(this).val().replace(/.*(\/|\\)/, '');
             $(this).next('span').text(filename);
         })
-    })
+
+
+
+    $("#addUser").validate({
+        submitHandler: function(){
+            var form_data = new FormData($(this));
+            form_data.append('group', $('[name="group"]')).val();
+            form_data.append('csrfmiddlewaretoken', $('[name="csrfmiddlewaretoken"]').val());
+            var user = {};
+            user['username'] = $('[name="username"]').val();
+            user['password']= $('[name="password"]').val();
+            user['email']= $('[name="username"]').val();
+            user['first_name'] = $('[name="first_name"]').val();
+	        user['last_name'] = $('[name="last_name"]').val();
+	        form_data.append('user', JSON.stringify(user));
+	        $.ajax({
+	            url: "{% url 'admin_users' %}",
+                method: "POST",
+                contentType: false,
+                processData: false,
+                data: form_data
+            }).done(function(result){
+                location.href = "{% url 'saved' %}";
+            }).fail(function (err) {
+                    if(err['status'] == 400){
+                        alert(err['responseText']);
+                    }
+                    throw err;
+                });
+	        return false;
+        }
+    });
+        })
 </script>
 </body>
 </html>

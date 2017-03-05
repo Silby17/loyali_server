@@ -82,7 +82,6 @@
             dataType: "json",
             success: function(data){
                 $.each(data, function(k, v) {
-                    console.log(v);
                     $('#ly-customer-list').append('<tr> <td><a href="#"><strong>'+v.first_name+ " " + v.last_name +'</strong></a></td> <td>'+v.groups[0].name+'</td> </tr>');
                 });
             }

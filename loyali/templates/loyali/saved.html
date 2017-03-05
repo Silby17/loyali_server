@@ -1,0 +1,77 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'loyali/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'loyali/css/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'loyali/scss/style.scss' %}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <link rel="shortcut icon" href="{% static 'loyali/images/loyali_logo.ico' %}" type="image/x-icon">
+    <title>Saved</title>
+
+    <!-- Bootstrap -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'redirect_main' %}">
+                <img src="{% static 'loyali/images/loyali_logo.png' %}" draggable="false" class="img-responsive"></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a>${fullName}</a></li>
+                <li><a href="/logout"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="ly-middle-content">
+    <div class="container">
+        <div class="ly-form">
+            <div class="ly-box-title"><h1>Saved Successfully</h1></div>
+            <form class="form-horizontal" action="{% url 'redirect_main' %}" method="get">
+                <div class="form-group">
+                    <h5 class="text-center">The operation has been completed successfully</h5>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-primary btn-block">Back to Main Menu</button>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'loyali/js/jquery.min.js' %}"></script>
+<script src="{% static 'loyali/js/bootstrap-select.js' %}"></script>
+<script src="{% static 'loyali/js/bootstrap.min.js' %}"></script>
+<script src="https://use.fontawesome.com/b0f81c296e.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.btn-file input').change(function(){
+            var filename = $(this).val().replace(/.*(\/|\\)/, '');
+            $(this).next('span').text(filename);
+        })
+    })
+</script>
+</body>
+</html>

@@ -7,17 +7,15 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.template import loader
 from django.contrib import auth
-
-
-# Group name Definitions
-from requests import Response
+from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.views import APIView
-
 from loyali.models import Vendor
-from loyali.serializer import VendorSerializer, VendorUserModelSerializer
+from loyali.serializer import VendorSerializer, VendorUserModelSerializer, \
+    AdminUserSerializer
 
+# Group name Definitions
 VENDOR_STAFF_GROUP_NAME = 'vendor_staff'
 VENDOR_GROUP_NAME = 'vendor'
 ADMIN_GROUP_NAME = 'admin'
@@ -28,7 +26,6 @@ def __redirect_after_login(user):
     if VENDOR_GROUP_NAME in user.groups.values_list('name', flat=True):
         return redirect(reverse('vendor_main'))
     elif ADMIN_GROUP_NAME in user.groups.values_list('name', flat=True):
-        print "User is an admin"
         return redirect(reverse('admin_main'))
     else:
         return redirect(reverse('index'))
@@ -93,12 +90,41 @@ class VendorAPI(APIView):
         user = vendor_user_serializer.save()
         group = Group.objects.get_or_create(name=VENDOR_GROUP_NAME)[0]
         group.user_set.add(user)
-        return Response(status=status.HTTP_200_OK, data={"success": True})
+        template = loader.get_template('loyali/saved.html')
+        context = {'saved': 'saved'}
+        return HttpResponse(template.render(context, request))
 
     def get(self, request):
         vendors = Vendor.objects.all()
         serializer = VendorSerializer(vendors, many=True)
         return Response(serializer.data)
+
+
+class AdminUserAPI(APIView):
+
+    def post(self, request):
+        raw_data = request.POST.copy()
+        username = raw_data.get('username')
+        password = raw_data.get('password')
+        first_name = raw_data.get('first_name')
+        last_name = raw_data.get('last_name')
+        group_data = raw_data.pop('group')
+        group_data = group_data[0]
+        user = User.objects.create_user(username=username, password=password,
+                                        first_name=first_name, last_name=last_name)
+        group = Group.objects.get_or_create(name=group_data)[0]
+        group.user_set.add(user)
+        if user:
+            template = loader.get_template('loyali/saved.html')
+            context = {'saved': 'saved'}
+            return HttpResponse(template.render(context, request))
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request):
+        users = User.objects.filter(groups__name='admin')
+        serializer = AdminUserSerializer(users, many=True).data
+        return Response(serializer)
 
 
 @login_required
@@ -173,6 +199,48 @@ def logout(req):
 def view_vendors(request):
     template = loader.get_template('loyali/all_vendors.html')
     context = {
-        'addUser': "add_user"
+        'vendors': "view_vendors"
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def admin_user_page(request):
+    template = loader.get_template('loyali/add_user.html')
+    context = {
+        'admin_user': "admin_users"
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def saved_page(request):
+    template = loader.get_template('loyali/saved.html')
+    context = {
+        'saved': "aved"
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def redirect_to_main(request):
+    if request.method == "GET":
+        return __redirect_after_login(request.user)
+
+
+@login_required
+def view_users_page(request):
+    template = loader.get_template('loyali/view_users.html')
+    context = {
+        'users': "users"
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def full_vendors_page(request):
+    template = loader.get_template('loyali/view_vendor_list.html')
+    context = {
+        'vendors': "full_vendor_list"
     }
     return HttpResponse(template.render(context, request))

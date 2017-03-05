@@ -1,4 +1,3 @@
-from django.conf.global_settings import STATIC_ROOT
 import datetime
 import os
 
@@ -15,7 +14,7 @@ SECRET_KEY = 'uid0@w9m9xgcykd=h(_w0))5u2n4&g2jja=s2s+sl##ytu(+1q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -23,6 +22,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'loyali.apps.LoyaliConfig',
     'loyaliapi.apps.LoyaliapiConfig',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -119,21 +119,3 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-'''
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        # 'rest_framework.permissions.AllowAny',
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    ),
-}
-
-JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=50),
-}
-'''

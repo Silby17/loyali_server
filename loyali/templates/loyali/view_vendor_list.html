@@ -1,0 +1,112 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'loyali/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'loyali/scss/style.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'loyali/css/style.css' %}">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'loyali/images/loyali_logo.ico' %}" type="image/x-icon">
+    <title>Products</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="sr-only">Toggle navigation</span>
+            </button>
+            <a class="navbar-brand" href="{% url 'redirect_main' %}"><img
+                    src="{% static 'loyali/images/loyali_logo.png' %}" draggable="false"
+                    class="img-responsive"></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.user.username %}
+                    <li><a>{{ request.user.first_name }}</a></li>
+                {% endif %}
+                <li><a href="{% url 'logout' %}"><i class="glyphicon glyphicon-off"></i>
+                    Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="ly-middle-content">
+    {% csrf_token %}
+    <div class="container">
+        <div class="ly-middle-content-in">
+            <div class="ly-box-title ly-box-title-inner"><h1>Vendors</h1></div>
+            <div class="ly-inner-content">
+                <div class="table-responsive ly-table">
+                    <table class="table" id="product-list-table">
+                        <thead>
+                        <tr>
+                            <th width="1%"><a onClick="deleteProducts();" class="btn btn-danger btn-xs">Delete</a></th>
+                            <th width="100">&nbsp;</th>
+                            <th width="60%">Name</th>
+                            <th width="25%">Store Type</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'loyali/js/moment.js' %}"></script>
+<script src="{% static 'loyali/js/jquery.min.js' %}"></script>
+<script src="{% static 'loyali/js/bootstrap-select.js' %}"></script>
+<script src="{% static 'loyali/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'loyali/js/bootstrap-datetimepicker.js' %}"></script>
+<script src="{% static 'loyali/js/jquery.mCustomScrollbar.js' %}"></script>
+<script src="https://use.fontawesome.com/b0f81c296e.js"></script>
+<script type="text/javascript">
+    $.ajax({
+        method: 'GET',
+        url: "{% url 'vendors' %}",
+        dataType: "json",
+        success: function(data){
+                var rows = "";
+                $.each(data, function(index, value) {
+                    console.log(value.logo_title);
+                    var src = 'media/' + value.logo_title;
+                    console.log(src);
+                    var row = "";
+                    row += "<tr>";
+                    row += '<td><label class="checkbox"><input type="checkbox" name="product_id" value="'+ value.id+'"><span></span></label> </td>';
+                    row += '<td><img src="' + src + '" class="img-responsive" width="100"></td>';
+                    row += '<td><a href="#"><strong>' + value.store_name + '</strong></a></td>';
+                    row += '<td>' + value.store_type + '</td>';
+                    row += '</tr>';
+                    rows += row;
+                });
+                $("#product-list-table tbody").html(rows);
+                if($('.ly-content-scroll').length){
+                    $(".ly-content-scroll").mCustomScrollbar({
+                    });
+                }
+            }
+    });
+    $(window).resize(function () {
+        $('.ly-checkbox-list').css('max-height', $(window).height() - $('.navbar-default').height() - 200);
+    })
+</script>
+</body>
+</html>

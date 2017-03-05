@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from views import index, login, admin_main, vendor_main, contact_us, logout,\
     vendor_add, VendorAPI, admin_user_page, view_vendors, AdminUserAPI, saved_page, \
-    redirect_to_main
+    redirect_to_main, view_users_page, full_vendors_page
 
 urlpatterns = [
 
@@ -15,11 +15,13 @@ urlpatterns = [
 
     url(r'^admin/users/', AdminUserAPI.as_view(), name='admin_users'),
 
+    url(r'^admin/viewusers/', view_users_page, name='view_users'),
+
     url(r'^admin/add_user/', admin_user_page, name='add_admin-user'),
 
     url(r'^admin/vendors', view_vendors, name='view_vendors'),
 
-    url(r'^vendor/', VendorAPI.as_view()),
+    url(r'^vendor/', VendorAPI.as_view(), name='vendors'),
 
     url(r'^add/vendor', vendor_add, name='vendor_add'),
 
@@ -30,4 +32,6 @@ urlpatterns = [
     url(r'^logout/', logout, name='logout'),
 
     url(r'^saved/', saved_page, name='saved'),
+
+    url(r'^fullvendors/', full_vendors_page, name='full_vendors'),
 ]

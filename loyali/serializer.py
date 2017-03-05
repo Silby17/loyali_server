@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group, User
 from rest_framework import serializers
 from .models import VendorUser, Subscription, Card, Vendor, CardsInUse
 from loyaliapi.serializer import MobileUserSerializer
@@ -92,3 +93,17 @@ class CardsInUseSerializer(serializers.ModelSerializer):
     class Meta:
         model = CardsInUse
         fields = ['id', 'card', 'current']
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ('name',)
+
+
+class AdminUserSerializer(serializers.ModelSerializer):
+    groups = GroupSerializer(many=True)
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'groups']

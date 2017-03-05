@@ -1,0 +1,93 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'loyali/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'loyali/css/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'loyali/scss/style.scss' %}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <link rel="shortcut icon" href="{% static 'loyali/images/loyali_logo.ico' %}" type="image/x-icon">
+    <title>View Users</title>
+
+    <!-- Bootstrap -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="sr-only">Toggle navigation</span>
+            </button>
+            <a class="navbar-brand" href="{% url 'redirect_main' %}">
+                <img src="{% static 'loyali/images/loyali_logo.png' %}" draggable="false" class="img-responsive"></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.user.username %}
+                    <li><a>{{ request.user.first_name }}</a></li>
+                {% endif %}
+                <li><a href="{% url 'logout' %}"><i class="glyphicon glyphicon-off"></i>
+                    Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="ly-middle-content">
+    <div class="container">
+        <div class="ly-middle-content-in">
+            <div class="ly-box-title ly-box-title-inner"><h1>Users</h1></div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>User Group</th>
+                    </tr>
+                    </thead>
+                    <tbody id="ly-customer-list">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="{% static 'loyali/js/jquery.min.js' %}"></script>
+<script src="{% static 'loyali/js/bootstrap-select.js' %}"></script>
+<script src="{% static 'loyali/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'loyali/js/moment.js' %}"></script>
+<script src="{% static 'loyali/js/bootstrap-datetimepicker.js' %}"></script>
+<script src="{% static 'loyali/js/jquery.mCustomScrollbar.js' %}"></script>
+<script src="https://use.fontawesome.com/b0f81c296e.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.btn-file input').change(function(){
+            var filename = $(this).val().replace(/.*(\/|\\)/, '');
+            $(this).next('span').text(filename);
+        })
+        $.ajax({
+            type: "GET",
+            url: "{% url 'admin_users' %}",
+            dataType: "json",
+            success: function(data){
+                $.each(data, function(k, v) {
+                    console.log(v);
+                    $('#ly-customer-list').append('<tr> <td><a href="#"><strong>'+v.first_name+ " " + v.last_name +'</strong></a></td> <td>'+v.groups[0].name+'</td> </tr>');
+                });
+            }
+        });
+    })
+</script>
+</body>
+</html>

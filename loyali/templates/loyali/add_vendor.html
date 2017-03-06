@@ -73,10 +73,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label text-left col-sm-12">Username</label>
+                    <label class="control-label text-left col-sm-12">Email</label>
                     <div class="col-sm-12"><input type="email" class="form-control"
-                                                  required placeholder="Username"
-                                                  name="username"></div>
+                                                  required placeholder="Email"
+                                                  name="email"></div>
                 </div>
 
                 <div class="form-group">
@@ -87,17 +87,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label text-left col-sm-12">Email</label>
-                    <div class="col-sm-12"><input type="email" class="form-control"
-                                                  required placeholder="Email"
-                                                  name="email"></div>
-                </div>
-
-
-                <div class="form-group">
-                    <label class="control-label col-sm-12 text-left">Shop name</label>
+                    <label class="control-label col-sm-12 text-left">Store name</label>
                     <div class="col-sm-12"><input type="text" class="form-control"
-                                                  required placeholder="Shop Name"
+                                                  required placeholder="Store Name"
                                                   name="store_name"></div>
                 </div>
 
@@ -172,7 +164,7 @@
 	        	form_data.append('phone', $('[name="phone"]').val());
 	        	form_data.append('csrfmiddlewaretoken', $('[name="csrfmiddlewaretoken"]').val());
                 var user = {};
-	        	user['username']= $('[name="username"]').val();
+	        	user['username']= $('[name="email"]').val();
 	        	user['password']= $('[name="password"]').val();
 	        	user['email'] = $('[name="email"]').val();
 	        	user['first_name'] = $('[name="first_name"]').val();

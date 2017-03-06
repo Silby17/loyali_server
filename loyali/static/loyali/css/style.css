@@ -13442,7 +13442,7 @@ yx-axis
 
 @media -sass-debug-info{filename{font-family:file\:\/\/G\:\/dipak\/yossisilb\/html\/scss\/_scrollbar\.scss}line{font-family:\00003352}}
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-  background-color: #00bcbe;
+  background-color: #b80102;
   background-color: rgba(0, 188, 190, 0.5);
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
   opacity: 0.75;
@@ -13450,8 +13450,8 @@ yx-axis
 
 @media -sass-debug-info{filename{font-family:file\:\/\/G\:\/dipak\/yossisilb\/html\/scss\/_scrollbar\.scss}line{font-family:\00003357}}
 .mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar {
-  background-color: #00bcbe;
-  background-color: #00bcbe;
+  background-color: #b80102;
+  background-color: #b80102;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=85);
   opacity: 0.85;
 }
@@ -13459,8 +13459,8 @@ yx-axis
 @media -sass-debug-info{filename{font-family:file\:\/\/G\:\/dipak\/yossisilb\/html\/scss\/_scrollbar\.scss}line{font-family:\00003361}}
 .mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
 .mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
-  background-color: #00bcbe;
-  background-color: #00bcbe;
+  background-color: #b80102;
+  background-color: #b80102;
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
 }
@@ -14886,7 +14886,7 @@ body {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/G\:\/dipak\/yossisilb\/html\/scss\/style\.scss}line{font-family:\0000318}}
 a {
-  color: #00bcbe;
+  color: #b80102;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/G\:\/dipak\/yossisilb\/html\/scss\/style\.scss}line{font-family:\0000320}}
 a:hover, a:focus, a:active {
@@ -14918,7 +14918,7 @@ h5 {
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/G\:\/dipak\/yossisilb\/html\/scss\/style\.scss}line{font-family:\0000342}}
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:active {
-  background: #00bcbe;
+  background: #b80102;
   color: #fff;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/G\:\/dipak\/yossisilb\/html\/scss\/style\.scss}line{font-family:\0000349}}
@@ -14953,7 +14953,7 @@ h5 {
   height: 6px;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
   opacity: 0.9;
-  background: #00bcbe !important;
+  background: #b80102 !important;
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
   border-radius: 6px;
@@ -14970,7 +14970,7 @@ h5 {
 @media (max-width: 767px) {
 @media -sass-debug-info{filename{font-family:file\:\/\/G\:\/dipak\/yossisilb\/html\/scss\/style\.scss}line{font-family:\0000367}}
   .navbar-default .navbar-toggle .icon-bar {
-    background: #00bcbe !important;
+    background: #b80102 !important;
   }
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/G\:\/dipak\/yossisilb\/html\/scss\/style\.scss}line{font-family:\0000379}}
@@ -15072,7 +15072,7 @@ h5 {
 .ly-form .control-label i {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   opacity: 0.5;
-  color: #00bcbe;
+  color: #b80102;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/G\:\/dipak\/yossisilb\/html\/scss\/style\.scss}line{font-family:\00003147}}
@@ -15100,7 +15100,7 @@ h5 {
   -moz-box-shadow: rgba(0, 188, 190, 0.3) 0 0 6px;
   -webkit-box-shadow: rgba(0, 188, 190, 0.3) 0 0 6px;
   box-shadow: rgba(0, 188, 190, 0.3) 0 0 6px;
-  border-color: #00bcbe;
+  border-color: #b80102;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/G\:\/dipak\/yossisilb\/html\/scss\/style\.scss}line{font-family:\00003167}}
@@ -15117,7 +15117,7 @@ h5 {
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/G\:\/dipak\/yossisilb\/html\/scss\/style\.scss}line{font-family:\00003174}}
 .btn.btn-primary {
-  background: #00bcbe;
+  background: #b80102;
   border: none;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/G\:\/dipak\/yossisilb\/html\/scss\/style\.scss}line{font-family:\00003177}}
@@ -15127,7 +15127,7 @@ h5 {
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/G\:\/dipak\/yossisilb\/html\/scss\/style\.scss}line{font-family:\00003182}}
 .btn.btn-link {
-  color: #00bcbe;
+  color: #b80102;
   text-transform: none;
   padding-left: 0;
   padding-right: 0;
@@ -15177,7 +15177,7 @@ h5 {
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/G\:\/dipak\/yossisilb\/html\/scss\/style\.scss}line{font-family:\00003210}}
 .btn.btn-big:hover, .btn.btn-big:focus, .btn.btn-big:active {
-  background: #00bcbe;
+  background: #b80102;
   color: #fff;
   border-color: #fff;
   text-shadow: rgba(0, 0, 0, 0.2) 0 2px 0;
@@ -15361,11 +15361,11 @@ h5 {
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/G\:\/dipak\/yossisilb\/html\/scss\/style\.scss}line{font-family:\00003365}}
 .checkbox input:checked + span:before {
-  background: #00bcbe;
+  background: #b80102;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/G\:\/dipak\/yossisilb\/html\/scss\/style\.scss}line{font-family:\00003368}}
 .checkbox input:checked + span:after {
-  color: #00bcbe;
+  color: #b80102;
   left: 18px;
   content: "\f00c";
 }

@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{% static 'loyali/images/loyali_logo.ico' %}" type="image/x-icon">
-    <title>Products</title>
+    <title>Vendors</title>
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i"
           rel="stylesheet">
@@ -85,9 +85,6 @@
         success: function(data){
                 var rows = "";
                 $.each(data, function(index, value) {
-                    console.log(value.logo_title);
-                    var src = 'media/' + value.logo_title;
-                    console.log(src);
                     var row = "";
                     row += "<tr>";
                     row += '<td><label class="checkbox"><input type="checkbox" name="product_id" value="'+ value.id+'"><span></span></label> </td>';

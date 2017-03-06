@@ -5,6 +5,7 @@ from loyaliapi.serializer import MobileUserSerializer
 
 
 class VendorSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Vendor
         fields = ['store_name', 'location', 'store_type', 'logo_title', 'phone']
@@ -15,7 +16,7 @@ class VendorSerializer(serializers.ModelSerializer):
             "location": instance.location,
             "store_type": instance.store_type,
             "phone": instance.phone,
-            "logo_title": instance.logo_title.name
+            "logo_title": instance.logo_title.url
         }
         return representation
 

@@ -178,7 +178,7 @@
 					processData: false,
 					data : form_data
                 }).done(function (result) {
-                    location.href = '/loyali/vendor/mainmenu/';
+                    location.href = '{% url 'saved' %}';
 
                 }).fail(function (err) {
                     if(err['status'] == 400){

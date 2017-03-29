@@ -8,10 +8,11 @@ class VendorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vendor
-        fields = ['store_name', 'location', 'store_type', 'logo_title', 'phone']
+        fields = ['id', 'store_name', 'location', 'store_type', 'logo_title', 'phone']
 
     def to_representation(self, instance):
         representation = {
+            "id": instance.id,
             "store_name": instance.store_name,
             "location": instance.location,
             "store_type": instance.store_type,

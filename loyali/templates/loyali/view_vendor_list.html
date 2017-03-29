@@ -55,7 +55,7 @@
                     <table class="table" id="product-list-table">
                         <thead>
                         <tr>
-                            <th width="1%"><a onClick="deleteProducts();" class="btn btn-danger btn-xs">Delete</a></th>
+                            <th width="1%"><a onClick="deleteVendor();" class="btn btn-danger btn-xs">Delete</a></th>
                             <th width="100">&nbsp;</th>
                             <th width="60%">Name</th>
                             <th width="25%">Store Type</th>
@@ -101,6 +101,27 @@
                 }
             }
     });
+
+    function deleteVendor(){
+        var data = {}
+        var ids = {}
+        $("input:checkbox:checked").each(function(event){
+            ids += $(this).val() + ",";
+        });
+        console.log(ids);
+        data["ids"] = ids;
+        data["csrfmiddlewaretoken"] = $('[name="csrfmiddlewaretoken"]').val();
+        $.ajax({
+            url: '{% url 'delete_vendors' %}',
+            method: 'POST',
+            data: "ids=" + ids + "&csrfmiddlewaretoken="+ $('[name="csrfmiddlewaretoken"]').val()
+        }).done(function (result) {
+            console.log("Result ok");
+            location.href = '{% url 'full_vendors' %}';
+        }).fail(function (err) {
+            console.log("check123");
+        });
+    }
     $(window).resize(function () {
         $('.ly-checkbox-list').css('max-height', $(window).height() - $('.navbar-default').height() - 200);
     })

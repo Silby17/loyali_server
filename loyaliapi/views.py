@@ -5,7 +5,6 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from loyaliapi.models import MobileUser
 from loyaliapi.serializer import MobileUserModelSerializer
 
@@ -32,8 +31,9 @@ class MobileUserAPI(GenericAPIView):
                 user = serializer.save()
                 group = Group.objects.get_or_create(name=CUSTOMER_GROUP_NAME)[0]
                 group.user_set.add(user)
-                context = {"user_created": "user created successfully"}
-                return Response(status=status.HTTP_200_OK)
+                context = {"user_result": serializer.data}
+                print context
+                return Response(context, status=status.HTTP_200_OK)
             else:
                 errors = ""
                 serializer_errors = serializer.erros
@@ -46,6 +46,7 @@ class CheckUserCredentials(APIView):
     parser_classes = ([FormParser, MultiPartParser])
 
     def post(self, request):
+        context = {}
         raw_data = request.POST.copy()
         email = raw_data.get('email')
         password = raw_data.get('password')
@@ -54,9 +55,11 @@ class CheckUserCredentials(APIView):
             user = MobileUser.objects.get(username=email)
             auth_user = auth.authenticate(username=email, password=password)
             if auth_user is not None:
-                print email, " - has logged in"
-                return Response(status=status.HTTP_200_OK)
+                print email, ' - has logged in'
+                context = {'username': email}
+                return Response(context, status=status.HTTP_200_OK)
             else:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
         except MobileUser.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+

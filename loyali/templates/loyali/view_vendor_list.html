@@ -104,12 +104,13 @@
 
     function deleteVendor(){
         var data = {}
-        var ids = {}
+        var ids = ''
         $("input:checkbox:checked").each(function(event){
             ids += $(this).val() + ",";
         });
         console.log(ids);
         data["ids"] = ids;
+        console.log(data);
         data["csrfmiddlewaretoken"] = $('[name="csrfmiddlewaretoken"]').val();
         $.ajax({
             url: '{% url 'delete_vendors' %}',

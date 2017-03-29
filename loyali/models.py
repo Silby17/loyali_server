@@ -1,10 +1,15 @@
 from __future__ import unicode_literals
 
+import os
+
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.db import models
 
 # This is the vendor Model
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+
 from loyaliapi.models import MobileUser
 
 
@@ -49,3 +54,12 @@ class Rewards(models.Model):
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     type = models.CharField(max_length=100, blank=True)
     amount = models.IntegerField()
+
+
+@receiver(models.signals.post_delete, sender=Vendor)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    # Deletes file from filesystem
+    # when corresponding `Vendor` object is deleted.
+    if instance.logo_title:
+        if os.path.isfile(instance.logo_title.path):
+            os.remove(instance.logo_title.path)

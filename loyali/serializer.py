@@ -1,11 +1,10 @@
 from django.contrib.auth.models import Group, User
 from rest_framework import serializers
 from .models import VendorUser, Subscription, Card, Vendor, CardsInUse
-from loyaliapi.serializer import MobileUserSerializer
+from loyaliapi.serializer import MobileUserSerializer, MobileUserFirstNameSerialize
 
 
 class VendorSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Vendor
         fields = ['id', 'store_name', 'location', 'store_type', 'logo_title', 'phone']
@@ -122,3 +121,11 @@ class AdminUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'groups']
+
+
+class SubscribedCustomersSerializer(serializers.ModelSerializer):
+    customer = MobileUserFirstNameSerialize()
+
+    class Meta:
+        model = Subscription
+        fields = ['customer']

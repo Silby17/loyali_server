@@ -129,3 +129,11 @@ class SubscribedCustomersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subscription
         fields = ['customer']
+
+
+class SubscriptionsSerializer(serializers.ModelSerializer):
+    vendor = VendorUserSerializer()
+
+    class Meta:
+        model = Subscription
+        fields = ['vendor']

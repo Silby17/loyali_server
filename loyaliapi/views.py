@@ -6,6 +6,7 @@ from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from loyali.models import VendorUser, Subscription, Card, CardsInUse
+from loyali.serializer import SubscriptionsSerializer
 from loyaliapi.models import MobileUser
 from loyaliapi.serializer import MobileUserModelSerializer
 
@@ -18,10 +19,8 @@ class MobileUserAPI(GenericAPIView):
     serializer_class = MobileUserModelSerializer
 
     def post(self, request, *args, **kwargs):
-        context = {}
         raw_data = request.POST.copy()
         username = raw_data.get('username')
-
         try:
             customer_user = MobileUser.objects.get(username=username)
             context = {"message": "user already exists"}
@@ -47,7 +46,6 @@ class CheckUserCredentials(APIView):
     parser_classes = ([FormParser, MultiPartParser])
 
     def post(self, request):
-        context = {}
         raw_data = request.POST.copy()
         email = raw_data.get('email')
         password = raw_data.get('password')
@@ -69,7 +67,6 @@ class CheckUserCredentials(APIView):
 # This will create a new subscription between a customer and vendor
 class AddSubscription(APIView):
     def post(self, request):
-        context = {}
         try:
             data = request.data
             vendor_id = data.get('vendor_id')
@@ -104,3 +101,16 @@ class AddSubscription(APIView):
         except:
             context = {'message': 'Unknown error occurred'}
             return Response(context, status=status.HTTP_400_BAD_REQUEST)
+
+
+# This will get all the Customers Subscriptions (favourites)
+class CustomerSubscription(APIView):
+    def post(self, request):
+        raw_data = request.POST.copy()
+        customer_id = raw_data.get("customer_id")
+        customer = MobileUser.objects.get(id=customer_id)
+        subscriptions = Subscription.objects.all().filter(customer=customer)
+        serializer = SubscriptionsSerializer(subscriptions, many=True).data
+        print 'here'
+        context = {'vendors': serializer}
+        return Response(context, status=status.HTTP_200_OK)

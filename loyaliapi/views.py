@@ -57,8 +57,9 @@ class CheckUserCredentials(APIView):
             user = MobileUser.objects.get(username=email)
             auth_user = auth.authenticate(username=email, password=password)
             if auth_user is not None:
-                print email, ' - has logged in'
-                context = {'username': email}
+                print 'Mobile User:', email, ' - has logged in'
+                context = {'username': email,
+                           'id': auth_user.id}
                 return Response(context, status=status.HTTP_200_OK)
             else:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)

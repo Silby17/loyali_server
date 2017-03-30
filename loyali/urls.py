@@ -43,4 +43,6 @@ urlpatterns = [
     url(r'^saved/', saved_page, name='saved'),
 
     url(r'^fullvendors/', full_vendors_page, name='full_vendors'),
+
+
 ]

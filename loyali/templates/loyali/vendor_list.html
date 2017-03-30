@@ -56,9 +56,11 @@
                         <thead>
                         <tr>
                             <th width="1%"><a onClick="deleteVendor();" class="btn btn-danger btn-xs">Delete</a></th>
+                            <th width="3%">ID</th>
                             <th width="100">&nbsp;</th>
-                            <th width="60%">Name</th>
-                            <th width="25%">Store Type</th>
+                            <th width="33%">Name</th>
+                            <th width="34%">Location</th>
+                            <th width="15%">Store Type</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -88,8 +90,10 @@
                     var row = "";
                     row += "<tr>";
                     row += '<td><label class="checkbox"><input type="checkbox" name="product_id" value="'+ value.id+'"><span></span></label> </td>';
+                    row += '<td><a href="#"><strong>' + value.id + '</strong></a></td>';
                     row += '<td><img src="' + value.logo_title + '" class="img-responsive" width="100"></td>';
                     row += '<td><a href="#"><strong>' + value.store_name + '</strong></a></td>';
+                    row += '<td><a href="#"><strong>' + value.location + '</strong></a></td>';
                     row += '<td>' + value.store_type + '</td>';
                     row += '</tr>';
                     rows += row;

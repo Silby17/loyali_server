@@ -14,6 +14,4 @@ urlpatterns = [
 
     url(r'^createSubscription/', AddSubscription.as_view(), name='create_subscription'),
 
-
-
 ]

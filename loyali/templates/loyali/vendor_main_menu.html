@@ -63,14 +63,14 @@
                 </div>
                 <div class="col-sm-4">
                     <a href="#" class="btn btn-default btn-big btn-block">
-                        <i class="fa fa-paper-plane"></i>
-                        <span>Message Service</span>
+                        <i class="fa fa-history"></i>
+                        <span>Customer purchase history</span>
                     </a>
                 </div>
                 <div class="col-sm-4">
-                    <a href="#" class="btn btn-default btn-big btn-block">
-                        <i class="fa fa-history"></i>
-                        <span>Customer purchase history</span>
+                    <a href="{% url 'vendor_add_card' %}" class="btn btn-default btn-big btn-block">
+                        <i class="glyphicon glyphicon-plus-sign"></i>
+                        <span>Add new Card</span>
                     </a>
                 </div>
             </div>
@@ -80,16 +80,17 @@
     <div class="container">
         <div class="ly-middle-content-in">
             <div class="row ly-btn-row">
-                <div class="col-sm-4">
-                    <a href="{% url 'vendor_add_card' %}" class="btn btn-default btn-big btn-block">
-                        <i class="glyphicon glyphicon-plus-sign"></i>
-                        <span>Add new Card</span>
-                    </a>
-                </div>
+
                 <div class="col-sm-4">
                     <a href="{% url 'view_cards' %}" class="btn btn-default btn-big btn-block">
                         <i class="glyphicon glyphicon glyphicon-credit-card"></i>
                         <span>View Cards</span>
+                    </a>
+                </div>
+                <div class="col-sm-4">
+                    <a href="#" class="btn btn-default btn-big btn-block">
+                        <i class="fa fa-paper-plane"></i>
+                        <span>Message Service</span>
                     </a>
                 </div>
                 <div class="col-sm-4">

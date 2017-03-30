@@ -6,7 +6,8 @@ from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from loyali.models import VendorUser, Subscription, Card, CardsInUse, Vendor
-from loyali.serializer import SubscriptionsSerializer, VendorSerializer
+from loyali.serializer import SubscriptionsSerializer, VendorSerializer, CardSerializer, \
+    SingleCardSerializer
 from loyaliapi.models import MobileUser
 from loyaliapi.serializer import MobileUserModelSerializer
 
@@ -125,3 +126,17 @@ class VendorByIDAPI(APIView):
         context = {'vendor': serializer.data}
         return Response(context, status=status.HTTP_200_OK)
 
+
+# For Testing
+class VendorWithCards(APIView):
+    def get(self, request):
+        # cards_in_use = CardsInUse.objects.filter(card__vendor=vendor_user.vendor, customer=mobile_user)
+        vendor = VendorUser.objects.get(id=6).vendor
+        cards = Card.objects.all()
+        ser = CardSerializer(cards, many=True)
+        serializer = SingleCardSerializer(cards, many=True)
+
+        serializer = CardSerializer(cards, many=True)
+        print ser.data
+        context = {'cards': ser.data}
+        return Response(context, status=status.HTTP_200_OK)

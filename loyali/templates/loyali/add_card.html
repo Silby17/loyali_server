@@ -1,0 +1,97 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'loyali/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'loyali/css/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'loyali/scss/style.scss' %}">
+<!-- This jsp view will enable the Vendor to add a new punch card-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Add new Card</title>
+
+    <!-- Bootstrap -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+</head>
+<body>
+<script>
+</script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'loyali/images/loyali_logo.png' %}" draggable="false" class="img-responsive"></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                 {% if request.user.username %}
+                <li><a>{{ request.user.username }}</a></li>
+                {% endif %}
+            <li><a href="/contactUs"><i class="glyphicon glyphicon-email"></i> Contact Us</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
+            {%  endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="ly-middle-content">
+    <div class="container">
+        <div class="ly-form">
+            <form id="addCardForm" class="form-horizontal" action="{% url 'vendor_add_card' %}" method="post">
+                 {% csrf_token %}
+                <div class="ly-box-title"><h1>Add card</h1></div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-12 text-left">Description</label>
+                    <div class="col-sm-12"><input type="text" class="form-control"
+                                                  required placeholder="Description"
+                                                  name="description"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-12 text-left">Max</label>
+                    <div class="col-sm-12"><input type="number" class="form-control"
+                                                  required placeholder="Max"
+                                                  name="max"></div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-6">
+                        <button type="reset" class="btn btn-default btn-block">Reset</button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="{% static 'kroko/js/jquery.min.js' %}"></script>
+<script src="{% static 'kroko/js/bootstrap-select.js' %}"></script>
+<script src="{% static 'kroko/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.btn-file input').change(function(){
+            var filename = $(this).val().replace(/.*(\/|\\)/, '');
+            $(this).next('span').text(filename);
+        })
+    })
+</script>
+</body>
+</html>

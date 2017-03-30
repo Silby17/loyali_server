@@ -50,8 +50,9 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>User Group</th>
+                        <th width="5%">ID</th>
+                        <th width="30%">Name</th>
+                        <th width="20%">User Group</th>
                     </tr>
                     </thead>
                     <tbody id="ly-customer-list">
@@ -82,7 +83,7 @@
             dataType: "json",
             success: function(data){
                 $.each(data, function(k, v) {
-                    $('#ly-customer-list').append('<tr> <td><a href="#"><strong>'+v.first_name+ " " + v.last_name +'</strong></a></td> <td>'+v.groups[0].name+'</td> </tr>');
+                    $('#ly-customer-list').append('<tr><td>'+ v.id +'</td> <td><a href="#"><strong>'+v.first_name+ " " + v.last_name +'</strong></a></td> <td>'+v.groups[0].name+'</td> </tr>');
                 });
             }
         });

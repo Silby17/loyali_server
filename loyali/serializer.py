@@ -89,6 +89,19 @@ class CardSerializer(serializers.ModelSerializer):
         fields = ['vendor', 'description', 'max']
 
 
+class SingleCardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Card
+        fields = ['id', 'description', 'max']
+
+    def to_representation(self, instance):
+        representation = {
+            "description": instance.description,
+            "max": instance.max
+        }
+        return representation
+
+
 class CardsInUseSerializer(serializers.ModelSerializer):
     card = CardSerializer()
 

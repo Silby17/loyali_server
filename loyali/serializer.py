@@ -46,6 +46,7 @@ class VendorUserModelSerializer(serializers.ModelSerializer):
 
 class VendorUserSerializer(serializers.ModelSerializer):
     vendor = VendorSerializer()
+
     class Meta:
         model = VendorUser
         fields = ['id', 'vendor']
@@ -137,3 +138,5 @@ class SubscriptionsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subscription
         fields = ['vendor']
+
+

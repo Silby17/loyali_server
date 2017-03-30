@@ -120,7 +120,7 @@ class AdminUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'groups']
+        fields = ['id', 'first_name', 'last_name', 'groups']
 
 
 class SubscribedCustomersSerializer(serializers.ModelSerializer):

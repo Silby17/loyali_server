@@ -35,7 +35,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                 {% if request.user.username %}
+                 {% if request.user.first_name %}
                 <li><a>{{ request.user.username }}</a></li>
                 {% endif %}
             <li><a href="/contactUs"><i class="glyphicon glyphicon-email"></i> Contact Us</a></li>

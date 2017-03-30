@@ -1,4 +1,7 @@
 from rest_framework import serializers
+
+from loyali.models import Subscription
+
 from .models import MobileUser
 
 

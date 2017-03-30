@@ -1,15 +1,9 @@
 from __future__ import unicode_literals
-
 import os
-
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.db import models
-
-# This is the vendor Model
-from django.db.models.signals import pre_delete
 from django.dispatch import receiver
-
 from loyaliapi.models import MobileUser
 
 

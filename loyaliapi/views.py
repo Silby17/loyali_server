@@ -5,8 +5,8 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from loyali.models import VendorUser, Subscription, Card, CardsInUse
-from loyali.serializer import SubscriptionsSerializer
+from loyali.models import VendorUser, Subscription, Card, CardsInUse, Vendor
+from loyali.serializer import SubscriptionsSerializer, VendorSerializer
 from loyaliapi.models import MobileUser
 from loyaliapi.serializer import MobileUserModelSerializer
 
@@ -104,13 +104,24 @@ class AddSubscription(APIView):
 
 
 # This will get all the Customers Subscriptions (favourites)
-class CustomerSubscription(APIView):
+class CustomerSubscriptionAPI(APIView):
     def post(self, request):
         raw_data = request.POST.copy()
         customer_id = raw_data.get("customer_id")
         customer = MobileUser.objects.get(id=customer_id)
         subscriptions = Subscription.objects.all().filter(customer=customer)
         serializer = SubscriptionsSerializer(subscriptions, many=True).data
-        print 'here'
         context = {'vendors': serializer}
         return Response(context, status=status.HTTP_200_OK)
+
+
+# Get Specific vendor for user by ID
+class VendorByIDAPI(APIView):
+    def post(self, request):
+        raw_data = request.POST.copy()
+        vendor_id = raw_data.get('vendor_id')
+        vendor = Vendor.objects.get(id=vendor_id)
+        serializer = VendorSerializer(vendor)
+        context = {'vendor': serializer.data}
+        return Response(context, status=status.HTTP_200_OK)
+

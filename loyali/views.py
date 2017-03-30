@@ -7,17 +7,15 @@ from django.shortcuts import render, redirect, render_to_response
 from django.core.urlresolvers import reverse
 from django.template import loader
 from django.contrib import auth
-from django.utils.decorators import method_decorator
-from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
-from rest_framework import status, serializers
+from rest_framework import status
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.views import APIView
 from loyali.models import Vendor, Subscription, VendorUser, Card
 from loyali.serializer import VendorSerializer, VendorUserModelSerializer, \
-    AdminUserSerializer, CardSerializer, SingleCardSerializer
+    AdminUserSerializer, SingleCardSerializer, SubscribedCustomersSerializer
 
-# Group name Definitions
+# Group name definitions
 VENDOR_STAFF_GROUP_NAME = 'vendor_staff'
 VENDOR_GROUP_NAME = 'vendor'
 ADMIN_GROUP_NAME = 'admin'
@@ -115,7 +113,6 @@ def delete_vendors(request):
 
 
 class AdminUserAPI(APIView):
-
     def post(self, request):
         raw_data = request.POST.copy()
         username = raw_data.get('username')
@@ -144,7 +141,7 @@ class AdminUserAPI(APIView):
 
 class AddCardAPI(APIView):
     def get(self, request):
-        template = loader.get_template('loyali/add_card.html')
+        template = loader.get_template('loyali/vendor_pages/add_card.html')
         context = {'page': 'Add Card'}
         return HttpResponse(template.render(context, request))
 
@@ -168,6 +165,7 @@ class AddCardAPI(APIView):
             return Response(context, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+# This will return a template and a list of cards to the vendor
 class VendorsCardsAPI(APIView):
     def get(self, request):
         vendor = VendorUser.objects.get(id=request.user.id).vendor
@@ -178,8 +176,11 @@ class VendorsCardsAPI(APIView):
 
 def vendor_customers(request):
     if request.method == 'GET':
-        template = loader.get_template('loyali/vendor_customers.html')
-        context = {'vendor_customers': 'customers'}
+        template = loader.get_template('loyali/vendor_pages/vendor_customers.html')
+        vendor = VendorUser.objects.get(id=request.user.id)
+        subscriptions = Subscription.objects.all().filter(vendor=vendor)
+        serializer = SubscribedCustomersSerializer(subscriptions, many=True).data
+        context = {'customers': serializer}
         return HttpResponse(template.render(context, request))
 
     if request.method == 'POST':
@@ -188,6 +189,7 @@ def vendor_customers(request):
         customers = Subscription.objects.get(vendor=vendor_id)
 
         return Response(status=status.HTTP_200_OK)
+
 
 
 @login_required
@@ -244,7 +246,7 @@ def vendor_add(request):
 # Vendor - Vendor main menu
 @login_required
 def vendor_main(request):
-    template = loader.get_template('loyali/vendor_main_menu.html')
+    template = loader.get_template('loyali/vendor_pages/vendor_main_menu.html')
     context = {'menu': "menu"}
     return HttpResponse(template.render(context, request))
 
@@ -303,7 +305,7 @@ def view_users_page(request):
 
 @login_required
 def full_vendors_page(request):
-    template = loader.get_template('loyali/view_vendor_list.html')
+    template = loader.get_template('loyali/vendor_list.html')
     context = {
         'vendors': "full_vendor_list"
     }

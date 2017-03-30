@@ -34,7 +34,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.username %}
-                <li><a>{{ request.user.first_name }}</a></li>
+                    <li><a><i class="fa fa-user-circle "></i> {{ request.user.first_name }}</a></li>
                 {% endif %}
                 <li><a href="{% url 'logout' %}"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
             </ul>
@@ -60,13 +60,14 @@
                         <span>Add new User</span>
                     </a>
                 </div>
-
                 <div class="col-sm-4">
-                    <a href="{% url 'full_vendors' %}" class="btn btn-default btn-big btn-block">
+                    <a href="{% url 'view_users' %}" class="btn btn-default btn-big btn-block">
                         <i class="glyphicon glyphicon-user"></i>
-                        <span>View Vendors</span>
+                        <span>View Users</span>
                     </a>
                 </div>
+
+
             </div>
         </div>
     </div>
@@ -76,11 +77,12 @@
 
             <div class="row ly-btn-row">
                 <div class="col-sm-4">
-                    <a href="{% url 'view_users' %}" class="btn btn-default btn-big btn-block">
+                    <a href="{% url 'full_vendors' %}" class="btn btn-default btn-big btn-block">
                         <i class="glyphicon glyphicon-user"></i>
-                        <span>View Users</span>
+                        <span>View Vendors</span>
                     </a>
                 </div>
+
 
                 <div class="col-sm-4">
                     <a href="" class="btn btn-default btn-big btn-block">

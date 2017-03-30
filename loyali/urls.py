@@ -2,7 +2,7 @@ from django.conf.urls import url
 from views import index, login, admin_main, vendor_main, contact_us, logout, \
     vendor_add, VendorAPI, admin_user_page, view_vendors, AdminUserAPI, saved_page, \
     redirect_to_main, view_users_page, full_vendors_page, delete_vendors, \
-    vendor_customers, AddCardAPI, GetVendorsCardsAPI
+    vendor_customers, AddCardAPI, VendorsCardsAPI
 
 urlpatterns = [
 
@@ -30,7 +30,7 @@ urlpatterns = [
 
     url(r'^vendor/addCard/', AddCardAPI.as_view(), name='vendor_add_card'),
 
-    url(r'^vendor/viewCards/', GetVendorsCardsAPI.as_view(), name='view_cards'),
+    url(r'^vendor/viewCards/', VendorsCardsAPI.as_view(), name='view_cards'),
 
     url(r'^vendor/', VendorAPI.as_view(), name='vendors'),
 

@@ -168,7 +168,7 @@ class AddCardAPI(APIView):
             return Response(context, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class GetVendorsCardsAPI(APIView):
+class VendorsCardsAPI(APIView):
     def get(self, request):
         vendor = VendorUser.objects.get(id=request.user.id).vendor
         cards = Card.objects.all().filter(vendor=vendor)

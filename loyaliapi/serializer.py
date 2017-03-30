@@ -30,3 +30,22 @@ class MobileUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = MobileUser
         fields = ['first_name', 'last_name', 'id']
+
+    def to_representation(self, instance):
+        representation = {
+            "first_name": instance.first_name,
+            "last_name": instance.last_name
+        }
+        return representation
+
+
+class MobileUserFirstNameSerialize(serializers.ModelSerializer):
+    class Meta:
+        model = MobileUser
+        fields = ['first_name', 'last_name', 'id']
+
+    def to_representation(self, instance):
+        representation = {
+            "full_name": instance.first_name + ' ' + instance.last_name
+        }
+        return representation

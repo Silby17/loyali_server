@@ -174,24 +174,6 @@ class VendorsCardsAPI(APIView):
         return render_to_response('loyali/vendor_pages/view_cards.html', {"cards": serializer.data})
 
 
-def vendor_customers(request):
-    if request.method == 'GET':
-        template = loader.get_template('loyali/vendor_pages/vendor_customers.html')
-        vendor = VendorUser.objects.get(id=request.user.id)
-        subscriptions = Subscription.objects.all().filter(vendor=vendor)
-        serializer = SubscribedCustomersSerializer(subscriptions, many=True).data
-        context = {'customers': serializer}
-        return HttpResponse(template.render(context, request))
-
-    if request.method == 'POST':
-        raw_data = request.POST.copy()
-        vendor_id = raw_data.get('vendor_id')
-        customers = Subscription.objects.get(vendor=vendor_id)
-
-        return Response(status=status.HTTP_200_OK)
-
-
-
 @login_required
 def add_admin_user(request):
     if request.method == 'POST':
@@ -207,6 +189,16 @@ def add_admin_user(request):
         context = {
             'add_user': 'add_user'
         }
+        return HttpResponse(template.render(context, request))
+
+
+def vendor_customers(request):
+    if request.method == 'GET':
+        template = loader.get_template('loyali/vendor_pages/vendor_customers.html')
+        vendor = VendorUser.objects.get(id=request.user.id)
+        subscriptions = Subscription.objects.all().filter(vendor=vendor)
+        serializer = SubscribedCustomersSerializer(subscriptions, many=True).data
+        context = {'customers': serializer}
         return HttpResponse(template.render(context, request))
 
 

@@ -110,6 +110,31 @@ class CardsInUseSerializer(serializers.ModelSerializer):
         fields = ['id', 'card', 'current']
 
 
+class CardsInUseSerializerWithCardDetails(serializers.ModelSerializer):
+    card = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = CardsInUse
+        fields = ['id', 'card', 'current']
+
+
+    def get_card(self, obj):
+        return {'id': obj.card.id, 'description': obj.card.description, 'max': obj.card.max}
+
+
+class VendorWithCardsSerializer(serializers.ModelSerializer):
+    cards = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Vendor
+        fields = ['id', 'store_name', 'location', 'store_type', 'logo_title', 'phone', 'cards']
+
+    def get_cards(self, obj):
+        cards = obj.cards
+        cards_data = cards.values('id', 'max', 'description')
+        return cards_data
+
+
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
@@ -140,3 +165,15 @@ class SubscriptionsSerializer(serializers.ModelSerializer):
         fields = ['vendor']
 
 
+class SubscriptionsSerializerWithCardsInUse(serializers.ModelSerializer):
+    vendor_user_id = serializers.PrimaryKeyRelatedField(source='vendor', read_only=True)
+    vendor = VendorSerializer(source='vendor.vendor', read_only=True)
+    cards_in_use = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Subscription
+        fields = ['vendor_user_id', 'vendor', 'cards_in_use']
+
+    def get_cards_in_use(self, obj):
+        cards_in_use = CardsInUse.objects.filter(customer=obj.customer, card__vendor=obj.vendor.vendor)
+        return CardsInUseSerializerWithCardDetails(cards_in_use, many=True).data

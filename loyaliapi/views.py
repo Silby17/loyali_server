@@ -162,6 +162,7 @@ class SubscriptionsWithCardsInUse(APIView):
         customer_id = raw_data.get('customer_id')
         mobile_user = MobileUser.objects.get(id=customer_id)
         subscriptions = Subscription.objects.all().filter(customer=mobile_user)
+        # subscriptions = Subscription.objects.all().filter(customer=mobile_user, vendor__id=6)
         serializer = SubscriptionsSerializerWithCardsInUse(subscriptions, many=True).data
         return Response(serializer, status=status.HTTP_200_OK)
 
@@ -171,5 +172,16 @@ class SubscriptionsWithCardsInUse(APIView):
         customer_id = raw_data.get('customer_id')
         mobile_user = MobileUser.objects.get(id=customer_id)
         subscriptions = Subscription.objects.all().filter(customer=mobile_user)
+        serializer = SubscriptionsSerializerWithCardsInUse(subscriptions, many=True).data
+        return Response(serializer, status=status.HTTP_200_OK)
+
+
+class SubscriptionCardsByVendorID(APIView):
+    def get(self, request):
+        raw_data = request.GET.copy()
+        customer_id = raw_data.get('customer_id')
+        vendor_id = raw_data.get('vendor_id')
+        mobile_user = MobileUser.objects.get(id=customer_id)
+        subscriptions = Subscription.objects.all().filter(customer=mobile_user, vendor__id=vendor_id)
         serializer = SubscriptionsSerializerWithCardsInUse(subscriptions, many=True).data
         return Response(serializer, status=status.HTTP_200_OK)

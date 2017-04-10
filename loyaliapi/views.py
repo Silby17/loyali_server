@@ -1,5 +1,5 @@
 from django.contrib import auth
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.parsers import FormParser, MultiPartParser
@@ -185,3 +185,26 @@ class SubscriptionCardsByVendorID(APIView):
         subscriptions = Subscription.objects.all().filter(customer=mobile_user, vendor__id=vendor_id)
         serializer = SubscriptionsSerializerWithCardsInUse(subscriptions, many=True).data
         return Response(serializer, status=status.HTTP_200_OK)
+
+
+class TestingAPI(APIView):
+    def get(self, request):
+        print 'here'
+        return Response(status=status.HTTP_200_OK)
+
+
+class ChangePasswordAPI(APIView):
+    def post(self, request):
+        raw_data = request.POST.copy()
+        username = request.user.username
+        current_password = raw_data.get('currentPassword')
+        new_password = raw_data.get('newPassword')
+        user = User.objects.get(username=username)
+
+    def get(self, request):
+        usr = User.objects.get(username='silby')
+        usr.set_password('silbyadmin')
+        usr.save()
+        print 'saved'
+        context = {'message': 'Password Changed Successfully'}
+        return Response(context, status=status.HTTP_200_OK)

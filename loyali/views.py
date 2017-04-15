@@ -134,6 +134,7 @@ class AdminUserAPI(APIView):
 
     def get(self, request):
         users = User.objects.all()
+        users = users.extra(order_by=['id'])
         # users = User.objects.filter(groups__name='admin')
         serializer = AdminUserSerializer(users, many=True).data
         return Response(serializer)

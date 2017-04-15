@@ -1,5 +1,7 @@
 from django.contrib import auth
 from django.contrib.auth.models import Group, User
+from django.core.mail import EmailMessage
+from fcm_django.models import FCMDevice
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.parsers import FormParser, MultiPartParser
@@ -189,7 +191,11 @@ class SubscriptionCardsByVendorID(APIView):
 
 class TestingAPI(APIView):
     def get(self, request):
-        print 'here'
+        # email = EmailMessage('Testing Email', 'Lets check this out', to=['silbydevelopment@gmail.com'])
+        # email.send()
+        user = User.objects.get(email='yossisilb@gmail.com')
+        user.set_password('hello')
+        user.save()
         return Response(status=status.HTTP_200_OK)
 
 

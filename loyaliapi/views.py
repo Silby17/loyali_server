@@ -1,7 +1,6 @@
 from django.contrib import auth
 from django.contrib.auth.models import Group, User
 from django.core.mail import EmailMessage
-from fcm_django.models import FCMDevice
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.parsers import FormParser, MultiPartParser

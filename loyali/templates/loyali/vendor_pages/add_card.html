@@ -28,7 +28,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{% url 'index' %}">
                 <img src="{% static 'loyali/images/loyali_logo.png' %}" draggable="false" class="img-responsive"></a>
         </div>
 
@@ -36,7 +36,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                  {% if request.user.first_name %}
-                <li><a>{{ request.user.username }}</a></li>
+                <li><a><i class="fa fa-user-circle "></i> {{ request.user.first_name }}</a></li>
                 {% endif %}
             <li><a href="/contactUs"><i class="glyphicon glyphicon-email"></i> Contact Us</a></li>
                 {% if user.is_authenticated %}
@@ -64,8 +64,18 @@
                 <div class="form-group">
                     <label class="control-label col-sm-12 text-left">Max</label>
                     <div class="col-sm-12"><input type="number" class="form-control"
-                                                  required placeholder="Max"
+                                                  required placeholder="Max" max="10"
+                                                  min="1"
                                                   name="max"></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-12 text-left">Category</label>
+                    <div class="col-sm-12">
+                        <select class="selectpicker form-control" name="type">
+                            <option>Coffee</option>
+                            <option>Pastry</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -82,9 +92,11 @@
 </div>
 
 
-<script src="{% static 'kroko/js/jquery.min.js' %}"></script>
-<script src="{% static 'kroko/js/bootstrap-select.js' %}"></script>
-<script src="{% static 'kroko/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'loyali/js/jquery.min.js' %}"></script>
+<script src="{% static 'loyali/js/bootstrap-select.js' %}"></script>
+<script src="{% static 'loyali/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'loyali/js/jquery.validate.min.js' %}"></script>
+<script src="https://use.fontawesome.com/b0f81c296e.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $('.btn-file input').change(function(){

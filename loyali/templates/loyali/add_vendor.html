@@ -35,7 +35,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
             {% if request.user.username %}
-                <li><a>{{ request.user.username }}</a></li>
+                <li><a><i class="fa fa-user-circle "></i> {{ request.user.first_name }}</a></li>
                 {% endif %}
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'logout' %}"><i class="glyphicon glyphicon-off"></i> Logout</a>
@@ -118,7 +118,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-12 text-left">Category</label>
                     <div class="col-sm-12">
-                        <select class="selectpicker form-control" name="store_type">
+                        <select class="selectpicker form-control" name="card_type">
                             <option>Coffee Shop</option>
                             <option>Bakery</option>
                         </select>

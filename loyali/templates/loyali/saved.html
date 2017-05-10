@@ -34,7 +34,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a>${fullName}</a></li>
+                <li><a><i class="fa fa-user-circle "></i> {{ request.user.first_name }}</a></li>
                 <li><a href="/logout"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
             </ul>
         </div>

@@ -53,11 +53,12 @@
                     <tr>
                         <th>Description</th>
                         <th>Max</th>
+                        <th>Type</th>
                     </tr>
                     </thead>
                     <tbody id="ly-customer-list">
                     {% for item in cards %}
-                    <tr> <td><a href="#"><strong>{{ item.description }}</strong></a></td> <td>{{ item.max }}</td> </tr>
+                    <tr> <td><a href="#"><strong>{{ item.description }}</strong></a></td> <td>{{ item.max }}</td> <td>{{ item.type }}</td> </tr>
                     {% endfor %}
                     </tbody>
                 </table>

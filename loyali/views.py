@@ -17,8 +17,8 @@ from loyali.serializer import VendorSerializer, VendorUserModelSerializer, \
 
 # Group name definitions
 VENDOR_STAFF_GROUP_NAME = 'vendor_staff'
-VENDOR_GROUP_NAME = 'vendor'
-ADMIN_GROUP_NAME = 'admin'
+VENDOR_GROUP_NAME = 'Vendor'
+ADMIN_GROUP_NAME = 'Admin'
 
 
 # The Following code handles the GET request for the HTML Pages
@@ -158,8 +158,9 @@ class AddCardAPI(APIView):
             return Response(context, status=status.HTTP_400_BAD_REQUEST)
         description = data.get('description')
         max = data.get('max')
+        type = data.get('type')
         try:
-            Card.objects.create(description=description, max=max, vendor=vendor)
+            Card.objects.create(description=description, max=max, vendor=vendor, type=type)
             return redirect(reverse('saved'))
         except:
             context = {'error_message': 'unknown error has occurred'}

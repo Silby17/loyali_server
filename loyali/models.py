@@ -34,6 +34,7 @@ class Subscription(models.Model):
 class Card(models.Model):
     description = models.CharField(max_length=255)
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE, related_name='cards')
+    type = models.CharField(max_length=100, null=True, blank=True)
     max = models.IntegerField()
 
 
@@ -48,6 +49,13 @@ class Rewards(models.Model):
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     type = models.CharField(max_length=100, blank=True)
     amount = models.IntegerField()
+
+
+class Purchase(models.Model):
+    customer = models.ForeignKey(MobileUser, on_delete=models.CASCADE)
+    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
+    type = models.CharField(max_length=100, null=True, blank=True)
+    date = models.DateTimeField(auto_now_add=True, blank=True)
 
 
 @receiver(models.signals.post_delete, sender=Vendor)

@@ -8,12 +8,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from loyali.models import VendorUser, Subscription, Card, CardsInUse, Vendor
 from loyali.serializer import SubscriptionsSerializer, VendorSerializer, \
-    VendorWithCardsSerializer, CardsInUseSerializer, SubscriptionsSerializerWithCardsInUse
+    VendorWithCardsSerializer, CardsInUseSerializer, \
+    SubscriptionsSerializerWithCardsInUse
 from loyaliapi.models import MobileUser
 from loyaliapi.serializer import MobileUserModelSerializer
 
-CUSTOMER_GROUP_NAME = 'customer'
-ADMIN_GROUP_NAME = 'admin'
+CUSTOMER_GROUP_NAME = 'Customer'
+ADMIN_GROUP_NAME = 'Admin'
 
 
 class MobileUserAPI(GenericAPIView):
@@ -48,16 +49,17 @@ class CheckUserCredentials(APIView):
 
     def post(self, request):
         raw_data = request.POST.copy()
-        email = raw_data.get('email')
+        username = raw_data.get('username')
         password = raw_data.get('password')
         try:
             # Checks if the user exists
-            user = MobileUser.objects.get(username=email)
-            auth_user = auth.authenticate(username=email, password=password)
+            user = MobileUser.objects.get(username=username)
+            auth_user = auth.authenticate(username=username, password=password)
             if auth_user is not None:
-                print 'Mobile User:', email, ' - has logged in'
-                context = {'username': email,
+                print 'Mobile User:', username, ' - has logged in'
+                user_result = {'username': username,
                            'id': auth_user.id}
+                context = {'user_result': user_result}
                 return Response(context, status=status.HTTP_200_OK)
             else:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
@@ -68,6 +70,7 @@ class CheckUserCredentials(APIView):
 # This will create a new subscription between a customer and vendor
 class AddSubscription(APIView):
     def post(self, request):
+        print 'Creating new Subscription'
         try:
             data = request.data
             vendor_id = data.get('vendor_id')
@@ -117,14 +120,12 @@ class CustomerSubscriptionAPI(APIView):
         serializer = SubscriptionsSerializer(subscriptions, many=True).data
         return Response(serializer, status=status.HTTP_200_OK)
 
-    # to be removed - temp for testing with postman
+
+class PunchCardAPI(APIView):
     def post(self, request):
         raw_data = request.POST.copy()
-        customer_id = raw_data.get("customer_id")
-        mobile_user = MobileUser.objects.get(id=customer_id)
-        subscriptions = Subscription.objects.all().filter(customer=mobile_user)
-        serializer = SubscriptionsSerializer(subscriptions, many=True).data
-        return Response(serializer, status=status.HTTP_200_OK)
+
+        return Response(status=status.HTTP_200_OK)
 
 
 # Get Specific vendor for user by ID
@@ -161,20 +162,14 @@ class SubscriptionsWithCardsInUse(APIView):
     def get(self, request):
         raw_data = request.GET.copy()
         customer_id = raw_data.get('customer_id')
-        mobile_user = MobileUser.objects.get(id=customer_id)
-        subscriptions = Subscription.objects.all().filter(customer=mobile_user)
-        # subscriptions = Subscription.objects.all().filter(customer=mobile_user, vendor__id=6)
-        serializer = SubscriptionsSerializerWithCardsInUse(subscriptions, many=True).data
-        return Response(serializer, status=status.HTTP_200_OK)
-
-    # to be removed - temp for testing with postman
-    def post(self, request):
-        raw_data = request.POST.copy()
-        customer_id = raw_data.get('customer_id')
-        mobile_user = MobileUser.objects.get(id=customer_id)
-        subscriptions = Subscription.objects.all().filter(customer=mobile_user)
-        serializer = SubscriptionsSerializerWithCardsInUse(subscriptions, many=True).data
-        return Response(serializer, status=status.HTTP_200_OK)
+        try:
+            mobile_user = MobileUser.objects.get(id=customer_id)
+            subscriptions = Subscription.objects.all().filter(customer=mobile_user)
+            serializer = SubscriptionsSerializerWithCardsInUse(subscriptions, many=True).data
+            return Response(serializer, status=status.HTTP_200_OK)
+        except:
+            print "customer_id invalid"
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class SubscriptionCardsByVendorID(APIView):

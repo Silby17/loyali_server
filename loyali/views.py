@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.views import APIView
-from loyali.models import Vendor, Subscription, VendorUser, Card
+from loyali.models import Vendor, Subscription, VendorUser, Card, CardsInUse
 from loyali.serializer import VendorSerializer, VendorUserModelSerializer, \
     AdminUserSerializer, SingleCardSerializer, SubscribedCustomersSerializer
 
@@ -110,6 +110,25 @@ def delete_vendors(request):
             if id != "":
                 vendors.filter(id=id).delete()
     return HttpResponse(status=status.HTTP_200_OK)
+
+
+class DeleteSubscriptionAPI(APIView):
+    def post(self, request):
+        data = request.POST.copy()
+        customer_id = data.get('customer_id')
+        vendor_id = data.get('vendor_id')
+        # Gets all the Customers Cards in Use
+        customer_cards_in_use = CardsInUse.objects.all().filter(customer=customer_id)
+        # Gets all the ID's of the Cards of the Vendor
+        card_ids = Card.objects.all().filter(vendor=vendor_id).values_list('id', flat=True)
+        # Gets the Vendor User
+        vendor_user = VendorUser.objects.all().filter(vendor=vendor_id)
+        # Deletes the seSubscription
+        Subscription.objects.all().filter(customer=customer_id, vendor=vendor_user).delete()
+        # Run through the list of cards and delete them from the DB
+        for card_ID in card_ids:
+            customer_cards_in_use.filter(card=card_ID).delete()
+        return Response(status=status.HTTP_200_OK)
 
 
 class AdminUserAPI(APIView):

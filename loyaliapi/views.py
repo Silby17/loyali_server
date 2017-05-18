@@ -1,3 +1,4 @@
+import datetime
 from django.contrib import auth
 from django.contrib.auth.models import Group, User
 from django.core.mail import EmailMessage
@@ -6,12 +7,12 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from loyali.models import VendorUser, Subscription, Card, CardsInUse, Vendor
+from loyali.models import VendorUser, Subscription, Card, CardsInUse, Vendor, Purchase
 from loyali.serializer import SubscriptionsSerializer, VendorSerializer, \
     VendorWithCardsSerializer, CardsInUseSerializer, \
     SubscriptionsSerializerWithCardsInUse
 from loyaliapi.models import MobileUser
-from loyaliapi.serializer import MobileUserModelSerializer
+from loyaliapi.serializer import MobileUserModelSerializer, PurchaseSerializer
 
 CUSTOMER_GROUP_NAME = 'Customer'
 ADMIN_GROUP_NAME = 'Admin'
@@ -115,8 +116,6 @@ class DeleteSubscriptionAPI(APIView):
         data = request.POST.copy()
         customer_id = data.get('customer_id')
         vendor_id = data.get('vendor_id')
-        print "Vendor_user_id:", vendor_id
-        print "Customer_ID:", customer_id
 
         # Gets all the Customers Cards in Use
         customer_cards_in_use = CardsInUse.objects.all().filter(customer=customer_id)
@@ -166,9 +165,6 @@ class PunchCardAPI(APIView):
                     # 202 is the code that will code that will show FREE COFFEE
                     context = {'message': 'Congratulations, you get your free item!'}
                     return Response(context, status=status.HTTP_202_ACCEPTED)
-
-                print 'Card max is: ', card_in_use.card.max
-                print 'Card Current: ', card_in_use.current
                 card_in_use.current += 1
                 card_in_use.save()
                 context = {'message': "Punched!"}
@@ -177,6 +173,7 @@ class PunchCardAPI(APIView):
                 return Response(status=status.HTTP_400_BAD_REQUEST)
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
 
 
 # Get Specific vendor for user by ID
@@ -238,12 +235,19 @@ class SubscriptionCardsByVendorID(APIView):
 
 
 class TestingAPI(APIView):
-    def get(self, request):
-        # email = EmailMessage('Testing Email', 'Lets check this out', to=['silbydevelopment@gmail.com'])
-        # email.send()
-        user = User.objects.get(email='yossisilb@gmail.com')
-        user.set_password('hello')
-        user.save()
+    serializer_class = PurchaseSerializer
+
+    def post(self, request):
+        raw_data = request.POST.copy()
+        customer_id = raw_data.get('customer_id')
+        vendor_id = raw_data.get('vendor_id')
+        vendor = Vendor.objects.all().filter(id=vendor_id)[:1].get()
+        customer = MobileUser.objects.all().filter(id=customer_id)[:1].get()
+        now = datetime.datetime.now()
+        type = raw_data.get('type') # Coffee or Pastry
+        purchase = Purchase(vendor=vendor, customer=customer, date=now,
+                            type=type).save()
+
         return Response(status=status.HTTP_200_OK)
 
 

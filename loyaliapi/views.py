@@ -15,6 +15,7 @@ from loyaliapi.serializer import MobileUserModelSerializer
 
 CUSTOMER_GROUP_NAME = 'Customer'
 ADMIN_GROUP_NAME = 'Admin'
+QR_BARCODE = "Testing LOYALI"
 
 
 class MobileUserAPI(GenericAPIView):
@@ -147,8 +148,35 @@ class CustomerSubscriptionAPI(APIView):
 class PunchCardAPI(APIView):
     def post(self, request):
         raw_data = request.POST.copy()
+        customer_id = raw_data.get('customer_id')
+        barcode = raw_data.get('barcode')
+        card_id = raw_data.get('card_id')
+        print 'Customer_id: ', customer_id, ' Barcode: ', barcode, ' card_id: ', card_id
+        # Checks if the QR Code that is scanned is Valid
+        if barcode != QR_BARCODE:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        try:
+            # Checks to see that the Customer Exists
+            customer = MobileUser.objects.all().filter(id=customer_id)
+            try:
+                card_in_use = CardsInUse.objects.all().filter(id=card_id)[:1].get()
+                # Checks to see if the user has reached their free Item
+                if (card_in_use.current + 1) is card_in_use.card.max:
+                    print "Customer gets their free item!"
+                    # 202 is the code that will code that will show FREE COFFEE
+                    context = {'message': 'Congratulations, you get your free item!'}
+                    return Response(context, status=status.HTTP_202_ACCEPTED)
 
-        return Response(status=status.HTTP_200_OK)
+                print 'Card max is: ', card_in_use.card.max
+                print 'Card Current: ', card_in_use.current
+                card_in_use.current += 1
+                card_in_use.save()
+                context = {'message': "Punched!"}
+                return Response(context, status=status.HTTP_201_CREATED)
+            except:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 # Get Specific vendor for user by ID

@@ -1,7 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from loyali.models import Subscription, Card, CardsInUse, Rewards, Vendor, VendorUser
+from loyali.models import Subscription, Card, CardsInUse, Rewards, Vendor, VendorUser, \
+    Purchase
 from loyaliapi.models import MobileUser
 
 admin.site.register(Subscription)
@@ -23,7 +24,12 @@ class CardsInUseAdmin(admin.ModelAdmin):
     list_display = ('id', 'card', 'current')
 
 
+class PurchaseAdmin(admin.ModelAdmin):
+    list_display = ('id', 'vendor', 'customer', 'type')
+
+
 admin.site.register(Card, CardAdmin)
 admin.site.register(Vendor, VendorAdmin)
 admin.site.register(CardsInUse, CardsInUseAdmin)
+admin.site.register(Purchase, PurchaseAdmin)
 

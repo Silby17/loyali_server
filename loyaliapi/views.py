@@ -109,6 +109,29 @@ class AddSubscription(APIView):
             return Response(context, status=status.HTTP_400_BAD_REQUEST)
 
 
+class DeleteSubscriptionAPI(APIView):
+    def post(self, request):
+        data = request.POST.copy()
+        customer_id = data.get('customer_id')
+        vendor_id = data.get('vendor_id')
+        print "Vendor_user_id:", vendor_id
+        print "Customer_ID:", customer_id
+
+        # Gets all the Customers Cards in Use
+        customer_cards_in_use = CardsInUse.objects.all().filter(customer=customer_id)
+        # Gets all the ID's of the Cards of the Vendor
+        card_ids = Card.objects.all().filter(vendor__id=vendor_id).values_list('id', flat=True)
+        # Deletes the seSubscription
+        vendor = Vendor.objects.all().filter(id=vendor_id)[:1].get()
+        vendor_user = VendorUser.objects.all().filter(vendor=vendor)
+        Subscription.objects.all().filter(customer=customer_id, vendor=vendor_user).delete()
+        # Run through the list of cards and delete them from the DB
+        for card_ID in card_ids:
+            customer_cards_in_use.filter(customer=customer_id, card__id=card_ID).delete()
+
+        return Response(status=status.HTTP_200_OK)
+
+
 # This will get all the Customers Subscriptions (favourites)
 class CustomerSubscriptionAPI(APIView):
     def get(self, request):
@@ -177,8 +200,11 @@ class SubscriptionCardsByVendorID(APIView):
         raw_data = request.GET.copy()
         customer_id = raw_data.get('customer_id')
         vendor_id = raw_data.get('vendor_id')
-        mobile_user = MobileUser.objects.get(id=customer_id)
-        subscriptions = Subscription.objects.all().filter(customer=mobile_user, vendor__id=vendor_id)
+        # Gets the Vendor as an Object
+        vendor = Vendor.objects.all().filter(id=vendor_id)[:1].get()
+        # Gets the VendorUser
+        vendor_user = VendorUser.objects.all().filter(vendor=vendor)
+        subscriptions = Subscription.objects.all().filter(customer__id=customer_id, vendor=vendor_user)
         serializer = SubscriptionsSerializerWithCardsInUse(subscriptions, many=True).data
         return Response(serializer, status=status.HTTP_200_OK)
 

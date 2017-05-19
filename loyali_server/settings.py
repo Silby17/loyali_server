@@ -14,7 +14,7 @@ SECRET_KEY = 'uid0@w9m9xgcykd=h(_w0))5u2n4&g2jja=s2s+sl##ytu(+1q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['34.250.74.48', 'localhost', '192.168.1.13', '192.168.1.33', '192.168.137.1']
+ALLOWED_HOSTS = ['34.250.74.48', 'localhost', '192.168.1.13', '192.168.1.85', '192.168.137.1', '10.0.0.8', '192.168.137.1']
 
 
 # Application definition
@@ -119,11 +119,3 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'yossisilb@gmail.com'
-EMAIL_HOST_PASSWORD = 'yysilber17'
-DEFAULT_FROM_EMAIL = 'yossisilb@gmail.com'

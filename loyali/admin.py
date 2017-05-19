@@ -6,8 +6,6 @@ from loyali.models import Subscription, Card, CardsInUse, Rewards, Vendor, Vendo
 from loyaliapi.models import MobileUser
 
 admin.site.register(Subscription)
-
-admin.site.register(Rewards)
 admin.site.register(VendorUser)
 admin.site.register(MobileUser)
 
@@ -28,8 +26,13 @@ class PurchaseAdmin(admin.ModelAdmin):
     list_display = ('id', 'vendor', 'customer', 'type')
 
 
+class RewardsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'customer', 'vendor', 'type', 'amount')
+
+
 admin.site.register(Card, CardAdmin)
 admin.site.register(Vendor, VendorAdmin)
 admin.site.register(CardsInUse, CardsInUseAdmin)
 admin.site.register(Purchase, PurchaseAdmin)
+admin.site.register(Rewards, RewardsAdmin)
 

@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.views import APIView
-from loyali.models import Vendor, Subscription, VendorUser, Card, CardsInUse
+from loyali.models import Vendor, Subscription, VendorUser, Card
 from loyali.serializer import VendorSerializer, VendorUserModelSerializer, \
     AdminUserSerializer, SingleCardSerializer, SubscribedCustomersSerializer
 
@@ -61,6 +61,7 @@ def login(req):
 class VendorAPI(APIView):
     parser_classes = ([FormParser, MultiPartParser])
 
+    # POST a new Vendor
     def post(self, request):
         raw_data = request.POST.copy()
         vendor_user_data = raw_data.pop('user')
@@ -93,6 +94,7 @@ class VendorAPI(APIView):
         context = {'saved': 'saved'}
         return HttpResponse(template.render(context, request))
 
+    # GET a list of all the Vendors
     def get(self, request):
         vendors = Vendor.objects.all()
         serializer = VendorSerializer(vendors, many=True)
@@ -113,6 +115,8 @@ def delete_vendors(request):
 
 
 class AdminUserAPI(APIView):
+
+    # POST and create a new Admin User
     def post(self, request):
         raw_data = request.POST.copy()
         username = raw_data.get('username')
@@ -132,6 +136,7 @@ class AdminUserAPI(APIView):
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+    # GET all the admin users
     def get(self, request):
         users = User.objects.all()
         users = users.extra(order_by=['id'])
@@ -140,6 +145,7 @@ class AdminUserAPI(APIView):
         return Response(serializer)
 
 
+# Allows a Vendor to add a new Card
 class AddCardAPI(APIView):
     def get(self, request):
         template = loader.get_template('loyali/vendor_pages/add_card.html')
@@ -167,7 +173,7 @@ class AddCardAPI(APIView):
             return Response(context, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-# This will return a template and a list of cards to the vendor
+# Return a template and all the Cards of the Vendor
 class VendorsCardsAPI(APIView):
     def get(self, request):
         vendor = VendorUser.objects.get(id=request.user.id).vendor
@@ -176,24 +182,7 @@ class VendorsCardsAPI(APIView):
         return render_to_response('loyali/vendor_pages/view_cards.html', {"cards": serializer.data})
 
 
-@login_required
-def add_admin_user(request):
-    if request.method == 'POST':
-        raw_data = request.POST.copy()
-        user = User.objects.create_user(data=raw_data)
-        if user:
-            group = Group.objects.get_or_create(name=ADMIN_GROUP_NAME)[0]
-            group.user_set(user)
-        else:
-            return HttpResponse(status=status.HTTP_409_CONFLICT)
-    elif request.method == 'GET':
-        template = loader.get_template('loyali/add_user.html')
-        context = {
-            'add_user': 'add_user'
-        }
-        return HttpResponse(template.render(context, request))
-
-
+# Gets all the Customers of a specific Vendor
 def vendor_customers(request):
     if request.method == 'GET':
         template = loader.get_template('loyali/vendor_pages/vendor_customers.html')
@@ -204,6 +193,7 @@ def vendor_customers(request):
         return HttpResponse(template.render(context, request))
 
 
+# Redirects to the Login Page
 def index(request):
     template = loader.get_template('loyali/login.html')
     context = {'login': "login"}
@@ -285,7 +275,6 @@ def saved_page(request):
 def redirect_to_main(request):
     if request.method == "GET":
         return __redirect_after_login(request.user)
-
 
 
 @login_required

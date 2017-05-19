@@ -1,6 +1,6 @@
 import datetime
 from django.contrib import auth
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import Group
 from django.core.mail import EmailMessage
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
@@ -8,9 +8,8 @@ from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from loyali.models import VendorUser, Subscription, Card, CardsInUse, Vendor, Purchase
-from loyali.serializer import SubscriptionsSerializer, VendorSerializer, \
-    VendorWithCardsSerializer, CardsInUseSerializer, \
-    SubscriptionsSerializerWithCardsInUse
+from loyali.serializer import VendorSerializer, VendorWithCardsSerializer,\
+    CardsInUseSerializer, SubscriptionsSerializerWithCardsInUse
 from loyaliapi.models import MobileUser
 from loyaliapi.serializer import MobileUserModelSerializer, PurchaseSerializer
 
@@ -19,6 +18,7 @@ ADMIN_GROUP_NAME = 'Admin'
 QR_BARCODE = "Testing LOYALI"
 
 
+# Creates a Mobile User
 class MobileUserAPI(GenericAPIView):
     queryset = MobileUser.objects.all()
     serializer_class = MobileUserModelSerializer
@@ -46,7 +46,7 @@ class MobileUserAPI(GenericAPIView):
 
 
 # This function will allow mobile users to log in to the app
-class CheckUserCredentials(APIView):
+class CheckUserCredentialsAPI(APIView):
     parser_classes = ([FormParser, MultiPartParser])
 
     def post(self, request):
@@ -70,7 +70,7 @@ class CheckUserCredentials(APIView):
 
 
 # This will create a new subscription between a customer and vendor
-class AddSubscription(APIView):
+class AddSubscriptionAPI(APIView):
     def post(self, request):
         print 'Creating new Subscription'
         try:
@@ -111,6 +111,7 @@ class AddSubscription(APIView):
             return Response(context, status=status.HTTP_400_BAD_REQUEST)
 
 
+# Delete Subscription
 class DeleteSubscriptionAPI(APIView):
     def post(self, request):
         data = request.POST.copy()
@@ -132,18 +133,7 @@ class DeleteSubscriptionAPI(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
-# This will get all the Customers Subscriptions (favourites)
-class CustomerSubscriptionAPI(APIView):
-    def get(self, request):
-        raw_data = request.GET.copy()
-        customer_id = raw_data.get("customer_id")
-        print customer_id
-        mobile_user = MobileUser.objects.get(id=customer_id)
-        subscriptions = Subscription.objects.all().filter(customer=mobile_user)
-        serializer = SubscriptionsSerializer(subscriptions, many=True).data
-        return Response(serializer, status=status.HTTP_200_OK)
-
-
+# Method to Punch the current Users Card
 class PunchCardAPI(APIView):
     def post(self, request):
         raw_data = request.POST.copy()
@@ -156,14 +146,17 @@ class PunchCardAPI(APIView):
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         try:
             # Checks to see that the Customer Exists
-            customer = MobileUser.objects.all().filter(id=customer_id)
+            customer = MobileUser.objects.get(id=customer_id) # Object
             try:
-                card_in_use = CardsInUse.objects.all().filter(id=card_id)[:1].get()
+                card_in_use = CardsInUse.objects.get(id=card_id)
                 # Checks to see if the user has reached their free Item
                 if (card_in_use.current + 1) is card_in_use.card.max:
-                    print "Customer gets their free item!"
-                    # 202 is the code that will code that will show FREE COFFEE
+                    card = Card.objects.get(id=card_in_use.card.id)  # Object
+                    # Creates a new Card
+                    CardsInUse.objects.create(customer=customer, card=card, current=0)
+                    CardsInUse.objects.all().filter(id=card_id).delete()  # Deletes the Card
                     context = {'message': 'Congratulations, you get your free item!'}
+                    # 202 is the code that will code that will show FREE COFFEE
                     return Response(context, status=status.HTTP_202_ACCEPTED)
                 card_in_use.current += 1
                 card_in_use.save()
@@ -175,9 +168,8 @@ class PunchCardAPI(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-
-# Get Specific vendor for user by ID
-class VendorByIDAPI(APIView):
+# GET Specific vendor for user by ID
+class VendorByIdAPI(APIView):
     def post(self, request):
         raw_data = request.POST.copy()
         vendor_id = raw_data.get('vendor_id')
@@ -187,7 +179,8 @@ class VendorByIDAPI(APIView):
         return Response(context, status=status.HTTP_200_OK)
 
 
-class VendorWithCards(APIView):
+# GET a list of ALL Vendors and their associated Cards
+class VendorsWithCardsAPI(APIView):
     def get(self, request):
         vendor_users = VendorUser.objects.values_list('vendor', flat=True)
         vendors = Vendor.objects.filter(id__in=vendor_users)
@@ -195,7 +188,8 @@ class VendorWithCards(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class CustomersCards(APIView):
+# Gets a list of Card In Use of a specific Customer
+class CustomersCardsAPI(APIView):
     def post(self, request):
         raw_data = request.POST.copy()
         customer_id = raw_data.get('customer_id')
@@ -206,21 +200,23 @@ class CustomersCards(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class SubscriptionsWithCardsInUse(APIView):
+# GETS a list of all the Customers Subscriptions and current Card Status
+class AllCustomersSubscriptionsAPI(APIView):
     def get(self, request):
         raw_data = request.GET.copy()
         customer_id = raw_data.get('customer_id')
         try:
             mobile_user = MobileUser.objects.get(id=customer_id)
             subscriptions = Subscription.objects.all().filter(customer=mobile_user)
+            # Creates a JSON with a list of all Subscriptions and card status
             serializer = SubscriptionsSerializerWithCardsInUse(subscriptions, many=True).data
             return Response(serializer, status=status.HTTP_200_OK)
         except:
-            print "customer_id invalid"
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-class SubscriptionCardsByVendorID(APIView):
+# GET a single Subscription with the Current Card Details
+class SingleSubscriptionAPI(APIView):
     def get(self, request):
         raw_data = request.GET.copy()
         customer_id = raw_data.get('customer_id')
@@ -247,22 +243,5 @@ class TestingAPI(APIView):
         type = raw_data.get('type') # Coffee or Pastry
         purchase = Purchase(vendor=vendor, customer=customer, date=now,
                             type=type).save()
-
         return Response(status=status.HTTP_200_OK)
 
-
-class ChangePasswordAPI(APIView):
-    def post(self, request):
-        raw_data = request.POST.copy()
-        username = request.user.username
-        current_password = raw_data.get('currentPassword')
-        new_password = raw_data.get('newPassword')
-        user = User.objects.get(username=username)
-
-    def get(self, request):
-        usr = User.objects.get(username='silby')
-        usr.set_password('silbyadmin')
-        usr.save()
-        print 'saved'
-        context = {'message': 'Password Changed Successfully'}
-        return Response(context, status=status.HTTP_200_OK)

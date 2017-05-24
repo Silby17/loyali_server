@@ -180,7 +180,6 @@ class RewardSerializer(serializers.ModelSerializer):
         fields = ['id', 'amount', 'type']
 
 
-
 class VendorRewardSerializer(serializers.ModelSerializer):
     rewards = serializers.SerializerMethodField()
 
@@ -199,7 +198,7 @@ class CustomerRewardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MobileUser
-        fields = fields = ['first_name', 'last_name', 'id', 'rewards']
+        fields = ['first_name', 'last_name', 'id', 'rewards']
 
     def get_rewards(self, obj):
         customer_rewards = self.context.get("customer_rewards")

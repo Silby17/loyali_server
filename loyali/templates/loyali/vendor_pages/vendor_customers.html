@@ -49,11 +49,13 @@
                     <thead>
                     <tr>
                         <th>Customer</th>
+                        <th width="25%">Email</th>
                     </tr>
                     </thead>
                     <tbody id="ly-customer-list">
                     {% for customer in customers %}
-                    <tr> <td><font color="#b80102"><strong>{{ customer.customer.full_name }}</strong></font></td></tr>
+                    <tr> <td><font color="#b80102"><strong>{{ customer.customer.full_name }}</strong></font></td>
+                        <td>{{ customer.customer.username }}</td></tr>
                     {% endfor %}
                     </tbody>
                 </table>

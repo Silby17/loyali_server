@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from loyali.models import Purchase
 from .models import MobileUser
 
 
@@ -42,10 +43,23 @@ class MobileUserSerializer(serializers.ModelSerializer):
 class MobileUserFirstNameSerialize(serializers.ModelSerializer):
     class Meta:
         model = MobileUser
-        fields = ['first_name', 'last_name', 'id']
+        fields = ['first_name', 'last_name', 'id', 'username']
 
     def to_representation(self, instance):
         representation = {
-            "full_name": instance.first_name + ' ' + instance.last_name
+            "full_name": instance.first_name + ' ' + instance.last_name,
+            "username": instance.username
         }
         return representation
+
+
+class PurchaseSerializer(serializers.ModelSerializer):
+    customer = serializers.SerializerMethodField(read_only=True)
+    class Meta:
+        model = Purchase
+        fields = ['customer', 'vendor', 'date', 'type']
+
+    def get_customer(self, obj):
+        customer = obj.customer
+        customer_data= customer.values('id', 'store_name')
+        return customer_data

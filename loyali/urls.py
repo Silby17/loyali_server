@@ -1,9 +1,9 @@
 from django.conf.urls import url
-
 from views import index, login, admin_main, vendor_main, contact_us, logout, \
     vendor_add, VendorAPI, admin_user_page, view_vendors, AdminUserAPI, saved_page, \
     redirect_to_main, view_users_page, full_vendors_page, delete_vendors, \
-    vendor_customers, AddCardAPI, VendorsCardsAPI
+    vendor_customers, AddCardAPI, VendorsCardsAPI, vendors_customer_rewards,\
+    customer_rewards_by_ID
 
 urlpatterns = [
 
@@ -27,11 +27,15 @@ urlpatterns = [
 
     url(r'^vendor/mainmenu', vendor_main, name='vendor_main'),
 
+    url(r'^vendor/rewards/byID/(?P<customer_id>[0-9]+)/$', customer_rewards_by_ID, name='customer_rewards_per_id'),
+
     url(r'^vendor/customers', vendor_customers, name='vendor_customers'),
 
     url(r'^vendor/addCard/', AddCardAPI.as_view(), name='vendor_add_card'),
 
     url(r'^vendor/viewCards/', VendorsCardsAPI.as_view(), name='view_cards'),
+
+    url(r'^vendor/rewards/', vendors_customer_rewards, name='vendor_rewards'),
 
     url(r'^vendor/', VendorAPI.as_view(), name='vendors'),
 

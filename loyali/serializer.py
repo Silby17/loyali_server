@@ -1,6 +1,7 @@
 from django.contrib.auth.models import Group, User
 from rest_framework import serializers
-from .models import VendorUser, Subscription, Card, Vendor, CardsInUse
+from loyaliapi.models import MobileUser
+from .models import VendorUser, Subscription, Card, Vendor, CardsInUse, Rewards
 from loyaliapi.serializer import MobileUserSerializer, MobileUserFirstNameSerialize
 
 
@@ -118,9 +119,9 @@ class CardsInUseSerializerWithCardDetails(serializers.ModelSerializer):
         model = CardsInUse
         fields = ['id', 'card', 'current']
 
-
     def get_card(self, obj):
-        return {'id': obj.card.id, 'description': obj.card.description, 'max': obj.card.max}
+        return {'id': obj.card.id, 'description': obj.card.description,
+                'max': obj.card.max, 'type': obj.card.type}
 
 
 class VendorWithCardsSerializer(serializers.ModelSerializer):
@@ -158,14 +159,6 @@ class SubscribedCustomersSerializer(serializers.ModelSerializer):
         fields = ['customer']
 
 
-class SubscriptionsSerializer(serializers.ModelSerializer):
-    vendor = VendorUserSerializer()
-
-    class Meta:
-        model = Subscription
-        fields = ['vendor']
-
-
 class SubscriptionsSerializerWithCardsInUse(serializers.ModelSerializer):
     vendor_user_id = serializers.PrimaryKeyRelatedField(source='vendor', read_only=True)
     vendor = VendorSerializer(source='vendor.vendor', read_only=True)
@@ -178,3 +171,36 @@ class SubscriptionsSerializerWithCardsInUse(serializers.ModelSerializer):
     def get_cards_in_use(self, obj):
         cards_in_use = CardsInUse.objects.filter(customer=obj.customer, card__vendor=obj.vendor.vendor)
         return CardsInUseSerializerWithCardDetails(cards_in_use, many=True).data
+
+
+class RewardSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Rewards
+        fields = ['id', 'amount', 'type']
+
+
+
+class VendorRewardSerializer(serializers.ModelSerializer):
+    rewards = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Vendor
+        fields = ['id', 'store_name', 'location', 'store_type', 'logo_title', 'phone',
+                  'rewards']
+
+    def get_rewards(self, obj):
+        vendor_rewards = self.context.get("vendor_rewards")
+        return RewardSerializer(vendor_rewards[obj.id], many=True).data
+
+
+class CustomerRewardSerializer(serializers.ModelSerializer):
+    rewards = serializers.SerializerMethodField()
+
+    class Meta:
+        model = MobileUser
+        fields = fields = ['first_name', 'last_name', 'id', 'rewards']
+
+    def get_rewards(self, obj):
+        customer_rewards = self.context.get("customer_rewards")
+        return RewardSerializer(customer_rewards[obj.id], many=True).data

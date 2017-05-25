@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <link rel="shortcut icon" href="{% static 'loyali/images/loyali_logo.ico' %}" type="image/x-icon">
-    <title>Vendors Cards</title>
+    <title>Vendor Cards</title>
 
     <!-- Bootstrap -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -19,7 +19,8 @@
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -29,7 +30,7 @@
                 <img src="{% static 'loyali/images/loyali_logo.png' %}" draggable="false" class="img-responsive"></a>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
+                <!-- Collect the nav links, forms, and other content for toggling -->
          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.username %}
@@ -41,10 +42,9 @@
         </div>
     </div>
 </nav>
-
 <div class="ly-middle-content">
     <div class="container">
-        <div class="ly-middle-content-in">
+        <div class="ly-form">
             <div class="ly-box-title ly-box-title-inner"><h1>Vendor Cards</h1></div>
             {% csrf_token %}
             <div class="table-responsive">
@@ -58,7 +58,8 @@
                     </thead>
                     <tbody id="ly-customer-list">
                     {% for item in cards %}
-                    <tr> <td><a href="#"><strong>{{ item.description }}</strong></a></td> <td>{{ item.max }}</td> <td>{{ item.type }}</td> </tr>
+                        <tr> <td><strong><font color="#b80102">{{ item.description }}</font></strong></td>
+                            <td>{{ item.max }}</td> <td>{{ item.type }}</td></tr>
                     {% endfor %}
                     </tbody>
                 </table>
@@ -66,7 +67,6 @@
         </div>
     </div>
 </div>
-
 
 <script src="{% static 'loyali/js/jquery.min.js' %}"></script>
 <script src="{% static 'loyali/js/bootstrap-select.js' %}"></script>

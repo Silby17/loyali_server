@@ -55,7 +55,12 @@
                     </thead>
                     <tbody id="ly-customer-list">
                     {% for customer in customer_rewards %}
-                    <tr> <td><font color="#b80102"><strong>{{ customer.customer.full_name }}</strong></font></td></tr>
+                        <tr> <td><font color="#b80102"><a href='byID/{{ customer.id }}/'><strong>{{ customer.first_name }} {{ customer.last_name }}</strong></a></font></td><td>{{ customer.rewards.0.type }}</td>
+                        <td>{{ customer.rewards.0.amount }}</td></tr>
+                        {% ifnotequal customer_rewards.rewards.1.id '' %}
+                            <tr> <td><font color="#b80102"><strong>{{ customer.first_name }} {{ customer.last_name }}</strong></font></td><td>{{ customer.rewards.1.type }}</td>
+                        <td>{{ customer.rewards.1.amount }}</td></tr>
+                        {% endifnotequal %}
                     {% endfor %}
                     </tbody>
                 </table>

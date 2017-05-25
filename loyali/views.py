@@ -11,9 +11,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.views import APIView
-from loyali.models import Vendor, Subscription, VendorUser, Card
+from loyali.models import Vendor, Subscription, VendorUser, Card, Rewards
 from loyali.serializer import VendorSerializer, VendorUserModelSerializer, \
-    AdminUserSerializer, SingleCardSerializer, SubscribedCustomersSerializer
+    AdminUserSerializer, SingleCardSerializer, SubscribedCustomersSerializer, \
+    CustomerRewardSerializer
 
 # Group name definitions
 VENDOR_STAFF_GROUP_NAME = 'vendor_staff'
@@ -115,7 +116,6 @@ def delete_vendors(request):
 
 
 class AdminUserAPI(APIView):
-
     # POST and create a new Admin User
     def post(self, request):
         raw_data = request.POST.copy()
@@ -146,6 +146,7 @@ class AdminUserAPI(APIView):
 
 
 # Allows a Vendor to add a new Card
+@login_required
 class AddCardAPI(APIView):
     def get(self, request):
         template = loader.get_template('loyali/vendor_pages/add_card.html')
@@ -174,6 +175,7 @@ class AddCardAPI(APIView):
 
 
 # Return a template and all the Cards of the Vendor
+@login_required
 class VendorsCardsAPI(APIView):
     def get(self, request):
         vendor = VendorUser.objects.get(id=request.user.id).vendor
@@ -183,6 +185,7 @@ class VendorsCardsAPI(APIView):
 
 
 # Gets all the Customers of a specific Vendor
+@login_required
 def vendor_customers(request):
     if request.method == 'GET':
         template = loader.get_template('loyali/vendor_pages/vendor_customers.html')
@@ -191,6 +194,99 @@ def vendor_customers(request):
         serializer = SubscribedCustomersSerializer(subscriptions, many=True).data
         context = {'customers': serializer}
         return HttpResponse(template.render(context, request))
+
+
+@login_required
+def vendors_customer_rewards(request):
+    if request.method == 'GET':
+        template = loader.get_template('loyali/vendor_pages/customer_rewards.html')
+        vendor_id = request.user.id
+        # Get all rewards of the Vendor
+        rewards = Rewards.objects.filter(vendor__id=vendor_id)
+        customer_wise_rewards = {}
+        customers = []
+        # Iterate through all the rewards
+        for reward in rewards:
+            if reward.customer.id not in customer_wise_rewards:
+                customer_wise_rewards[
+                    reward.customer.id] = []  # This makes a dictionary of keys as customer id and
+                # value as an empty list. in this list I am going to append rewards for this. Did you get it?
+                customers.append(reward.customer)
+            customer_wise_rewards[reward.customer.id].append(
+                reward)  # This is where I am appending reward corresponding to customer id
+        serializer = CustomerRewardSerializer(customers, many=True,
+                                              context={'customer_rewards': customer_wise_rewards}).data
+        context = {'customer_rewards': serializer}
+        return HttpResponse(template.render(context, request))
+
+
+@login_required
+def customer_rewards_by_id(request, customer_id):
+    template = loader.get_template('loyali/vendor_pages/single_customer_rewards.html')
+    print customer_id
+    vendor_id = request.user.id
+
+    rewards = Rewards.objects.filter(vendor__id=vendor_id, customer__id=customer_id)
+    customer_wise_rewards = {}
+    customers = []
+    # Iterate through all the rewards
+    for reward in rewards:
+        if reward.customer.id not in customer_wise_rewards:
+            customer_wise_rewards[
+                reward.customer.id] = []  # This makes a dictionary of keys as customer id and
+            # value as an empty list. in this list I am going to append rewards for this. Did you get it?
+            customers.append(reward.customer)
+
+        customer_wise_rewards[reward.customer.id].append(reward)
+    serializer = CustomerRewardSerializer(customers, many=True,
+                                          context={'customer_rewards':
+                                                       customer_wise_rewards}).data
+    context = {'customer_rewards': serializer}
+
+    return HttpResponse(template.render(context, request))
+
+
+# GET Rewards of a Specific Vendor
+@login_required
+class VendorRewardsAPI(APIView):
+    def get(self, request):
+        raw_data = request.GET.copy()
+        vendor_id = raw_data.get('vendor_id')
+        # Get all rewards of the Vendor
+        rewards = Rewards.objects.filter(vendor__id=vendor_id)
+        customer_wise_rewards = {}
+        customers = []
+        # Iterate through all the rewards
+        for reward in rewards:
+            if reward.customer.id not in customer_wise_rewards:
+                customer_wise_rewards[reward.customer.id] = []  # This makes a dictionary of keys as customer id and
+                # value as an empty list. in this list I am going to append rewards for this. Did you get it?
+                customers.append(reward.customer)
+
+            customer_wise_rewards[reward.customer.id].append(reward)
+        serializer = CustomerRewardSerializer(customers, many=True,
+                                            context={'customer_rewards':
+                                                         customer_wise_rewards}).data
+        context = {'customer_rewards': serializer}
+        return Response(context, status=status.HTTP_200_OK)
+
+
+@login_required
+class ChangePasswordAPI(APIView):
+    def post(self, request):
+        raw_data = request.POST.copy()
+        username = request.user.username
+        current_password = raw_data.get('currentPassword')
+        new_password = raw_data.get('newPassword')
+        user = User.objects.get(username=username)
+
+    def get(self, request):
+        usr = User.objects.get(username='silby')
+        usr.set_password('silbyadmin')
+        usr.save()
+        print 'saved'
+        context = {'message': 'Password Changed Successfully'}
+        return Response(context, status=status.HTTP_200_OK)
 
 
 # Redirects to the Login Page

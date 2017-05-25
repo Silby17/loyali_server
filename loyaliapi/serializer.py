@@ -47,6 +47,7 @@ class MobileUserFirstNameSerialize(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = {
+            "id": instance.id,
             "full_name": instance.first_name + ' ' + instance.last_name,
             "username": instance.username
         }

@@ -44,19 +44,22 @@
     <div class="container">
         <div class="ly-middle-content-in">
             <div class="ly-box-title ly-box-title-inner"><h1>Customers</h1></div>
-        <h6>Click on a Customers name to View their Rewards</h6>
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
                     <tr>
                         <th>Customer</th>
-                        <th width="25%">Email</th>
+                        <th>Email</th>
+                        <th>Rewards</th>
+                        <th>Purchase History</th>
                     </tr>
                     </thead>
                     <tbody id="ly-customer-list">
                     {% for customer in customers %}
-                        <tr> <td><font color="#b80102"><a href='rewards/byID/{{ customer.customer.id }}/'><strong>{{ customer.customer.full_name }}</strong></a></font></td>
-                            <td><a href="mailto:{{  customer.customer.username }}">{{ customer.customer.username }}</a></td></tr>
+                        <tr> <td><font color="#b80102"><strong>{{ customer.customer.full_name }}</strong></font></td>
+                            <td><a href="mailto:{{  customer.customer.username }}">{{ customer.customer.username }}</a></td>
+                            <td><a href='rewards/byID/{{ customer.customer.id }}/'>View</a></td>
+                            <td><a href='/{{ customer.customer.id }}/'>View</a></td></tr>
                     {% endfor %}
                     </tbody>
                 </table>

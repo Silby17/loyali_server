@@ -1,4 +1,3 @@
-import datetime
 from django.contrib import auth
 from django.contrib.auth.models import Group
 from django.core.mail import EmailMessage
@@ -7,11 +6,12 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from loyali.models import VendorUser, Subscription, Card, CardsInUse, Vendor, Purchase
-from loyali.serializer import VendorSerializer, VendorWithCardsSerializer,\
-    CardsInUseSerializer, SubscriptionsSerializerWithCardsInUse
+from loyali.models import VendorUser, Subscription, Card, CardsInUse, Vendor, Rewards
+from loyali.serializer import VendorSerializer, VendorWithCardsSerializer, \
+    CardsInUseSerializer, SubscriptionsSerializerWithCardsInUse, RewardSerializer
 from loyaliapi.models import MobileUser
-from loyaliapi.serializer import MobileUserModelSerializer, PurchaseSerializer
+from loyaliapi.serializer import MobileUserModelSerializer, PurchaseSerializer,\
+    VendorRewardSerializer
 
 CUSTOMER_GROUP_NAME = 'Customer'
 ADMIN_GROUP_NAME = 'Admin'
@@ -52,6 +52,7 @@ class CheckUserCredentialsAPI(APIView):
     def post(self, request):
         raw_data = request.POST.copy()
         username = raw_data.get('username')
+        print username, ' - is trying to Login'
         password = raw_data.get('password')
         try:
             # Checks if the user exists
@@ -66,6 +67,7 @@ class CheckUserCredentialsAPI(APIView):
             else:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
         except MobileUser.DoesNotExist:
+            print 'Does not Exists'
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
@@ -140,13 +142,12 @@ class PunchCardAPI(APIView):
         customer_id = raw_data.get('customer_id')
         barcode = raw_data.get('barcode')
         card_id = raw_data.get('card_id')
-        print 'Customer_id: ', customer_id, ' Barcode: ', barcode, ' card_id: ', card_id
         # Checks if the QR Code that is scanned is Valid
         if barcode != QR_BARCODE:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         try:
             # Checks to see that the Customer Exists
-            customer = MobileUser.objects.get(id=customer_id) # Object
+            customer = MobileUser.objects.get(id=customer_id)  # Object
             try:
                 card_in_use = CardsInUse.objects.get(id=card_id)
                 # Checks to see if the user has reached their free Item
@@ -156,6 +157,20 @@ class PunchCardAPI(APIView):
                     CardsInUse.objects.create(customer=customer, card=card, current=0)
                     CardsInUse.objects.all().filter(id=card_id).delete()  # Deletes the Card
                     context = {'message': 'Congratulations, you get your free item!'}
+                    # Gets the Vendor
+                    vendor = Vendor.objects.get(id=card_in_use.card.vendor.id)
+                    try:
+                        # Check if reward exists
+                        rewards = Rewards.objects.get(customer=customer, vendor=vendor, type=card_in_use.card.type)
+                        rewards.amount += 1
+                        rewards.save()
+                    # If the reward doesnt exist
+                    except:
+                        # Create a new Rewards entry
+                        Rewards.objects.create(customer=customer, vendor=vendor,
+                                               type=card_in_use.card.type,
+                                               amount=1).save()
+                        return Response(context, status=status.HTTP_201_CREATED)
                     # 202 is the code that will code that will show FREE COFFEE
                     return Response(context, status=status.HTTP_202_ACCEPTED)
                 card_in_use.current += 1
@@ -196,7 +211,6 @@ class CustomersCardsAPI(APIView):
         customer = MobileUser.objects.get(id=customer_id)
         customers_cards = CardsInUse.objects.all().filter(customer=customer)
         serializer = CardsInUseSerializer(customers_cards, many=True)
-        print serializer.data
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -230,18 +244,59 @@ class SingleSubscriptionAPI(APIView):
         return Response(serializer, status=status.HTTP_200_OK)
 
 
-class TestingAPI(APIView):
-    serializer_class = PurchaseSerializer
-
-    def post(self, request):
-        raw_data = request.POST.copy()
+# GET Rewards of a Specific Customer
+class CustomerRewardsAPI(APIView):
+    def get(self, request):
+        raw_data = request.GET.copy()
         customer_id = raw_data.get('customer_id')
         vendor_id = raw_data.get('vendor_id')
-        vendor = Vendor.objects.all().filter(id=vendor_id)[:1].get()
-        customer = MobileUser.objects.all().filter(id=customer_id)[:1].get()
-        now = datetime.datetime.now()
-        type = raw_data.get('type') # Coffee or Pastry
-        purchase = Purchase(vendor=vendor, customer=customer, date=now,
-                            type=type).save()
+
+        if not vendor_id:
+            # Get all rewards of the Customer
+            rewards = Rewards.objects.filter(customer__id=customer_id)
+        else:
+            rewards = Rewards.objects.filter(customer__id=customer_id, vendor__id=vendor_id)
+
+        vendor_wise_rewards = {}
+        vendors = []
+        # Iterate through all the rewards
+        for reward in rewards:
+            if reward.vendor.id not in vendor_wise_rewards:
+                vendor_wise_rewards[reward.vendor.id] = [] # this makes a dictionary of keys as vendor id and
+                # value as an empty list. in this list I am going to append rewards for this. Did you get it?
+                vendors.append(reward.vendor)
+
+            vendor_wise_rewards[reward.vendor.id].append(reward)        # This is wehere I am appending reward
+            # corresponding to vendorid
+        serializer = VendorRewardSerializer(vendors, many=True,
+                                            context={'vendor_rewards':
+                                                         vendor_wise_rewards}).data
+        return Response(serializer, status=status.HTTP_200_OK)
+
+
+# Method that will redeem the Reward of the Customer
+class RedeemReward(APIView):
+    def post(self, request):
+        raw_data = request.POST.copy()
+        reward_id = raw_data.get('reward_id')
+        try:
+            # Retrieves the Reward
+            reward = Rewards.objects.get(id=reward_id)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        # Decrements reward by 1
+        reward.amount -= 1
+        reward.save()
+        # Checks if the Reward is equal to 0
+        if reward.amount == 0:
+            reward.delete()
+        context = {'message': "Redeemed"}
+        return Response(context, status=status.HTTP_200_OK)
+
+
+# This method is for testing Purposes
+class TestingAPI(APIView):
+    def get(self, request):
+
         return Response(status=status.HTTP_200_OK)
 

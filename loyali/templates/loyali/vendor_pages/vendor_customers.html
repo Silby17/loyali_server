@@ -59,7 +59,7 @@
                         <tr> <td><font color="#b80102"><strong>{{ customer.customer.full_name }}</strong></font></td>
                             <td><a href="mailto:{{  customer.customer.username }}">{{ customer.customer.username }}</a></td>
                             <td><a href='rewards/byID/{{ customer.customer.id }}/'>View</a></td>
-                            <td><a href='/{{ customer.customer.id }}/'>View</a></td></tr>
+                            <td><a href='purchases/byID/{{ customer.customer.id }}/'>View</a></td></tr>
                     {% endfor %}
                     </tbody>
                 </table>

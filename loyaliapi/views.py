@@ -6,9 +6,10 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from loyali.models import VendorUser, Subscription, Card, CardsInUse, Vendor, Rewards
+from loyali.models import VendorUser, Subscription, Card, CardsInUse, Vendor, Rewards, \
+    Purchase
 from loyali.serializer import VendorSerializer, VendorWithCardsSerializer, \
-    CardsInUseSerializer, SubscriptionsSerializerWithCardsInUse, RewardSerializer
+    CardsInUseSerializer, SubscriptionsSerializerWithCardsInUse
 from loyaliapi.models import MobileUser
 from loyaliapi.serializer import MobileUserModelSerializer, PurchaseSerializer,\
     VendorRewardSerializer
@@ -142,6 +143,8 @@ class PunchCardAPI(APIView):
         customer_id = raw_data.get('customer_id')
         barcode = raw_data.get('barcode')
         card_id = raw_data.get('card_id')
+        print 'customer_id: ', customer_id
+        print 'card_id: ', card_id
         # Checks if the QR Code that is scanned is Valid
         if barcode != QR_BARCODE:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
@@ -170,11 +173,21 @@ class PunchCardAPI(APIView):
                         Rewards.objects.create(customer=customer, vendor=vendor,
                                                type=card_in_use.card.type,
                                                amount=1).save()
+                        # Creates a new Purchase entry
+                        Purchase.objects.create(customer=customer, vendor=vendor,
+                                                type=card_in_use.card.type).save()
                         return Response(context, status=status.HTTP_201_CREATED)
                     # 202 is the code that will code that will show FREE COFFEE
                     return Response(context, status=status.HTTP_202_ACCEPTED)
+                # Increment punch by one
                 card_in_use.current += 1
                 card_in_use.save()
+                # Get the Vendor ID
+                vendor_id = card_in_use.card.vendor.id
+                # Gets the Vendor
+                vendor = Vendor.objects.get(id=vendor_id)
+                # Creates a Purchase for this Transaction
+                Purchase.objects.create(customer=customer, vendor=vendor, type=card_in_use.card.type).save()
                 context = {'message': "Punched!"}
                 return Response(context, status=status.HTTP_201_CREATED)
             except:

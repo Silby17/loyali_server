@@ -6,13 +6,13 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from loyaliapi.models import MobileUser
 from loyali.models import VendorUser, Subscription, Card, CardsInUse, Vendor, Rewards, \
     Purchase
+from loyaliapi.serializer import MobileUserModelSerializer, VendorRewardSerializer
 from loyali.serializer import VendorSerializer, VendorWithCardsSerializer, \
     CardsInUseSerializer, SubscriptionsSerializerWithCardsInUse
-from loyaliapi.models import MobileUser
-from loyaliapi.serializer import MobileUserModelSerializer, PurchaseSerializer,\
-    VendorRewardSerializer
+
 
 CUSTOMER_GROUP_NAME = 'Customer'
 ADMIN_GROUP_NAME = 'Admin'
@@ -309,7 +309,9 @@ class RedeemReward(APIView):
 
 # This method is for testing Purposes
 class TestingAPI(APIView):
-    def get(self, request):
+    def post(self):
+        return Response(status=status.HTTP_200_OK)
 
+    def get(self, request):
         return Response(status=status.HTTP_200_OK)
 

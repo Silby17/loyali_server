@@ -1,9 +1,8 @@
 from django.conf.urls import url
 from views import MobileUserAPI, CheckUserCredentialsAPI, AddSubscriptionAPI, \
-    VendorByIdAPI, \
-    VendorsWithCardsAPI, CustomersCardsAPI, AllCustomersSubscriptionsAPI, \
+    VendorByIdAPI, VendorsWithCardsAPI, CustomersCardsAPI, AllCustomersSubscriptionsAPI, \
     SingleSubscriptionAPI, TestingAPI, DeleteSubscriptionAPI, PunchCardAPI, \
-    CustomerRewardsAPI
+    CustomerRewardsAPI, RedeemReward
 
 urlpatterns = [
 
@@ -28,6 +27,8 @@ urlpatterns = [
     url(r'^mobile/customerCards/', CustomersCardsAPI.as_view(), name='customers_cards'),
 
     url(r'^mobile/punchCard/', PunchCardAPI.as_view(), name='punch_card'),
+
+    url(r'^mobile/redeemReward/', RedeemReward.as_view(), name='redeem_reward'),
 
     url(r'^testingAPI/', TestingAPI.as_view(), name='testing_api'),
 

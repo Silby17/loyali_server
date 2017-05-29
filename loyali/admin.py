@@ -15,7 +15,7 @@ class VendorAdmin(admin.ModelAdmin):
 
 
 class CardAdmin(admin.ModelAdmin):
-    list_display = ('id', 'max', 'description')
+    list_display = ('id', 'max', 'description', 'type')
 
 
 class CardsInUseAdmin(admin.ModelAdmin):
@@ -23,7 +23,7 @@ class CardsInUseAdmin(admin.ModelAdmin):
 
 
 class PurchaseAdmin(admin.ModelAdmin):
-    list_display = ('id', 'vendor', 'customer', 'type')
+    list_display = ('id', 'vendor', 'customer', 'type', 'date')
 
 
 class RewardsAdmin(admin.ModelAdmin):

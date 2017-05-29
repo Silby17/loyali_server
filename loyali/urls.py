@@ -2,8 +2,8 @@ from django.conf.urls import url
 from views import index, login, admin_main, vendor_main, contact_us, logout, \
     vendor_add, VendorAPI, admin_user_page, view_vendors, AdminUserAPI, saved_page, \
     redirect_to_main, view_users_page, full_vendors_page, delete_vendors, \
-    vendor_customers, AddCardAPI, VendorsCardsAPI, vendors_customer_rewards,\
-    customer_rewards_by_ID
+    vendor_customers, AddCardAPI, VendorsCardsAPI, vendors_customer_rewards, \
+    customer_rewards_by_id, all_purchases, customer_purchase_by_id
 
 urlpatterns = [
 
@@ -27,9 +27,15 @@ urlpatterns = [
 
     url(r'^vendor/mainmenu', vendor_main, name='vendor_main'),
 
-    url(r'^vendor/rewards/byID/(?P<customer_id>[0-9]+)/$', customer_rewards_by_ID, name='customer_rewards_per_id'),
+    url(r'^vendor/rewards/byID/(?P<customer_id>[0-9]+)/$', customer_rewards_by_id,
+        name='customer_rewards_per_id'),
+
+    url(r'^vendor/purchases/byID/(?P<customer_id>[0-9]+)/$', customer_purchase_by_id,
+        name='customer_purchase'),
 
     url(r'^vendor/customers', vendor_customers, name='vendor_customers'),
+
+    url(r'^vendor/allPurchases', all_purchases, name='all_purchases'),
 
     url(r'^vendor/addCard/', AddCardAPI.as_view(), name='vendor_add_card'),
 

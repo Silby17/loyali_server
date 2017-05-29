@@ -11,12 +11,15 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.views import APIView
-from loyali.models import Vendor, Subscription, VendorUser, Card, Rewards
+from loyali.models import Vendor, Subscription, VendorUser, Card, Rewards, Purchase
 from loyali.serializer import VendorSerializer, VendorUserModelSerializer, \
     AdminUserSerializer, SingleCardSerializer, SubscribedCustomersSerializer, \
-    CustomerRewardSerializer
+    CustomerRewardSerializer, PurchaseSerializer, SingleCustomerPurchaseSerializer
 
 # Group name definitions
+from loyaliapi.models import MobileUser
+from loyaliapi.serializer import MobileUserFullNameSerialize
+
 VENDOR_STAFF_GROUP_NAME = 'vendor_staff'
 VENDOR_GROUP_NAME = 'Vendor'
 ADMIN_GROUP_NAME = 'Admin'
@@ -146,7 +149,6 @@ class AdminUserAPI(APIView):
 
 
 # Allows a Vendor to add a new Card
-@login_required
 class AddCardAPI(APIView):
     def get(self, request):
         template = loader.get_template('loyali/vendor_pages/add_card.html')
@@ -175,7 +177,6 @@ class AddCardAPI(APIView):
 
 
 # Return a template and all the Cards of the Vendor
-@login_required
 class VendorsCardsAPI(APIView):
     def get(self, request):
         vendor = VendorUser.objects.get(id=request.user.id).vendor
@@ -223,10 +224,13 @@ def vendors_customer_rewards(request):
 @login_required
 def customer_rewards_by_id(request, customer_id):
     template = loader.get_template('loyali/vendor_pages/single_customer_rewards.html')
-    print customer_id
+    print 'customer_id: ', customer_id
     vendor_id = request.user.id
+    print 'Vendor_id', vendor_id
+    vendor_user = VendorUser.objects.get(id=vendor_id)
+    id = vendor_user.vendor.id
 
-    rewards = Rewards.objects.filter(vendor__id=vendor_id, customer__id=customer_id)
+    rewards = Rewards.objects.filter(vendor__id=id, customer__id=customer_id)
     customer_wise_rewards = {}
     customers = []
     # Iterate through all the rewards
@@ -242,7 +246,37 @@ def customer_rewards_by_id(request, customer_id):
                                           context={'customer_rewards':
                                                        customer_wise_rewards}).data
     context = {'customer_rewards': serializer}
+    return HttpResponse(template.render(context, request))
 
+
+def all_purchases(request):
+    template = loader.get_template('loyali/vendor_pages/all_purchase_history.html')
+    vendor_id = request.user.id
+    vendor_user = VendorUser.objects.get(id=vendor_id)
+    vendor = vendor_user.vendor
+
+    purchases = Purchase.objects.all().filter(vendor=vendor)
+    serializer = PurchaseSerializer(purchases, many=True).data
+    context = {'all_puchases': serializer}
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def customer_purchase_by_id(request, customer_id):
+    template = loader.get_template('loyali/vendor_pages/single_customer_purchases.html')
+    # Get the VendorUser object
+    vendor_user = VendorUser.objects.get(id=request.user.id)
+    vendor = vendor_user.vendor
+    # Gets the MobileUser Object
+    customer = MobileUser.objects.get(id=customer_id)
+
+    # Gets all the purchases of the customer
+    purchases = Purchase.objects.all().filter(vendor=vendor, customer=customer)
+    serializer = SingleCustomerPurchaseSerializer(purchases, many=True).data
+    # Serializes the Customer details
+    user_serializer = MobileUserFullNameSerialize(customer).data
+    # Creates context dictionary to pass to template
+    context = {'purchases': serializer, 'customer': user_serializer}
     return HttpResponse(template.render(context, request))
 
 

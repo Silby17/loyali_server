@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from loyali.models import Purchase
+from loyali.models import Rewards, Vendor
 from .models import MobileUser
 
 
@@ -54,13 +54,33 @@ class MobileUserFirstNameSerialize(serializers.ModelSerializer):
         return representation
 
 
-class PurchaseSerializer(serializers.ModelSerializer):
-    customer = serializers.SerializerMethodField(read_only=True)
+class MobileUserFullNameSerialize(serializers.ModelSerializer):
     class Meta:
-        model = Purchase
-        fields = ['customer', 'vendor', 'date', 'type']
+        model = MobileUser
+        fields = ['first_name', 'last_name', 'id', 'username']
 
-    def get_customer(self, obj):
-        customer = obj.customer
-        customer_data= customer.values('id', 'store_name')
-        return customer_data
+    def to_representation(self, instance):
+        representation = {
+            "full_name": instance.first_name + ' ' + instance.last_name
+        }
+        return representation
+
+
+class RewardSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Rewards
+        fields = ['id', 'amount', 'type']
+
+
+class VendorRewardSerializer(serializers.ModelSerializer):
+    rewards = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Vendor
+        fields = ['id', 'store_name', 'location', 'store_type', 'logo_title', 'phone',
+                  'rewards']
+
+    def get_rewards(self, obj):
+        vendor_rewards = self.context.get("vendor_rewards")
+        return RewardSerializer(vendor_rewards[obj.id], many=True).data

@@ -2,7 +2,8 @@ from django.contrib.auth.models import Group, User
 from rest_framework import serializers
 from loyaliapi.models import MobileUser
 from .models import VendorUser, Subscription, Card, Vendor, CardsInUse, Rewards, Purchase
-from loyaliapi.serializer import MobileUserSerializer, MobileUserFirstNameSerialize
+from loyaliapi.serializer import MobileUserSerializer, MobileUserFirstNameSerialize, \
+    MobileUserFullNameSerialize
 
 
 class VendorSerializer(serializers.ModelSerializer):
@@ -193,12 +194,25 @@ class CustomerRewardSerializer(serializers.ModelSerializer):
 
 
 class PurchaseSerializer(serializers.ModelSerializer):
-    customer = MobileUserFirstNameSerialize()
+    customer = MobileUserFullNameSerialize()
     date = serializers.SerializerMethodField('get_formatted_date')
 
     class Meta:
         model = Purchase
         fields = ['customer', 'vendor', 'type', 'date']
+
+    # Formats the Date
+    def get_formatted_date(self, obj):
+        return obj.date.strftime("%d %b %Y")
+
+
+class SingleCustomerPurchaseSerializer(serializers.ModelSerializer):
+    # customer = MobileUserFullNameSerialize()
+    date = serializers.SerializerMethodField('get_formatted_date')
+
+    class Meta:
+        model = Purchase
+        fields = ['type', 'date']
 
     # Formats the Date
     def get_formatted_date(self, obj):

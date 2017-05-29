@@ -46,7 +46,7 @@ class CardsInUse(models.Model):
 
 class Rewards(models.Model):
     customer = models.ForeignKey(MobileUser, on_delete=models.CASCADE)
-    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
+    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE, related_name="rewards")
     type = models.CharField(max_length=100, blank=True)
     amount = models.IntegerField()
 

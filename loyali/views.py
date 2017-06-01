@@ -255,7 +255,7 @@ def all_purchases(request):
     vendor_user = VendorUser.objects.get(id=vendor_id)
     vendor = vendor_user.vendor
 
-    purchases = Purchase.objects.all().filter(vendor=vendor)
+    purchases = Purchase.objects.all().filter(vendor=vendor).order_by('-date')
     serializer = PurchaseSerializer(purchases, many=True).data
     context = {'all_puchases': serializer}
     return HttpResponse(template.render(context, request))
@@ -271,7 +271,7 @@ def customer_purchase_by_id(request, customer_id):
     customer = MobileUser.objects.get(id=customer_id)
 
     # Gets all the purchases of the customer
-    purchases = Purchase.objects.all().filter(vendor=vendor, customer=customer)
+    purchases = Purchase.objects.all().filter(vendor=vendor, customer=customer).order_by('-date')
     serializer = SingleCustomerPurchaseSerializer(purchases, many=True).data
     # Serializes the Customer details
     user_serializer = MobileUserFullNameSerialize(customer).data
@@ -306,21 +306,29 @@ class VendorRewardsAPI(APIView):
 
 
 @login_required
-class ChangePasswordAPI(APIView):
-    def post(self, request):
-        raw_data = request.POST.copy()
-        username = request.user.username
-        current_password = raw_data.get('currentPassword')
-        new_password = raw_data.get('newPassword')
-        user = User.objects.get(username=username)
+def change_password(request):
+    template = loader.get_template('loyali/vendor_pages/change_password.html')
+    if request.method == 'GET':
+        context = {'menu': 'change password'}
+        context.update(csrf(request))
+        return HttpResponse(template.render(context, request))
 
-    def get(self, request):
-        usr = User.objects.get(username='silby')
-        usr.set_password('silbyadmin')
-        usr.save()
-        print 'saved'
-        context = {'message': 'Password Changed Successfully'}
-        return Response(context, status=status.HTTP_200_OK)
+    if request.method == 'POST':
+        raw_data = request.POST.copy()
+        new_pass = raw_data.get('password')
+        new_verify_pass = raw_data.get('verify_password')
+        # Checks that the new passwords match
+        if new_pass != new_verify_pass:
+            context = {'error_message': 'Passwords do not match'}
+            context.update(csrf(request))
+            return HttpResponse(template.render(context, request))
+        else:
+            raw_data = request.POST.copy()
+            username = request.user.username
+            user = User.objects.get(username=username)
+            user.set_password(new_pass)
+            user.save()
+            return redirect(reverse('saved'))
 
 
 # Redirects to the Login Page

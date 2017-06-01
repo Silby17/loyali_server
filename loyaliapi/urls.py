@@ -2,7 +2,7 @@ from django.conf.urls import url
 from views import MobileUserAPI, CheckUserCredentialsAPI, AddSubscriptionAPI, \
     VendorByIdAPI, VendorsWithCardsAPI, CustomersCardsAPI, AllCustomersSubscriptionsAPI, \
     SingleSubscriptionAPI, TestingAPI, DeleteSubscriptionAPI, PunchCardAPI, \
-    CustomerRewardsAPI, RedeemReward
+    CustomerRewardsAPI, RedeemReward, AllPurchases
 
 urlpatterns = [
 
@@ -21,6 +21,8 @@ urlpatterns = [
     url(r'^deleteSubscription/', DeleteSubscriptionAPI.as_view(), name='delete_subscriptions'),
 
     url(r'^mobile/vendorsAndCards/', VendorsWithCardsAPI.as_view(), name='customers_vendors_and_cards'),
+
+    url(r'^customer/allPurchases/', AllPurchases.as_view(), name='all_purchases'),
 
     url(r'^mobile/rewards/', CustomerRewardsAPI.as_view(), name='customer_rewards'),
 

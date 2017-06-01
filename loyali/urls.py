@@ -4,7 +4,8 @@ from views import index, login, admin_main, vendor_main, contact_us, logout, \
     redirect_to_main, view_users_page, full_vendors_page, delete_vendors, \
     vendor_customers, AddCardAPI, VendorsCardsAPI, vendors_customer_rewards, \
     customer_rewards_by_id, all_purchases, customer_purchase_by_id, change_password, \
-    message_menu, pubnub_send_batch_message, pubnub_send_single_message
+    message_menu, pubnub_send_batch_message, pubnub_send_single_message, \
+    VendorCustomersAPI
 
 urlpatterns = [
 
@@ -19,6 +20,8 @@ urlpatterns = [
     url(r'^admin/users/', AdminUserAPI.as_view(), name='admin_users'),
 
     url(r'^admin/viewusers/', view_users_page, name='view_users'),
+
+    url(r'^vendor/customersAPI/', VendorCustomersAPI.as_view(), name='vendors_customers_API'),
 
     url(r'^admin/add_user/', admin_user_page, name='add_admin-user'),
 

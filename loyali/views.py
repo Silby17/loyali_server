@@ -15,6 +15,11 @@ from loyali.models import Vendor, Subscription, VendorUser, Card, Rewards, Purch
 from loyali.serializer import VendorSerializer, VendorUserModelSerializer, \
     AdminUserSerializer, SingleCardSerializer, SubscribedCustomersSerializer, \
     CustomerRewardSerializer, PurchaseSerializer, SingleCustomerPurchaseSerializer
+from pubnub.callbacks import SubscribeCallback
+from pubnub.enums import PNStatusCategory
+from pubnub.exceptions import PubNubException
+from pubnub.pnconfiguration import PNConfiguration
+from pubnub.pubnub import PubNub
 
 # Group name definitions
 from loyaliapi.models import MobileUser
@@ -197,6 +202,16 @@ def vendor_customers(request):
         return HttpResponse(template.render(context, request))
 
 
+class VendorCustomersAPI(APIView):
+    def get(self, request):
+        vendor_id = 3
+        # request.user.id
+        vendor = VendorUser.objects.get(id=vendor_id)
+        subscriptions = Subscription.objects.all().filter(vendor=vendor)
+        serializer = SubscribedCustomersSerializer(subscriptions, many=True).data
+        return Response(serializer)
+
+
 @login_required
 def vendors_customer_rewards(request):
     if request.method == 'GET':
@@ -331,6 +346,75 @@ def change_password(request):
             return redirect(reverse('saved'))
 
 
+@login_required
+def pubnub_send_batch_message(request):
+    template = loader.get_template('loyali/vendor_pages/messenger_pages/send_batch_message.html')
+    # Returns the HTML
+    if request.method == 'GET':
+        context = {'menu': "batch_message"}
+        return HttpResponse(template.render(context, request))
+
+    if request.method == 'POST':
+        raw_data = request.POST.copy()
+        title = raw_data.get('title')
+        message = raw_data.get('message')
+        broadcast_channel = 'AppBroadcast'
+        '''
+        # Build the broadcast message payload
+        message_to_send = {"pn_gcm": {
+            'data': {'MsgTypeID': 2, 'nTitle': title, 'message': message}}}
+        try:
+            # Tries to publish the Broadcast Message
+            envelope = pubnub.publish().channel(broadcast_channel).message(
+                message_to_send).sync()
+            print('Publish time token: %d' % envelope.result.timetoken)
+            return redirect(reverse('sent'))
+        except PubNubException as e:
+            print 'Pubnub error: ', e
+            return HttpResponse(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+'''
+
+
+@login_required
+def pubnub_send_single_message(request):
+    template = loader.get_template('loyali/vendor_pages/messenger_pages/send_single_message_new.html')
+    # The GET Method
+    if request.method == "GET":
+        context = {'page': 'new_single_message'}
+        context.update(csrf(request))
+        return HttpResponse(template.render(context, request))
+
+    if request.method == 'POST':
+        raw_data = request.POST.copy()
+        title = raw_data.get('title')
+        message = raw_data.get('message')
+        '''
+        try:
+            customer_id = raw_data.pop('customer_id')[0]
+        except:
+            context = {'error_message': 'Please choose a recipient on the left'}
+            context.update(csrf(request))
+            return HttpResponse(template.render(context, request))
+        try:
+            mobile_user = MobileUser.objects.get(id=customer_id)
+            if mobile_user is None:
+                context = {'error_message': "User not registered (Code 400)"}
+                return HttpResponse(template.render(context, request))
+        except:
+            return HttpResponse("Invalid customer", status=400)
+        customer_channel = 'USER_' + str(customer_id)
+        message_payload = {'MsgTypeID': 1, 'nTitle': title, 'message': message}
+        message_to_send = {"pn_gcm": {'data': message_payload}}
+        try:
+            envelope = pubnub.publish().channel(customer_channel).message(
+                message_to_send).sync()
+            print('Publish time token: %d' % envelope.result.timetoken)
+            return redirect(reverse('sent'))
+        except PubNubException as e:
+            print 'Punbun Exception: ', e
+            return HttpResponse(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+'''
+
 # Redirects to the Login Page
 def index(request):
     template = loader.get_template('loyali/login.html')
@@ -429,5 +513,15 @@ def full_vendors_page(request):
     template = loader.get_template('loyali/vendor_list.html')
     context = {
         'vendors': "full_vendor_list"
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def message_menu(request):
+    template = loader.get_template(
+        'loyali/vendor_pages/messenger_pages/message_service_menu.html')
+    context = {
+        'menu': "menu"
     }
     return HttpResponse(template.render(context, request))

@@ -9,7 +9,8 @@ from rest_framework.views import APIView
 from loyaliapi.models import MobileUser
 from loyali.models import VendorUser, Subscription, Card, CardsInUse, Vendor, Rewards, \
     Purchase
-from loyaliapi.serializer import MobileUserModelSerializer, VendorRewardSerializer
+from loyaliapi.serializer import MobileUserModelSerializer, VendorRewardSerializer, \
+    AllCustomersPurchasesSerializer
 from loyali.serializer import VendorSerializer, VendorWithCardsSerializer, \
     CardsInUseSerializer, SubscriptionsSerializerWithCardsInUse
 
@@ -61,8 +62,8 @@ class CheckUserCredentialsAPI(APIView):
             auth_user = auth.authenticate(username=username, password=password)
             if auth_user is not None:
                 print 'Mobile User:', username, ' - has logged in'
-                user_result = {'username': username,
-                           'id': auth_user.id}
+                user_result = {'username': username, 'id': auth_user.id,
+                               'first_name': auth_user.first_name, 'last_name': auth_user.last_name}
                 context = {'user_result': user_result}
                 return Response(context, status=status.HTTP_200_OK)
             else:
@@ -307,11 +308,33 @@ class RedeemReward(APIView):
         return Response(context, status=status.HTTP_200_OK)
 
 
+# GET all the purchases of the customer
+class AllPurchases(APIView):
+    def get(self, request):
+        raw_data = request.GET.copy()
+        customer_id = raw_data.get('customer_id')
+        try:
+            # Gets the Query from the DB and sorts according to Date
+            purchases = Purchase.objects.all().filter(customer__id=customer_id).order_by('-date')
+            serializer = AllCustomersPurchasesSerializer(purchases, many=True).data
+            return Response(serializer, status=status.HTTP_200_OK)
+        except:
+            context = {"message": "None Found"}
+            return Response(context, status=status.HTTP_404_NOT_FOUND)
+
+
 # This method is for testing Purposes
 class TestingAPI(APIView):
     def post(self):
         return Response(status=status.HTTP_200_OK)
 
     def get(self, request):
-        return Response(status=status.HTTP_200_OK)
+        raw_data = request.GET.copy()
+        customer_id = raw_data.get('customer_id')
+
+        purchases = Purchase.objects.all().filter(customer__id=customer_id)
+        seriali = AllCustomersPurchasesSerializer(purchases, many=True).data
+        print seriali
+
+        return Response(seriali, status=status.HTTP_200_OK)
 

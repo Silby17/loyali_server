@@ -3,7 +3,7 @@ from views import index, login, admin_main, vendor_main, contact_us, logout, \
     vendor_add, VendorAPI, admin_user_page, view_vendors, AdminUserAPI, saved_page, \
     redirect_to_main, view_users_page, full_vendors_page, delete_vendors, \
     vendor_customers, AddCardAPI, VendorsCardsAPI, vendors_customer_rewards, \
-    customer_rewards_by_id, all_purchases, customer_purchase_by_id
+    customer_rewards_by_id, all_purchases, customer_purchase_by_id, change_password
 
 urlpatterns = [
 
@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^admin/deleteVendors', delete_vendors, name='delete_vendors'),
 
     url(r'^vendor/mainmenu', vendor_main, name='vendor_main'),
+
+    url(r'^vendor/settings/changePassword', change_password, name='change_password'),
 
     url(r'^vendor/rewards/byID/(?P<customer_id>[0-9]+)/$', customer_rewards_by_id,
         name='customer_rewards_per_id'),

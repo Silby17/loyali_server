@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect, render_to_response
 from django.core.urlresolvers import reverse
 from django.template import loader
 from django.contrib import auth
+from pubnub import pubnub
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import FormParser, MultiPartParser
@@ -28,6 +29,12 @@ from loyaliapi.serializer import MobileUserFullNameSerialize
 VENDOR_STAFF_GROUP_NAME = 'vendor_staff'
 VENDOR_GROUP_NAME = 'Vendor'
 ADMIN_GROUP_NAME = 'Admin'
+
+pnconfig = PNConfiguration()
+pnconfig.publish_key = 'pub-c-87b891e4-b074-4574-82ef-a46032ce6818'
+pnconfig.subscribe_key = 'sub-c-884705e8-46db-11e7-b847-0619f8945a4f'
+pnconfig.secret_key = "sec-c-YTQ1ODFkMGYtN2UyOS00NWM1LWJmN2YtNDdlOTc2MTJkY2Qx"
+pubnub = PubNub(pnconfig)
 
 
 # The Following code handles the GET request for the HTML Pages
@@ -359,7 +366,6 @@ def pubnub_send_batch_message(request):
         title = raw_data.get('title')
         message = raw_data.get('message')
         broadcast_channel = 'AppBroadcast'
-        '''
         # Build the broadcast message payload
         message_to_send = {"pn_gcm": {
             'data': {'MsgTypeID': 2, 'nTitle': title, 'message': message}}}
@@ -372,7 +378,7 @@ def pubnub_send_batch_message(request):
         except PubNubException as e:
             print 'Pubnub error: ', e
             return HttpResponse(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-'''
+
 
 
 @login_required
@@ -521,7 +527,12 @@ def full_vendors_page(request):
 def message_menu(request):
     template = loader.get_template(
         'loyali/vendor_pages/messenger_pages/message_service_menu.html')
-    context = {
-        'menu': "menu"
-    }
+    context = {'menu': 'menu'}
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def message_sent(request):
+    template = loader.get_template('loyali/vendor_pages/messenger_pages/message_sent.html')
+    context = {'page': 'message sent'}
     return HttpResponse(template.render(context, request))

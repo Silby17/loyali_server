@@ -345,7 +345,6 @@ def change_password(request):
             context.update(csrf(request))
             return HttpResponse(template.render(context, request))
         else:
-            raw_data = request.POST.copy()
             username = request.user.username
             user = User.objects.get(username=username)
             user.set_password(new_pass)
@@ -380,7 +379,6 @@ def pubnub_send_batch_message(request):
             return HttpResponse(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-
 @login_required
 def pubnub_send_single_message(request):
     template = loader.get_template('loyali/vendor_pages/messenger_pages/send_single_message_new.html')
@@ -394,7 +392,6 @@ def pubnub_send_single_message(request):
         raw_data = request.POST.copy()
         title = raw_data.get('title')
         message = raw_data.get('message')
-        '''
         try:
             customer_id = raw_data.pop('customer_id')[0]
         except:
@@ -419,7 +416,7 @@ def pubnub_send_single_message(request):
         except PubNubException as e:
             print 'Punbun Exception: ', e
             return HttpResponse(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-'''
+
 
 # Redirects to the Login Page
 def index(request):

@@ -45,6 +45,8 @@ class MobileUserAPI(GenericAPIView):
                 serializer_errors = serializer.erros
                 for error in serializer_errors:
                     errors += serializer_errors[error][0]
+                context = {"message": 'internal error'}
+                return Response(context, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 # This function will allow mobile users to log in to the app
@@ -67,9 +69,11 @@ class CheckUserCredentialsAPI(APIView):
                 context = {'user_result': user_result}
                 return Response(context, status=status.HTTP_200_OK)
             else:
+                context = {'message': 'unauthorized'}
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
         except MobileUser.DoesNotExist:
             print 'Does not Exists'
+            context = {'message': 'user not found'}
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
@@ -133,8 +137,8 @@ class DeleteSubscriptionAPI(APIView):
         # Run through the list of cards and delete them from the DB
         for card_ID in card_ids:
             customer_cards_in_use.filter(customer=customer_id, card__id=card_ID).delete()
-
-        return Response(status=status.HTTP_200_OK)
+        context = {'message': 'subscription deleted'}
+        return Response(context, status=status.HTTP_200_OK)
 
 
 # Method to Punch the current Users Card
@@ -146,9 +150,11 @@ class PunchCardAPI(APIView):
         card_id = raw_data.get('card_id')
         print 'customer_id: ', customer_id
         print 'card_id: ', card_id
+        print 'barcode: ', barcode
         # Checks if the QR Code that is scanned is Valid
         if barcode != QR_BARCODE:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
+            context = {'message', 'barcode incorrect'}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
         try:
             # Checks to see that the Customer Exists
             customer = MobileUser.objects.get(id=customer_id)  # Object
@@ -192,9 +198,11 @@ class PunchCardAPI(APIView):
                 context = {'message': "Punched!"}
                 return Response(context, status=status.HTTP_201_CREATED)
             except:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
+                context = {'message': 'card does not exist'}
+                return Response(context, status=status.HTTP_400_BAD_REQUEST)
         except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            context = {'message': 'customer does not exist'}
+            return Response(context, status=status.HTTP_404_NOT_FOUND)
 
 
 # GET Specific vendor for user by ID
@@ -240,6 +248,7 @@ class AllCustomersSubscriptionsAPI(APIView):
             serializer = SubscriptionsSerializerWithCardsInUse(subscriptions, many=True).data
             return Response(serializer, status=status.HTTP_200_OK)
         except:
+            context = {'message': 'customer not found'}
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
@@ -249,13 +258,17 @@ class SingleSubscriptionAPI(APIView):
         raw_data = request.GET.copy()
         customer_id = raw_data.get('customer_id')
         vendor_id = raw_data.get('vendor_id')
-        # Gets the Vendor as an Object
-        vendor = Vendor.objects.all().filter(id=vendor_id)[:1].get()
-        # Gets the VendorUser
-        vendor_user = VendorUser.objects.all().filter(vendor=vendor)
-        subscriptions = Subscription.objects.all().filter(customer__id=customer_id, vendor=vendor_user)
-        serializer = SubscriptionsSerializerWithCardsInUse(subscriptions, many=True).data
-        return Response(serializer, status=status.HTTP_200_OK)
+        try:
+            # Gets the Vendor as an Object
+            vendor = Vendor.objects.all().filter(id=vendor_id)[:1].get()
+            # Gets the VendorUser
+            vendor_user = VendorUser.objects.all().filter(vendor=vendor)
+            subscriptions = Subscription.objects.all().filter(customer__id=customer_id, vendor=vendor_user)
+            serializer = SubscriptionsSerializerWithCardsInUse(subscriptions, many=True).data
+            return Response(serializer, status=status.HTTP_200_OK)
+        except:
+            context = {'message': 'ID does not exist'}
+            return Response(context, status=status.HTTP_400_BAD_REQUEST)
 
 
 # GET Rewards of a Specific Customer
@@ -276,12 +289,12 @@ class CustomerRewardsAPI(APIView):
         # Iterate through all the rewards
         for reward in rewards:
             if reward.vendor.id not in vendor_wise_rewards:
-                vendor_wise_rewards[reward.vendor.id] = [] # this makes a dictionary of keys as vendor id and
+                vendor_wise_rewards[reward.vendor.id] = []  # this makes a dictionary of keys as vendor id and
                 # value as an empty list. in this list I am going to append rewards for this. Did you get it?
                 vendors.append(reward.vendor)
 
-            vendor_wise_rewards[reward.vendor.id].append(reward)        # This is wehere I am appending reward
-            # corresponding to vendorid
+            vendor_wise_rewards[reward.vendor.id].append(reward)        # This is where I am appending reward
+            # corresponding to vendor_id
         serializer = VendorRewardSerializer(vendors, many=True,
                                             context={'vendor_rewards':
                                                          vendor_wise_rewards}).data
@@ -297,7 +310,8 @@ class RedeemReward(APIView):
             # Retrieves the Reward
             reward = Rewards.objects.get(id=reward_id)
         except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            context = {'message': 'reward not found'}
+            return Response(context, status=status.HTTP_404_NOT_FOUND)
         # Decrements reward by 1
         reward.amount -= 1
         reward.save()

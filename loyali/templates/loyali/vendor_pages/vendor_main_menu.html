@@ -40,8 +40,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.username %}
-                    <li><a><i class="fa fa-user-circle"></i> {{ request.user.first_name }}</a></li>
-                    <li><a>ID: {{ request.user.id }}</a></li>
+                    <li><a><i class="fa fa-user-circle"></i> {{ request.user.first_name }} ID: {{ request.user.id }}</a></li>
+                    <li><a>Store: {{ vendor.store_name}}</a></li>
                 {% endif %}
                 <li><a href="{% url 'contact' %}"><i class="glyphicon glyphicon-email"></i> Contact Us</a></li>
             {% if user.is_authenticated %}

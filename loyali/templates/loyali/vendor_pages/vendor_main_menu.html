@@ -40,7 +40,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.username %}
-                    <li><a>{{ request.user.first_name }}</a></li>
+                    <li><a><i class="fa fa-user-circle"></i> {{ request.user.first_name }}</a></li>
                     <li><a>ID: {{ request.user.id }}</a></li>
                 {% endif %}
                 <li><a href="{% url 'contact' %}"><i class="glyphicon glyphicon-email"></i> Contact Us</a></li>
@@ -62,16 +62,18 @@
                         <span>View all customers</span>
                     </a>
                 </div>
-                <div class="col-sm-4">
-                    <a href="{% url 'vendor_purchases' %}" class="btn btn-default btn-big btn-block">
-                        <i class="fa fa-history"></i>
-                        <span>Customer purchase history</span>
-                    </a>
-                </div>
+
                 <div class="col-sm-4">
                     <a href="{% url 'vendor_add_card' %}" class="btn btn-default btn-big btn-block">
                         <i class="glyphicon glyphicon-plus-sign"></i>
                         <span>Add new Card</span>
+                    </a>
+                </div>
+
+                 <div class="col-sm-4">
+                    <a href="{% url 'message_menu' %}" class="btn btn-default btn-big btn-block">
+                        <i class="fa fa-paper-plane"></i>
+                        <span>Message Service</span>
                     </a>
                 </div>
             </div>
@@ -81,19 +83,19 @@
     <div class="container">
         <div class="ly-middle-content-in">
             <div class="row ly-btn-row">
-
+<div class="col-sm-4">
+                    <a href="{% url 'vendor_purchases' %}" class="btn btn-default btn-big btn-block">
+                        <i class="fa fa-history"></i>
+                        <span>Full Customer purchase history</span>
+                    </a>
+                </div>
                 <div class="col-sm-4">
                     <a href="{% url 'view_cards' %}" class="btn btn-default btn-big btn-block">
                         <i class="glyphicon glyphicon glyphicon-credit-card"></i>
                         <span>View Cards</span>
                     </a>
                 </div>
-                <div class="col-sm-4">
-                    <a href="{% url 'message_menu' %}" class="btn btn-default btn-big btn-block">
-                        <i class="fa fa-paper-plane"></i>
-                        <span>Message Service (Coming Soon)</span>
-                    </a>
-                </div>
+
                 <div class="col-sm-4">
                     <a href="{% url 'change_password' %}" class="btn btn-default btn-big btn-block">
                         <i class="fa fa-unlock-alt"></i>
@@ -103,6 +105,13 @@
             </div>
         </div>
     </div>
+
+    <footer class="ly_footer">
+        <div class="container" align="center">
+            <!-- <br><b><p>Copyright © 2017 SilbyTech. All rights Reserved</p></b>-->
+            <br><b><p>Version 1.1</p></b>
+        </div>
+      </footer>
 </div>
 
 

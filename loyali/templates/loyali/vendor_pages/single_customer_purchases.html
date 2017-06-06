@@ -50,12 +50,14 @@
                     <thead>
                     <tr>
                         <th>Type</th>
-                        <th width="25%">Date</th>
+                        <th width="20%">Day</th>
+                        <th width="35%">Date</th>
                     </tr>
                     </thead>
                     <tbody id="ly-customer-list">
                     {% for customer in purchases %}
                         <tr> <td>{{ customer.type }}</td>
+                            <td>{{ customer.day }}</td>
                         <td>{{ customer.date }}</td></tr>
                     {% endfor %}
                     </tbody>

@@ -181,6 +181,7 @@ class RewardSerializer(serializers.ModelSerializer):
         fields = ['id', 'amount', 'type']
 
 
+# Serializes a specific customers rewards
 class CustomerRewardSerializer(serializers.ModelSerializer):
     rewards = serializers.SerializerMethodField()
 
@@ -193,6 +194,7 @@ class CustomerRewardSerializer(serializers.ModelSerializer):
         return RewardSerializer(customer_rewards[obj.id], many=True).data
 
 
+# Serializes all the purchase details
 class PurchaseSerializer(serializers.ModelSerializer):
     customer = MobileUserFullNameSerialize()
     date = serializers.SerializerMethodField('get_formatted_date')
@@ -206,8 +208,8 @@ class PurchaseSerializer(serializers.ModelSerializer):
         return obj.date.strftime("%d %b %Y")
 
 
+# Serializers a single customers Purchase details
 class SingleCustomerPurchaseSerializer(serializers.ModelSerializer):
-    # customer = MobileUserFullNameSerialize()
     date = serializers.SerializerMethodField('get_formatted_date')
     day = serializers.SerializerMethodField('get_formatted_day')
 
@@ -219,6 +221,7 @@ class SingleCustomerPurchaseSerializer(serializers.ModelSerializer):
     def get_formatted_date(self, obj):
         return obj.date.strftime("%d %b %Y")
 
+    # Formats the day
     def get_formatted_day(self, obj):
         return obj.date.strftime("%A")
 

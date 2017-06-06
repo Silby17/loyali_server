@@ -35,7 +35,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
            <ul class="nav navbar-nav navbar-right">
                 {% if request.user.username %}
-                    <li><a>{{ request.user.first_name }}</a></li>
+                    <li><a><i class="fa fa-user-circle"></i> {{ request.user.first_name }}</a></li>
                 {% endif %}
                 <li><a href="{% url 'logout' %}"><i class="glyphicon glyphicon-off"></i>
                     Logout</a></li>
@@ -95,6 +95,7 @@
      <footer class="ly_footer">
         <div class="container" align="center">
             <!--<br><b><p>Copyright © 2017 SilbyTech. All rights Reserved</p></b>-->
+            <br><b><p>Version 1.1</p></b>
         </div>
       </footer>
 </div>

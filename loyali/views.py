@@ -456,7 +456,9 @@ def vendor_add(request):
 @login_required
 def vendor_main(request):
     template = loader.get_template('loyali/vendor_pages/vendor_main_menu.html')
-    context = {'menu': "menu"}
+    vendor_user = VendorUser.objects.all().filter(id=3).values('vendor')[:1].get()
+    serializer = VendorSerializer(Vendor.objects.get(id=vendor_user.get('vendor'))).data
+    context = {'vendor': serializer}
     return HttpResponse(template.render(context, request))
 
 

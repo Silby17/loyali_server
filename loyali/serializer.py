@@ -23,6 +23,7 @@ class VendorSerializer(serializers.ModelSerializer):
         return representation
 
 
+# Serializer for creating a new Vendor User
 class VendorUserModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = VendorUser
@@ -174,6 +175,7 @@ class SubscriptionsSerializerWithCardsInUse(serializers.ModelSerializer):
         return CardsInUseSerializerWithCardDetails(cards_in_use, many=True).data
 
 
+# Serializers the general Reward
 class RewardSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -181,6 +183,7 @@ class RewardSerializer(serializers.ModelSerializer):
         fields = ['id', 'amount', 'type']
 
 
+# Serializers rewards of a customer
 class CustomerRewardSerializer(serializers.ModelSerializer):
     rewards = serializers.SerializerMethodField()
 
@@ -193,6 +196,17 @@ class CustomerRewardSerializer(serializers.ModelSerializer):
         return RewardSerializer(customer_rewards[obj.id], many=True).data
 
 
+# Formats the Date
+def get_formatted_date(obj):
+    return obj.date.strftime("%d %b %Y")
+
+
+# Formats the Day from the date
+def get_formatted_day(obj):
+    return obj.date.strftime("%A")
+
+
+# Serializes all the Purchases of a certain vendor
 class PurchaseSerializer(serializers.ModelSerializer):
     customer = MobileUserFullNameSerialize()
     date = serializers.SerializerMethodField('get_formatted_date')
@@ -201,19 +215,12 @@ class PurchaseSerializer(serializers.ModelSerializer):
         model = Purchase
         fields = ['customer', 'vendor', 'type', 'date']
 
-    # Formats the Date
-    def get_formatted_date(self, obj):
-        return obj.date.strftime("%d %b %Y")
 
-
+# Serializes the Purchase history of a customer
 class SingleCustomerPurchaseSerializer(serializers.ModelSerializer):
-    # customer = MobileUserFullNameSerialize()
     date = serializers.SerializerMethodField('get_formatted_date')
+    day = serializers.SerializerMethodField('get_formatted_day')
 
     class Meta:
         model = Purchase
-        fields = ['type', 'date']
-
-    # Formats the Date
-    def get_formatted_date(self, obj):
-        return obj.date.strftime("%d %b %Y")
+        fields = ['type', 'date', 'day']

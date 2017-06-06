@@ -5,13 +5,15 @@ from views import index, login, admin_main, vendor_main, contact_us, logout, \
     vendor_customers, AddCardAPI, VendorsCardsAPI, vendors_customer_rewards, \
     customer_rewards_by_id, all_purchases, customer_purchase_by_id, change_password, \
     message_menu, pubnub_send_batch_message, pubnub_send_single_message, \
-    VendorCustomersAPI
+    VendorCustomersAPI, message_sent
 
 urlpatterns = [
 
     url(r'^$', index, name='index'),
 
     url(r'^login/', login, name='login'),
+
+    url(r'^sent/', message_sent, name='sent'),
 
     url(r'^admin/mainmenu', admin_main, name='admin_main'),
 
@@ -47,7 +49,7 @@ urlpatterns = [
 
     url(r'^vendor/customers', vendor_customers, name='vendor_customers'),
 
-    url(r'^vendor/allPurchases', all_purchases, name='all_purchases'),
+    url(r'^vendor/allPurchases', all_purchases, name='vendor_purchases'),
 
     url(r'^vendor/addCard/', AddCardAPI.as_view(), name='vendor_add_card'),
 

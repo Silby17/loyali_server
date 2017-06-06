@@ -7,28 +7,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <link rel="shortcut icon" href="{% static 'loyali/images/loyali_logo.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'loyali/images/loyali_logo.ico' %}"
+          type="image/x-icon">
     <title>Customer Purchases</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="sr-only">Toggle navigation</span>
             </button>
             <a class="navbar-brand" href="{% url 'redirect_main' %}">
-                <img src="{% static 'loyali/images/loyali_logo.png' %}" draggable="false" class="img-responsive"></a>
+                <img src="{% static 'loyali/images/loyali_logo.png' %}" draggable="false"
+                     class="img-responsive"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.username %}
                     <li><a>{{ request.user.first_name }}</a></li>
@@ -43,8 +47,9 @@
 <div class="ly-middle-content">
     <div class="container">
         <div class="ly-form">
-        <div class="ly-box-title ly-box-title-inner"><h1>Purchases</h1></div>
-            <div class="ly-box-title ly-box-title-inner"><h3><font color="#b80102">{{ customer.full_name }}</font></h3></div>
+            <div class="ly-box-title ly-box-title-inner"><h1>Purchases</h1></div>
+            <div class="ly-box-title ly-box-title-inner"><h3><font
+                    color="#b80102">{{ customer.full_name }}</font></h3></div>
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
@@ -56,15 +61,23 @@
                     </thead>
                     <tbody id="ly-customer-list">
                     {% for customer in purchases %}
-                        <tr> <td>{{ customer.type }}</td>
+                        <tr>
+                            <td>{{ customer.type }}</td>
                             <td>{{ customer.day }}</td>
-                        <td>{{ customer.date }}</td></tr>
+                            <td>{{ customer.date }}</td>
+                        </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+    <footer class="ly_footer">
+        <div class="container" align="center">
+            <!-- <br><b><p>Copyright © 2017 SilbyTech. All rights Reserved</p></b>-->
+            <br><b><p>Version 1.1</p></b>
+        </div>
+    </footer>
 </div>
 
 <script src="{% static 'loyali/js/jquery.min.js' %}"></script>

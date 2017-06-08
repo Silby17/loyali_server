@@ -16,8 +16,6 @@ from loyali.models import Vendor, Subscription, VendorUser, Card, Rewards, Purch
 from loyali.serializer import VendorSerializer, VendorUserModelSerializer, \
     AdminUserSerializer, SingleCardSerializer, SubscribedCustomersSerializer, \
     CustomerRewardSerializer, PurchaseSerializer, SingleCustomerPurchaseSerializer
-from pubnub.callbacks import SubscribeCallback
-from pubnub.enums import PNStatusCategory
 from pubnub.exceptions import PubNubException
 from pubnub.pnconfiguration import PNConfiguration
 from pubnub.pubnub import PubNub
@@ -26,15 +24,22 @@ from pubnub.pubnub import PubNub
 from loyaliapi.models import MobileUser
 from loyaliapi.serializer import MobileUserFullNameSerialize
 
-VENDOR_STAFF_GROUP_NAME = 'vendor_staff'
+VENDOR_STAFF_GROUP_NAME = 'Vendor_Staff'
 VENDOR_GROUP_NAME = 'Vendor'
 ADMIN_GROUP_NAME = 'Admin'
 
+
+# PubNub configurations
 pnconfig = PNConfiguration()
 pnconfig.publish_key = 'pub-c-87b891e4-b074-4574-82ef-a46032ce6818'
 pnconfig.subscribe_key = 'sub-c-884705e8-46db-11e7-b847-0619f8945a4f'
 pnconfig.secret_key = "sec-c-YTQ1ODFkMGYtN2UyOS00NWM1LWJmN2YtNDdlOTc2MTJkY2Qx"
 pubnub = PubNub(pnconfig)
+
+# Automatically Create the following groups
+Group.objects.get_or_create(name='Admin')
+Group.objects.get_or_create(name='Vendor')
+Group.objects.get_or_create(name='Vendor_Staff')
 
 
 # The Following code handles the GET request for the HTML Pages
@@ -353,8 +358,39 @@ def change_password(request):
 
 
 @login_required
-def pubnub_send_batch_message(request):
+def pubnub_vendor_send_batch_message(request):
     template = loader.get_template('loyali/vendor_pages/messenger_pages/send_batch_message.html')
+    # Returns the HTML
+    if request.method == 'GET':
+        context = {'menu': "batch_message"}
+        return HttpResponse(template.render(context, request))
+
+    if request.method == 'POST':
+        raw_data = request.POST.copy()
+        title = raw_data.get('title')
+        message = raw_data.get('message')
+        vendor_id = request.user.id
+        vendor_user = VendorUser.objects.all().filter(id=vendor_id).values('vendor')[:1].get()
+        serializer = VendorSerializer(Vendor.objects.get(id=vendor_user.get('vendor'))).data
+        # Broadcasts only to the Vendors Subscribed Customers
+        broadcast_channel = 'Vendor_Broadcast_' + serializer.get('store_name')
+        # Build the broadcast message payload
+        message_to_send = {"pn_gcm": {
+            'data': {'MsgTypeID': 2, 'nTitle': title, 'message': message}}}
+        try:
+            # Tries to publish the Broadcast Message
+            envelope = pubnub.publish().channel(broadcast_channel).message(
+                message_to_send).sync()
+            print('Publish time token: %d' % envelope.result.timetoken)
+            return redirect(reverse('sent'))
+        except PubNubException as e:
+            print 'Pubnub error: ', e
+            return HttpResponse(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@login_required
+def pubnub_admin_send_batch_message(request):
+    template = loader.get_template('loyali/admin_send_batch_message.html')
     # Returns the HTML
     if request.method == 'GET':
         context = {'menu': "batch_message"}
@@ -405,7 +441,7 @@ def pubnub_send_single_message(request):
                 return HttpResponse(template.render(context, request))
         except:
             return HttpResponse("Invalid customer", status=400)
-        customer_channel = 'USER_' + str(customer_id)
+        customer_channel = mobile_user.push_api_key
         message_payload = {'MsgTypeID': 1, 'nTitle': title, 'message': message}
         message_to_send = {"pn_gcm": {'data': message_payload}}
         try:
@@ -456,7 +492,8 @@ def vendor_add(request):
 @login_required
 def vendor_main(request):
     template = loader.get_template('loyali/vendor_pages/vendor_main_menu.html')
-    vendor_user = VendorUser.objects.all().filter(id=3).values('vendor')[:1].get()
+    vendor_id = request.user.id
+    vendor_user = VendorUser.objects.all().filter(id=vendor_id).values('vendor')[:1].get()
     serializer = VendorSerializer(Vendor.objects.get(id=vendor_user.get('vendor'))).data
     context = {'vendor': serializer}
     return HttpResponse(template.render(context, request))

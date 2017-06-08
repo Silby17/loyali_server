@@ -48,7 +48,7 @@
     <div class="container">
         <div class="ly-form">
             <div class="ly-box-title"><h1>Send Notification To All Customers</h1></div>
-            <form class="form-horizontal" id="sendBatch" action="{% url 'message_batch' %}" method="post">
+            <form class="form-horizontal" id="sendBatch" action="{% url 'vendor_batch_message' %}" method="post">
             {% csrf_token %}
                 <div class="alert alert-success alert-dismissible fade in hide" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

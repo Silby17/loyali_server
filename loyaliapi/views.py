@@ -38,7 +38,7 @@ class MobileUserAPI(GenericAPIView):
                 user = serializer.save()
                 group = Group.objects.get_or_create(name=CUSTOMER_GROUP_NAME)[0]
                 group.user_set.add(user)
-                push_key = 'User_' + str(user.id)
+                push_key = 'USER_' + str(user.id)
                 new_user = MobileUser.objects.get(id=user.id)
                 new_user.push_api_key = push_key
                 new_user.save()
@@ -70,15 +70,18 @@ class CheckUserCredentialsAPI(APIView):
                 print 'Mobile User:', username, ' - has logged in'
                 user_result = {'username': username, 'id': auth_user.id,
                                'first_name': auth_user.first_name, 'last_name': auth_user.last_name}
+                user = MobileUser.objects.get(id=auth_user.id)
+                user.push_api_key = 'USER_' + str(auth_user.id)
+                user.save()
                 context = {'user_result': user_result}
                 return Response(context, status=status.HTTP_200_OK)
             else:
                 context = {'message': 'unauthorized'}
-                return Response(status=status.HTTP_401_UNAUTHORIZED)
+                return Response(context, status=status.HTTP_401_UNAUTHORIZED)
         except MobileUser.DoesNotExist:
             print 'Does not Exists'
             context = {'message': 'user not found'}
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(context, status=status.HTTP_404_NOT_FOUND)
 
 
 # This will create a new subscription between a customer and vendor

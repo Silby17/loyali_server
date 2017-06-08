@@ -38,6 +38,10 @@ class MobileUserAPI(GenericAPIView):
                 user = serializer.save()
                 group = Group.objects.get_or_create(name=CUSTOMER_GROUP_NAME)[0]
                 group.user_set.add(user)
+                push_key = 'User_' + str(user.id)
+                new_user = MobileUser.objects.get(id=user.id)
+                new_user.push_api_key = push_key
+                new_user.save()
                 context = {"user_result": serializer.data}
                 return Response(context, status=status.HTTP_200_OK)
             else:

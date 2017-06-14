@@ -100,14 +100,14 @@ class VendorSerializer(serializers.ModelSerializer):
         return representation
 
 
-def get_formatted_date(obj):
-    return obj.date.strftime("%d %b %Y")
-
-
 class AllCustomersPurchasesSerializer(serializers.ModelSerializer):
-    date = serializers.SerializerMethodField('get_formatted_date')
     vendor = VendorSerializer()
+    date = serializers.SerializerMethodField('get_formatted_date')
 
     class Meta:
         model = Purchase
-        fields = ['vendor', 'type', 'date']
+        fields = ['id', 'vendor', 'type', 'date']
+
+    # Formats the Date
+    def get_formatted_date(self, obj):
+        return obj.date.strftime("%d %b %Y")

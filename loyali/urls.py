@@ -4,8 +4,8 @@ from views import index, login, admin_main, vendor_main, contact_us, logout, \
     redirect_to_main, view_users_page, full_vendors_page, delete_vendors, \
     vendor_customers, AddCardAPI, VendorsCardsAPI, vendors_customer_rewards, \
     customer_rewards_by_id, all_purchases, customer_purchase_by_id, change_password, \
-    message_menu, pubnub_send_batch_message, pubnub_send_single_message, \
-    VendorCustomersAPI, message_sent
+    message_menu, pubnub_vendor_send_batch_message, pubnub_send_single_message, \
+    VendorCustomersAPI, message_sent, pubnub_admin_send_batch_message
 
 urlpatterns = [
 
@@ -35,7 +35,9 @@ urlpatterns = [
 
     url(r'^message/menu', message_menu, name='message_menu'),
 
-    url(r'^message/batch', pubnub_send_batch_message, name='message_batch'),
+    url(r'^message/batch', pubnub_vendor_send_batch_message, name='vendor_batch_message'),
+
+    url(r'^admin/batch', pubnub_admin_send_batch_message, name='admin_batch_message'),
 
     url(r'^message/singleMessage', pubnub_send_single_message, name='simple_single_message'),
 

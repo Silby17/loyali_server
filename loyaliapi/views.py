@@ -29,7 +29,7 @@ class MobileUserAPI(GenericAPIView):
         raw_data = request.POST.copy()
         username = raw_data.get('username')
         try:
-            customer_user = MobileUser.objects.get(username=username)
+            MobileUser.objects.get(username=username)
             context = {"message": "user already exists"}
             return Response(context, status=status.HTTP_409_CONFLICT)
         except:
@@ -42,7 +42,9 @@ class MobileUserAPI(GenericAPIView):
                 new_user = MobileUser.objects.get(id=user.id)
                 new_user.push_api_key = push_key
                 new_user.save()
-                context = {"user_result": serializer.data}
+                context = {"user_result": {'username': username, 'id': new_user.id,
+                               'first_name': new_user.first_name,
+                               'last_name': new_user.last_name}}
                 return Response(context, status=status.HTTP_200_OK)
             else:
                 errors = ""
@@ -155,9 +157,6 @@ class PunchCardAPI(APIView):
         customer_id = raw_data.get('customer_id')
         barcode = raw_data.get('barcode')
         card_id = raw_data.get('card_id')
-        print 'customer_id: ', customer_id
-        print 'card_id: ', card_id
-        print 'barcode: ', barcode
         # Checks if the QR Code that is scanned is Valid
         if barcode != QR_BARCODE:
             context = {'message', 'barcode incorrect'}
@@ -334,14 +333,26 @@ class AllPurchases(APIView):
     def get(self, request):
         raw_data = request.GET.copy()
         customer_id = raw_data.get('customer_id')
-        try:
-            # Gets the Query from the DB and sorts according to Date
-            purchases = Purchase.objects.all().filter(customer__id=customer_id).order_by('-date')
-            serializer = AllCustomersPurchasesSerializer(purchases, many=True).data
-            return Response(serializer, status=status.HTTP_200_OK)
-        except:
-            context = {"message": "None Found"}
-            return Response(context, status=status.HTTP_404_NOT_FOUND)
+        vendor_id = raw_data.get('vendor_id')
+        if not vendor_id:
+            try:
+                # Gets the Query from the DB and sorts according to Date
+                purchases = Purchase.objects.all().filter(
+                    customer__id=customer_id).order_by('-date')
+                serializer = AllCustomersPurchasesSerializer(purchases, many=True).data
+                return Response(serializer, status=status.HTTP_200_OK)
+            except:
+                context = {"message": "None Found"}
+                return Response(context, status=status.HTTP_404_NOT_FOUND)
+        else:
+            try:
+                # Gets the Query from the DB and sorts according to Date
+                purchases = Purchase.objects.all().filter(customer__id=customer_id, vendor__id=vendor_id).order_by('-date')
+                serializer = AllCustomersPurchasesSerializer(purchases, many=True).data
+                return Response(serializer, status=status.HTTP_200_OK)
+            except:
+                context = {"message": "None Found"}
+                return Response(context, status=status.HTTP_404_NOT_FOUND)
 
 
 # This method is for testing Purposes
@@ -350,12 +361,5 @@ class TestingAPI(APIView):
         return Response(status=status.HTTP_200_OK)
 
     def get(self, request):
-        raw_data = request.GET.copy()
-        customer_id = raw_data.get('customer_id')
-
-        purchases = Purchase.objects.all().filter(customer__id=customer_id)
-        seriali = AllCustomersPurchasesSerializer(purchases, many=True).data
-        print seriali
-
-        return Response(seriali, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_200_OK)
 

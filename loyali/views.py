@@ -373,7 +373,7 @@ def pubnub_vendor_send_batch_message(request):
         vendor_user = VendorUser.objects.all().filter(id=vendor_id).values('vendor')[:1].get()
         serializer = VendorSerializer(Vendor.objects.get(id=vendor_user.get('vendor'))).data
         # Broadcasts only to the Vendors Subscribed Customers
-        broadcast_channel = 'Vendor_Broadcast_' + serializer.get('store_name')
+        broadcast_channel = 'Broadcast_Vendor_' + str(serializer.get('id'))
         # Build the broadcast message payload
         message_to_send = {"pn_gcm": {
             'data': {'MsgTypeID': 2, 'nTitle': title, 'message': message}}}

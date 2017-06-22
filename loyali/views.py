@@ -37,9 +37,9 @@ pnconfig.secret_key = "sec-c-YTQ1ODFkMGYtN2UyOS00NWM1LWJmN2YtNDdlOTc2MTJkY2Qx"
 pubnub = PubNub(pnconfig)
 
 # Automatically Create the following groups
-#Group.objects.get_or_create(name='Admin')
-#Group.objects.get_or_create(name='Vendor')
-#Group.objects.get_or_create(name='Vendor_Staff')
+Group.objects.get_or_create(name='Admin')
+Group.objects.get_or_create(name='Vendor')
+Group.objects.get_or_create(name='Vendor_Staff')
 
 
 # The Following code handles the GET request for the HTML Pages

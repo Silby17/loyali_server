@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="17be5a22-e764-4ddf-be93-b200a9011804" name="Default" comment="added">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/logo_grey_compressed.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/loyali_logo.png" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/Aroma_logo.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/cafe_cafe_logo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/cafe_greg.jpeg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/loyali_server.iml" afterPath="$PROJECT_DIR$/.idea/loyali_server.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/loyali_server/settings.py" afterPath="$PROJECT_DIR$/loyali_server/settings.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -84,60 +79,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/loyaliapi/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="262" column="72" lean-forward="true" selection-start-line="262" selection-start-column="62" selection-end-line="262" selection-end-column="72" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/loyali/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="456" column="25" lean-forward="true" selection-start-line="456" selection-start-column="25" selection-end-line="456" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/loyali/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="17" column="57" lean-forward="true" selection-start-line="17" selection-start-column="57" selection-end-line="17" selection-end-column="57" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="single_customer_rewards.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/single_customer_rewards.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="51" column="36" lean-forward="true" selection-start-line="50" selection-start-column="61" selection-end-line="51" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="admin_main_menu.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/admin_main_menu.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="47" column="12" lean-forward="false" selection-start-line="47" selection-start-column="12" selection-end-line="47" selection-end-column="74" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -149,14 +91,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>purcha</find>
-      <find>test</find>
-      <find>chang</find>
-      <find>create</find>
-      <find>rewar</find>
-      <find>obj</find>
-      <find>logo</find>
-      <find>Punch</find>
       <find>Subscription</find>
       <find>Reward</find>
       <find>Print</find>
@@ -167,7 +101,6 @@
       <find>login</find>
       <find>print 'Cus</find>
       <find>Pu</find>
-      <find>date</find>
       <find>Purch</find>
       <find>message</find>
       <find>get_formatted_date</find>
@@ -179,6 +112,15 @@
       <find>singleCus</find>
       <find>vendor_ma</find>
       <find>Vendor</find>
+      <find>save()</find>
+      <find>vendor_main</find>
+      <find>request.</find>
+      <find>Vendor_Broa</find>
+      <find>data</find>
+      <find>date</find>
+      <find>Vre</find>
+      <find>Scan</find>
+      <find>if not</find>
     </findStrings>
     <replaceStrings>
       <replace>9E0B14</replace>
@@ -191,49 +133,50 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/login.html" />
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/all_vendors.html" />
         <option value="$PROJECT_DIR$/creds.txt" />
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/add_user.html" />
         <option value="$PROJECT_DIR$/loyali_server/urls.py" />
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/contact.html" />
         <option value="$PROJECT_DIR$/loyali/static/loyali/scss/style.scss" />
         <option value="$PROJECT_DIR$/loyali/static/loyali/css/style.css" />
         <option value="$PROJECT_DIR$/loyali/templates/loyali/view_vendor_list.html" />
         <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_main_menu.html" />
         <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_customers.html" />
         <option value="$PROJECT_DIR$/loyali/templates/loyali/add_card.html" />
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/view_users.html" />
         <option value="$PROJECT_DIR$/loyaliapi/models.py" />
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/saved.html" />
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/add_vendor.html" />
-        <option value="$PROJECT_DIR$/loyali_server/settings.py" />
         <option value="$PROJECT_DIR$/loyali/models.py" />
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/customer_rewards.html" />
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/add_card.html" />
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/view_cards.html" />
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_list.html" />
         <option value="$PROJECT_DIR$/loyali/admin.py" />
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/all_purchase_history.html" />
         <option value="$PROJECT_DIR$/loyaliapi/urls.py" />
-        <option value="$PROJECT_DIR$/loyaliapi/serializer.py" />
         <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/message_service_menu.html" />
         <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/messanger_pages/message_service_menu.html" />
         <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/messanger_pages/send_batch_message.html" />
-        <option value="$PROJECT_DIR$/loyali/urls.py" />
-        <option value="$PROJECT_DIR$/loyaliapi/views.py" />
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/messenger_pages/message_sent.html" />
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/admin_main_menu.html" />
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/change_password.html" />
         <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/vendor_customers.html" />
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/messenger_pages/message_service_menu.html" />
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/messenger_pages/send_batch_message.html" />
         <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/messenger_pages/send_single_message_new.html" />
         <option value="$PROJECT_DIR$/loyali/serializer.py" />
         <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/single_customer_purchases.html" />
-        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/single_customer_rewards.html" />
         <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/vendor_main_menu.html" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/messenger_pages/message_service_menu.html" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/messenger_pages/send_batch_message.html" />
+        <option value="$PROJECT_DIR$/loyali/urls.py" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/admin_main_menu.html" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/admin_send_batch_message.html" />
+        <option value="$PROJECT_DIR$/loyaliapi/serializer.py" />
+        <option value="$PROJECT_DIR$/loyaliapi/views.py" />
+        <option value="$PROJECT_DIR$/loyali_server/settings.py" />
         <option value="$PROJECT_DIR$/loyali/views.py" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/add_user.html" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/add_vendor.html" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/all_vendors.html" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/contact.html" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/login.html" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/saved.html" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_list.html" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/view_users.html" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/add_card.html" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/all_purchase_history.html" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/change_password.html" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/customer_rewards.html" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/single_customer_rewards.html" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/view_cards.html" />
+        <option value="$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/messenger_pages/message_sent.html" />
       </list>
     </option>
   </component>
@@ -323,6 +266,24 @@
               <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="loyali_server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="loyali_server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="loyali" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="loyali" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
@@ -342,7 +303,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
+              <option name="myItemId" value="static" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -350,37 +311,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="vendor_pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="loyali_server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="loyali_server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="loyali" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="loyali" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor_pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="messenger_pages" />
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -397,16 +328,16 @@
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="PostgreSQL" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Development\JetBrains\PyCharm\loyali_server\loyali\templates\loyali\vendor_pages\messanger_pages" />
+      <recent name="C:\Development\JetBrains\PyCharm\loyali_server\loyali\templates\loyali\vendor_pages" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Development\JetBrains\PyCharm\loyali_server\loyali\templates\loyali\vendor_pages\messenger_pages" />
       <recent name="C:\Development\JetBrains\PyCharm\loyali_server\loyali\templates\loyali\vendor_pages\messanger_pages" />
       <recent name="C:\Development\JetBrains\PyCharm\loyali_server\loyali\templates\loyali\vendor_pages" />
       <recent name="C:\Development\JetBrains\PyCharm\loyali_server\media" />
       <recent name="C:\Development\JetBrains\PyCharm\loyali_server\loyali\templates\loyali" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Development\JetBrains\PyCharm\loyali_server\loyali\templates\loyali\vendor_pages\messanger_pages" />
-      <recent name="C:\Development\JetBrains\PyCharm\loyali_server\loyali\templates\loyali\vendor_pages" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -689,125 +620,6 @@
       <option name="presentableId" value="Default" />
       <updated>1483444576774</updated>
     </task>
-    <task id="LOCAL-00147" summary="Added Purchase Serializer">
-      <created>1496060319454</created>
-      <option name="number" value="00147" />
-      <option name="presentableId" value="LOCAL-00147" />
-      <option name="project" value="LOCAL" />
-      <updated>1496060319454</updated>
-    </task>
-    <task id="LOCAL-00148" summary="Added href to purchase history">
-      <created>1496060397603</created>
-      <option name="number" value="00148" />
-      <option name="presentableId" value="LOCAL-00148" />
-      <option name="project" value="LOCAL" />
-      <updated>1496060397603</updated>
-    </task>
-    <task id="LOCAL-00149" summary="initial commit">
-      <created>1496060632616</created>
-      <option name="number" value="00149" />
-      <option name="presentableId" value="LOCAL-00149" />
-      <option name="project" value="LOCAL" />
-      <updated>1496060632616</updated>
-    </task>
-    <task id="LOCAL-00150" summary="initial commit">
-      <created>1496062446069</created>
-      <option name="number" value="00150" />
-      <option name="presentableId" value="LOCAL-00150" />
-      <option name="project" value="LOCAL" />
-      <updated>1496062446069</updated>
-    </task>
-    <task id="LOCAL-00151" summary="Added new serializers">
-      <created>1496062483367</created>
-      <option name="number" value="00151" />
-      <option name="presentableId" value="LOCAL-00151" />
-      <option name="project" value="LOCAL" />
-      <updated>1496062483367</updated>
-    </task>
-    <task id="LOCAL-00152" summary="added href for customer purchases">
-      <created>1496062501241</created>
-      <option name="number" value="00152" />
-      <option name="presentableId" value="LOCAL-00152" />
-      <option name="project" value="LOCAL" />
-      <updated>1496062501241</updated>
-    </task>
-    <task id="LOCAL-00153" summary="added URL's fro Customer Purchase and all Purchase history">
-      <created>1496062545265</created>
-      <option name="number" value="00153" />
-      <option name="presentableId" value="LOCAL-00153" />
-      <option name="project" value="LOCAL" />
-      <updated>1496062545265</updated>
-    </task>
-    <task id="LOCAL-00154" summary="added method customer_purchase_by_id">
-      <created>1496062671603</created>
-      <option name="number" value="00154" />
-      <option name="presentableId" value="LOCAL-00154" />
-      <option name="project" value="LOCAL" />
-      <updated>1496062671603</updated>
-    </task>
-    <task id="LOCAL-00155" summary="formatted and removed testing API method body">
-      <created>1496062721145</created>
-      <option name="number" value="00155" />
-      <option name="presentableId" value="LOCAL-00155" />
-      <option name="project" value="LOCAL" />
-      <updated>1496062721145</updated>
-    </task>
-    <task id="LOCAL-00156" summary="added new serializers">
-      <created>1496063735872</created>
-      <option name="number" value="00156" />
-      <option name="presentableId" value="LOCAL-00156" />
-      <option name="project" value="LOCAL" />
-      <updated>1496063735872</updated>
-    </task>
-    <task id="LOCAL-00157" summary="added Redeem URL">
-      <created>1496063773363</created>
-      <option name="number" value="00157" />
-      <option name="presentableId" value="LOCAL-00157" />
-      <option name="project" value="LOCAL" />
-      <updated>1496063773363</updated>
-    </task>
-    <task id="LOCAL-00158" summary="initial commit">
-      <created>1496313827915</created>
-      <option name="number" value="00158" />
-      <option name="presentableId" value="LOCAL-00158" />
-      <option name="project" value="LOCAL" />
-      <updated>1496313827915</updated>
-    </task>
-    <task id="LOCAL-00159" summary="changed password method working">
-      <created>1496313855359</created>
-      <option name="number" value="00159" />
-      <option name="presentableId" value="LOCAL-00159" />
-      <option name="project" value="LOCAL" />
-      <updated>1496313855359</updated>
-    </task>
-    <task id="LOCAL-00160" summary="added change password URL">
-      <created>1496313870549</created>
-      <option name="number" value="00160" />
-      <option name="presentableId" value="LOCAL-00160" />
-      <option name="project" value="LOCAL" />
-      <updated>1496313870549</updated>
-    </task>
-    <task id="LOCAL-00161" summary="added AllCustomersPurchasesSerializer">
-      <created>1496313944382</created>
-      <option name="number" value="00161" />
-      <option name="presentableId" value="LOCAL-00161" />
-      <option name="project" value="LOCAL" />
-      <updated>1496313944382</updated>
-    </task>
-    <task id="LOCAL-00162" summary="added change password option on menu">
-      <created>1496313967513</created>
-      <option name="number" value="00162" />
-      <option name="presentableId" value="LOCAL-00162" />
-      <option name="project" value="LOCAL" />
-      <updated>1496313967513</updated>
-    </task>
-    <task id="LOCAL-00163" summary="Added details in Customer Login and AllPurchases method">
-      <created>1496313992872</created>
-      <option name="number" value="00163" />
-      <option name="presentableId" value="LOCAL-00163" />
-      <option name="project" value="LOCAL" />
-      <updated>1496313992872</updated>
-    </task>
     <task id="LOCAL-00164" summary="added customers purchases URL">
       <created>1496314019112</created>
       <option name="number" value="00164" />
@@ -1032,14 +844,132 @@
       <option name="project" value="LOCAL" />
       <updated>1496781754693</updated>
     </task>
-    <option name="localTasksCounter" value="196" />
+    <task id="LOCAL-00196" summary="Added Push_key to New mobile user after creation">
+      <created>1496935257698</created>
+      <option name="number" value="00196" />
+      <option name="presentableId" value="LOCAL-00196" />
+      <option name="project" value="LOCAL" />
+      <updated>1496935257699</updated>
+    </task>
+    <task id="LOCAL-00197" summary="added push_key for user at login">
+      <created>1496935700640</created>
+      <option name="number" value="00197" />
+      <option name="presentableId" value="LOCAL-00197" />
+      <option name="project" value="LOCAL" />
+      <updated>1496935700640</updated>
+    </task>
+    <task id="LOCAL-00198" summary="added batch msg option to menu">
+      <created>1496936836654</created>
+      <option name="number" value="00198" />
+      <option name="presentableId" value="LOCAL-00198" />
+      <option name="project" value="LOCAL" />
+      <updated>1496936836654</updated>
+    </task>
+    <task id="LOCAL-00199" summary="changed url">
+      <created>1496936850093</created>
+      <option name="number" value="00199" />
+      <option name="presentableId" value="LOCAL-00199" />
+      <option name="project" value="LOCAL" />
+      <updated>1496936850093</updated>
+    </task>
+    <task id="LOCAL-00200" summary="changed URL">
+      <created>1496936867349</created>
+      <option name="number" value="00200" />
+      <option name="presentableId" value="LOCAL-00200" />
+      <option name="project" value="LOCAL" />
+      <updated>1496936867349</updated>
+    </task>
+    <task id="LOCAL-00201" summary="initial commit">
+      <created>1496936899723</created>
+      <option name="number" value="00201" />
+      <option name="presentableId" value="LOCAL-00201" />
+      <option name="project" value="LOCAL" />
+      <updated>1496936899723</updated>
+    </task>
+    <task id="LOCAL-00202" summary="Changed header">
+      <created>1496936914627</created>
+      <option name="number" value="00202" />
+      <option name="presentableId" value="LOCAL-00202" />
+      <option name="project" value="LOCAL" />
+      <updated>1496936914627</updated>
+    </task>
+    <task id="LOCAL-00203" summary="added group creations and new method for Admin batch notfication sending">
+      <created>1496942088997</created>
+      <option name="number" value="00203" />
+      <option name="presentableId" value="LOCAL-00203" />
+      <option name="project" value="LOCAL" />
+      <updated>1496942088997</updated>
+    </task>
+    <task id="LOCAL-00204" summary="fixed the AllCustomersPurchasesSerializer">
+      <created>1497434094305</created>
+      <option name="number" value="00204" />
+      <option name="presentableId" value="LOCAL-00204" />
+      <option name="project" value="LOCAL" />
+      <updated>1497434094305</updated>
+    </task>
+    <task id="LOCAL-00205" summary="Added Correct serializing in Creation of Mobile user.&#10;Added vendor filtering of purchases">
+      <created>1497949233346</created>
+      <option name="number" value="00205" />
+      <option name="presentableId" value="LOCAL-00205" />
+      <option name="project" value="LOCAL" />
+      <updated>1497949233347</updated>
+    </task>
+    <task id="LOCAL-00206" summary="changed the Pubnub settings for broadcasting by vendor">
+      <created>1497949258809</created>
+      <option name="number" value="00206" />
+      <option name="presentableId" value="LOCAL-00206" />
+      <option name="project" value="LOCAL" />
+      <updated>1497949258810</updated>
+    </task>
+    <task id="LOCAL-00207" summary="removed double IP address">
+      <created>1497949273200</created>
+      <option name="number" value="00207" />
+      <option name="presentableId" value="LOCAL-00207" />
+      <option name="project" value="LOCAL" />
+      <updated>1497949273200</updated>
+    </task>
+    <task id="LOCAL-00208" summary="added pubnub URLS">
+      <created>1497949287803</created>
+      <option name="number" value="00208" />
+      <option name="presentableId" value="LOCAL-00208" />
+      <option name="project" value="LOCAL" />
+      <updated>1497949287803</updated>
+    </task>
+    <task id="LOCAL-00209" summary="initial commit">
+      <created>1497949306159</created>
+      <option name="number" value="00209" />
+      <option name="presentableId" value="LOCAL-00209" />
+      <option name="project" value="LOCAL" />
+      <updated>1497949306159</updated>
+    </task>
+    <task id="LOCAL-00210" summary="removed greate groupos">
+      <created>1498118400191</created>
+      <option name="number" value="00210" />
+      <option name="presentableId" value="LOCAL-00210" />
+      <option name="project" value="LOCAL" />
+      <updated>1498118400191</updated>
+    </task>
+    <task id="LOCAL-00211" summary="Added the group creations">
+      <created>1498118458316</created>
+      <option name="number" value="00211" />
+      <option name="presentableId" value="LOCAL-00211" />
+      <option name="project" value="LOCAL" />
+      <updated>1498118458316</updated>
+    </task>
+    <task id="LOCAL-00212" summary="Added Footer to pages with version number">
+      <created>1498386694673</created>
+      <option name="number" value="00212" />
+      <option name="presentableId" value="LOCAL-00212" />
+      <option name="project" value="LOCAL" />
+      <updated>1498386694673</updated>
+    </task>
+    <option name="localTasksCounter" value="213" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15565032" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17803837" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2751896" sideWeight="0.5021322" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23773988" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1049,7 +979,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3066089" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" x="1942" y="378" width="1876" height="283" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26218852" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26218852" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1079,22 +1009,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added CustomersAPI URL" />
-    <MESSAGE value="added pubnub and messages methods" />
-    <MESSAGE value="added Pubnub functionality" />
-    <MESSAGE value="initial commit" />
-    <MESSAGE value="fixed purchases url" />
-    <MESSAGE value="added in context messages for http responses" />
-    <MESSAGE value="fixed the logo" />
-    <MESSAGE value="added pubnub single message functionality" />
-    <MESSAGE value="added footer and changed menu titles" />
-    <MESSAGE value="changed to the correct icon and added footer" />
-    <MESSAGE value="added footer" />
-    <MESSAGE value="added footer and icon for logged in user" />
-    <MESSAGE value="added icon for logged in user. changed names" />
-    <MESSAGE value="Changed menu layout" />
-    <MESSAGE value="Added day column to table" />
-    <MESSAGE value="added comments and made some methods static" />
     <MESSAGE value="added day formatter" />
     <MESSAGE value="added comments" />
     <MESSAGE value="added footer and formatted text" />
@@ -1104,15 +1018,41 @@
     <MESSAGE value="removed ID and added Store name title" />
     <MESSAGE value="added vendor details to context" />
     <MESSAGE value="added URL for sent message" />
-    <option name="LAST_COMMIT_MESSAGE" value="added URL for sent message" />
+    <MESSAGE value="Added Push_key to New mobile user after creation" />
+    <MESSAGE value="added push_key for user at login" />
+    <MESSAGE value="added batch msg option to menu" />
+    <MESSAGE value="changed url" />
+    <MESSAGE value="changed URL" />
+    <MESSAGE value="Changed header" />
+    <MESSAGE value="added group creations and new method for Admin batch notfication sending" />
+    <MESSAGE value="fixed the AllCustomersPurchasesSerializer" />
+    <MESSAGE value="Added Correct serializing in Creation of Mobile user.&#10;Added vendor filtering of purchases" />
+    <MESSAGE value="changed the Pubnub settings for broadcasting by vendor" />
+    <MESSAGE value="removed double IP address" />
+    <MESSAGE value="added pubnub URLS" />
+    <MESSAGE value="initial commit" />
+    <MESSAGE value="removed greate groupos" />
+    <MESSAGE value="Added the group creations" />
+    <MESSAGE value="Added Footer to pages with version number" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Footer to pages with version number" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/loyali/views.py</url>
+          <line>443</line>
+          <option name="timeStamp" value="165" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/loyali/views.py</url>
+          <line>372</line>
+          <option name="timeStamp" value="168" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/loyaliapi/views.py</url>
-          <line>159</line>
-          <option name="timeStamp" value="161" />
+          <line>334</line>
+          <option name="timeStamp" value="171" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1125,32 +1065,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="163" />
+      <option name="time" value="174" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/loyali/static/loyali/css/bootstrap.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="4" column="29600" lean-forward="false" selection-start-line="4" selection-start-column="29600" selection-end-line="4" selection-end-column="29600" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/rest_framework/static/rest_framework/css/bootstrap.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="4" column="34014" lean-forward="false" selection-start-line="4" selection-start-column="34014" selection-end-line="4" selection-end-column="34014" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/static/loyali/scss/style.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/loyali/static/loyali/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="10259">
@@ -1172,13 +1091,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/saved.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="40" column="10" lean-forward="true" selection-start-line="40" selection-start-column="10" selection-end-line="40" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/media/cafe_cafe_logo_FoSpCTq.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -1191,21 +1103,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/django/views/decorators/csrf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/loyali_server/wsgi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/apps.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1219,52 +1117,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/loyaliapi/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python27/Lib/site-packages/rest_framework/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
           <caret line="1076" column="0" lean-forward="false" selection-start-line="1076" selection-start-column="0" selection-end-line="1076" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/django/views/generic/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/add_user.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1824">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/add_vendor.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="12" column="22" lean-forward="true" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/view_users.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="85" column="79" lean-forward="true" selection-start-line="85" selection-start-column="79" selection-end-line="85" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="98" column="6" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="98" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -1275,45 +1131,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/view_cards.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="27" column="21" lean-forward="true" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/add_card.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="45" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="76" column="66" lean-forward="false" selection-start-line="76" selection-start-column="66" selection-end-line="76" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali_server/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="115" column="22" lean-forward="true" selection-start-line="115" selection-start-column="22" selection-end-line="115" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python27/Lib/site-packages/django/core/handlers/exception.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
           <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/all_purchase_history.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="49" column="24" lean-forward="true" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -1331,115 +1152,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/loyaliapi/serializer.py">
+    <entry file="file://$PROJECT_DIR$/loyali/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="16" column="17" lean-forward="false" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/customer_rewards.html">
+    <entry file="file://C:/Python27/Lib/site-packages/django/views/decorators/csrf.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="73" selection-end-column="65" />
+        <state relative-caret-position="522">
+          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/rest_framework/views.py">
+    <entry file="file://C:/Python27/Lib/site-packages/django/views/generic/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="476" column="0" lean-forward="false" selection-start-line="476" selection-start-column="0" selection-end-line="476" selection-end-column="0" />
+        <state relative-caret-position="188">
+          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/loyaliapi/urls.py">
+    <entry file="file://$PROJECT_DIR$/loyaliapi/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="10" column="51" lean-forward="false" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/messenger_pages/message_sent.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="18" column="42" lean-forward="false" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/messenger_pages/send_single_message_new.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="108" column="49" lean-forward="true" selection-start-line="108" selection-start-column="49" selection-end-line="108" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/messenger_pages/message_service_menu.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="47" column="10" lean-forward="true" selection-start-line="47" selection-start-column="10" selection-end-line="47" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/vendor_customers.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="50" column="41" lean-forward="true" selection-start-line="50" selection-start-column="41" selection-end-line="50" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/change_password.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="72" column="67" lean-forward="false" selection-start-line="72" selection-start-column="67" selection-end-line="72" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/single_customer_purchases.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="81" column="0" lean-forward="true" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/messenger_pages/send_batch_message.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="105" column="33" lean-forward="false" selection-start-line="105" selection-start-column="33" selection-end-line="105" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/serializer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="8" column="6" lean-forward="false" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loyaliapi/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="262" column="72" lean-forward="true" selection-start-line="262" selection-start-column="62" selection-end-line="262" selection-end-column="72" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="168">
+          <caret line="7" column="16" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/loyali/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="10" column="14" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="14" />
-          <folding />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1447,65 +1191,241 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://C:/Python27/Lib/site-packages/django/core/handlers/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
+        <state relative-caret-position="4008">
           <caret line="186" column="0" lean-forward="false" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/admin_main_menu.html">
+    <entry file="file://$PROJECT_DIR$/loyali/serializer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="47" column="12" lean-forward="false" selection-start-line="47" selection-start-column="12" selection-end-line="47" selection-end-column="74" />
-          <folding />
+        <state relative-caret-position="194">
+          <caret line="210" column="0" lean-forward="false" selection-start-line="210" selection-start-column="0" selection-end-line="210" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/single_customer_rewards.html">
+    <entry file="file://$PROJECT_DIR$/loyaliapi/serializer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="51" column="36" lean-forward="true" selection-start-line="50" selection-start-column="61" selection-end-line="51" selection-end-column="36" />
-          <folding />
+        <state relative-caret-position="263">
+          <caret line="104" column="66" lean-forward="true" selection-start-line="104" selection-start-column="66" selection-end-line="104" selection-end-column="66" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/admin.py">
+    <entry file="file://C:/Python27/Lib/site-packages/rest_framework/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="201">
+          <caret line="473" column="0" lean-forward="false" selection-start-line="473" selection-start-column="0" selection-end-line="473" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/vendor_main_menu.html">
+    <entry file="file://$PROJECT_DIR$/loyali/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="47" column="29" lean-forward="true" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
+        <state relative-caret-position="327">
+          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyaliapi/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="24" column="48" lean-forward="false" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali_server/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="936">
+          <caret line="40" column="20" lean-forward="false" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyaliapi/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="17" column="19" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/loyali/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="456" column="25" lean-forward="true" selection-start-line="456" selection-start-column="25" selection-end-line="456" selection-end-column="25" />
-          <folding />
+        <state relative-caret-position="432">
+          <caret line="44" column="63" lean-forward="false" selection-start-line="44" selection-start-column="63" selection-end-line="44" selection-end-column="63" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/loyali/urls.py">
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/add_user.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="17" column="57" lean-forward="true" selection-start-line="17" selection-start-column="57" selection-end-line="17" selection-end-column="57" />
-          <folding />
+        <state relative-caret-position="432">
+          <caret line="108" column="15" lean-forward="false" selection-start-line="108" selection-start-column="15" selection-end-line="108" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/add_vendor.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="144" column="15" lean-forward="false" selection-start-line="144" selection-start-column="15" selection-end-line="144" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/admin_main_menu.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="103" column="32" lean-forward="false" selection-start-line="100" selection-start-column="4" selection-end-line="105" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/admin_send_batch_message.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-769">
+          <caret line="43" column="10" lean-forward="true" selection-start-line="43" selection-start-column="10" selection-end-line="43" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/all_vendors.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="69" column="15" lean-forward="false" selection-start-line="69" selection-start-column="15" selection-end-line="69" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/contact.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="54" column="16" lean-forward="false" selection-start-line="54" selection-start-column="16" selection-end-line="54" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="103" column="15" lean-forward="false" selection-start-line="103" selection-start-column="15" selection-end-line="103" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/saved.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="66" column="15" lean-forward="false" selection-start-line="66" selection-start-column="15" selection-end-line="66" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="77" column="15" lean-forward="false" selection-start-line="77" selection-start-column="15" selection-end-line="77" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/view_users.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="68" column="15" lean-forward="false" selection-start-line="68" selection-start-column="15" selection-end-line="68" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/add_card.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="96" column="15" lean-forward="false" selection-start-line="96" selection-start-column="15" selection-end-line="96" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/all_purchase_history.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="71" column="15" lean-forward="false" selection-start-line="71" selection-start-column="15" selection-end-line="71" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/change_password.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="98" column="15" lean-forward="false" selection-start-line="98" selection-start-column="15" selection-end-line="98" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/customer_rewards.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="74" column="15" lean-forward="false" selection-start-line="74" selection-start-column="15" selection-end-line="74" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/single_customer_purchases.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="81" column="0" lean-forward="true" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/single_customer_rewards.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="84" column="15" lean-forward="false" selection-start-line="84" selection-start-column="15" selection-end-line="84" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/vendor_customers.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-63">
+          <caret line="50" column="41" lean-forward="true" selection-start-line="50" selection-start-column="41" selection-end-line="50" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/vendor_main_menu.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1632">
+          <caret line="47" column="29" lean-forward="true" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/view_cards.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="73" column="15" lean-forward="false" selection-start-line="73" selection-start-column="15" selection-end-line="73" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/messenger_pages/message_sent.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="64" column="15" lean-forward="false" selection-start-line="64" selection-start-column="15" selection-end-line="64" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/messenger_pages/message_service_menu.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-361">
+          <caret line="50" column="31" lean-forward="true" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/messenger_pages/send_batch_message.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-625">
+          <caret line="61" column="59" lean-forward="false" selection-start-line="61" selection-start-column="59" selection-end-line="61" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/templates/loyali/vendor_pages/messenger_pages/send_single_message_new.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-44">
+          <caret line="108" column="49" lean-forward="true" selection-start-line="108" selection-start-column="49" selection-end-line="108" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loyali/apps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>

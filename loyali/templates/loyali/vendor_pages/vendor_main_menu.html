@@ -44,6 +44,9 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.username %}
                     <li><a><i
+                            class="fa fa-hashtag"></i> ID: {{ vendor.id }}
+                    </a></li>
+                    <li><a><i
                             class="fa fa-user-circle"></i> {{ request.user.first_name }}
                     </a></li>
                 {% endif %}

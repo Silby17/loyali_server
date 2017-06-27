@@ -216,8 +216,7 @@ def vendor_customers(request):
 
 class VendorCustomersAPI(APIView):
     def get(self, request):
-        vendor_id = 3
-        # request.user.id
+        vendor_id = request.user.id
         vendor = VendorUser.objects.get(id=vendor_id)
         subscriptions = Subscription.objects.all().filter(vendor=vendor)
         serializer = SubscribedCustomersSerializer(subscriptions, many=True).data

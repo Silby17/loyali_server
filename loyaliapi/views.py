@@ -17,7 +17,7 @@ from loyali.serializer import VendorSerializer, VendorWithCardsSerializer, \
 
 CUSTOMER_GROUP_NAME = 'Customer'
 ADMIN_GROUP_NAME = 'Admin'
-QR_BARCODE = "Testing LOYALI"
+QR_BARCODE = "LOYALI_PUNCH_770"
 
 
 # Creates a Mobile User

@@ -250,9 +250,9 @@ def vendors_customer_rewards(request):
 @login_required
 def customer_rewards_by_id(request, customer_id):
     template = loader.get_template('loyali/vendor_pages/single_customer_rewards.html')
-    print 'customer_id: ', customer_id
+    print('customer_id: ', customer_id)
     vendor_id = request.user.id
-    print 'Vendor_id', vendor_id
+    print('Vendor_id', vendor_id)
     vendor_user = VendorUser.objects.get(id=vendor_id)
     id = vendor_user.vendor.id
 
@@ -383,7 +383,7 @@ def pubnub_vendor_send_batch_message(request):
             print('Publish time token: %d' % envelope.result.timetoken)
             return redirect(reverse('sent'))
         except PubNubException as e:
-            print 'Pubnub error: ', e
+            print ('Pubnub error: ', e)
             return HttpResponse(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -410,7 +410,7 @@ def pubnub_admin_send_batch_message(request):
             print('Publish time token: %d' % envelope.result.timetoken)
             return redirect(reverse('sent'))
         except PubNubException as e:
-            print 'Pubnub error: ', e
+            print ('Pubnub error: ', e)
             return HttpResponse(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -449,7 +449,7 @@ def pubnub_send_single_message(request):
             print('Publish time token: %d' % envelope.result.timetoken)
             return redirect(reverse('sent'))
         except PubNubException as e:
-            print 'Punbun Exception: ', e
+            print ('Punbun Exception: ', e)
             return HttpResponse(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 

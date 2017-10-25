@@ -1,5 +1,5 @@
-from django.conf.urls import url
-from views import index, login, admin_main, vendor_main, contact_us, logout, \
+from django.conf.urls import url, include
+from loyali.views import index, login, admin_main, vendor_main, contact_us, logout, \
     vendor_add, VendorAPI, admin_user_page, view_vendors, AdminUserAPI, saved_page, \
     redirect_to_main, view_users_page, full_vendors_page, delete_vendors, \
     vendor_customers, AddCardAPI, VendorsCardsAPI, vendors_customer_rewards, \

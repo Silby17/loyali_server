@@ -14,7 +14,6 @@ from loyaliapi.serializer import MobileUserModelSerializer, VendorRewardSerializ
 from loyali.serializer import VendorSerializer, VendorWithCardsSerializer, \
     CardsInUseSerializer, SubscriptionsSerializerWithCardsInUse
 
-
 CUSTOMER_GROUP_NAME = 'Customer'
 ADMIN_GROUP_NAME = 'Admin'
 QR_BARCODE = "LOYALI_PUNCH_770"
@@ -62,14 +61,14 @@ class CheckUserCredentialsAPI(APIView):
     def post(self, request):
         raw_data = request.POST.copy()
         username = raw_data.get('username')
-        print username, ' - is trying to Login'
+        print (username, ' - is trying to Login')
         password = raw_data.get('password')
         try:
             # Checks if the user exists
             user = MobileUser.objects.get(username=username)
             auth_user = auth.authenticate(username=username, password=password)
             if auth_user is not None:
-                print 'Mobile User:', username, ' - has logged in'
+                print ('Mobile User:', username, ' - has logged in')
                 user_result = {'username': username, 'id': auth_user.id,
                                'first_name': auth_user.first_name, 'last_name': auth_user.last_name}
                 user = MobileUser.objects.get(id=auth_user.id)
@@ -81,15 +80,16 @@ class CheckUserCredentialsAPI(APIView):
                 context = {'message': 'unauthorized'}
                 return Response(context, status=status.HTTP_401_UNAUTHORIZED)
         except MobileUser.DoesNotExist:
-            print 'Does not Exists'
+            print ('Does not Exists')
             context = {'message': 'user not found'}
             return Response(context, status=status.HTTP_404_NOT_FOUND)
 
 
 # This will create a new subscription between a customer and vendor
 class AddSubscriptionAPI(APIView):
-    def post(self, request):
-        print 'Creating new Subscription'
+
+    def post(self, request, *args, **kwargs):
+        print('Creating new Subscription')
         try:
             data = request.data
             vendor_id = data.get('vendor_id')

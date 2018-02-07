@@ -1,8 +1,9 @@
 from django.conf.urls import url
-from views import MobileUserAPI, CheckUserCredentialsAPI, AddSubscriptionAPI, \
+from loyaliapi.views import MobileUserAPI, CheckUserCredentialsAPI, AddSubscriptionAPI, \
     VendorByIdAPI, VendorsWithCardsAPI, CustomersCardsAPI, AllCustomersSubscriptionsAPI, \
     SingleSubscriptionAPI, TestingAPI, DeleteSubscriptionAPI, PunchCardAPI, \
     CustomerRewardsAPI, RedeemReward, AllPurchases
+
 
 urlpatterns = [
 
